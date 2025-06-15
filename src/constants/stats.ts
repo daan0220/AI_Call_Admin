@@ -1,4 +1,4 @@
-import { Phone, Workflow, Users, History, CreditCard } from 'lucide-react';
+import { Phone, Workflow, History, CreditCard } from 'lucide-react';
 import { LucideIcon } from 'lucide-react';
 
 interface Stat {

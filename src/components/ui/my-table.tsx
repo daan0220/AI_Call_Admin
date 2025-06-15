@@ -1,7 +1,8 @@
 import * as React from "react";
-import { cn } from "@/lib/utils";
 
-export function MyTable({ columns, rows }: { columns: { key: string; label: string }[]; rows: any[] }) {
+type TableRow = Record<string, string | number | boolean | null | undefined>;
+
+export function MyTable({ columns, rows }: { columns: { key: string; label: string }[]; rows: TableRow[] }) {
   return (
     <table className="w-full text-sm mb-4 rounded-xl shadow-md bg-white" style={{ border: '1px solid #D6E2FF' }}>
       <thead>

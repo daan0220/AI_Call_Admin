@@ -8,7 +8,31 @@ import { ArrowLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useParams } from 'next/navigation';
 
-const dummyProfiles: Record<string, any> = {
+type ProfileHistory = {
+  date: string;
+  action: string;
+  status: string;
+  updater: string;
+};
+
+type Profile = {
+  name: string;
+  nameKana: string;
+  phone: string;
+  email: string;
+  department: string;
+  position: string;
+  role: string;
+  account: string;
+  chatSend: string;
+  mailSend: string;
+  status: string;
+  group: string;
+  note: string;
+  history: ProfileHistory[];
+};
+
+const dummyProfiles: Record<string, Profile> = {
   '2981': {
     name: '安藤 太紀',
     nameKana: 'アンドウ ダイキ',
@@ -125,7 +149,7 @@ export default function MemberDetailPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {history.map((h: any, i: number) => (
+              {history.map((h, i) => (
                 <TableRow key={i}>
                   <TableCell>{h.date}</TableCell>
                   <TableCell>{h.action}</TableCell>

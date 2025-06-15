@@ -10,9 +10,7 @@ interface Plan {
   badge?: "体験中" | "おすすめ";
 }
 
-interface PricingCardProps extends Plan {}
-
-function PricingCard({ name, price, headline, features, badge }: PricingCardProps) {
+function PricingCard({ name, price, headline, features, badge }: Plan) {
   return (
     <div className="flex flex-col h-full">
       <div className="mb-4">
