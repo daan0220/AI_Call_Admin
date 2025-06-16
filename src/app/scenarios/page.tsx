@@ -16,6 +16,7 @@ import {
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
 import { ClickableTableRow } from '@/components/ClickableTableRow';
 import { UploadCloud } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface Scenario {
   company: string;
@@ -34,6 +35,8 @@ interface ScenarioTableProps {
 
 function ScenarioTable({ data }: ScenarioTableProps) {
   const [copyTarget] = useState<Scenario | null>(null);
+  const router = useRouter();
+
   return (
     <>
       <Table>
@@ -62,8 +65,8 @@ function ScenarioTable({ data }: ScenarioTableProps) {
               <TableCell className={TABLE_STYLES.cell}>{scenario.aiNumber}</TableCell>
               <TableCell className={TABLE_STYLES.cell}>{scenario.createdAt}</TableCell>
               <TableCell className={TABLE_STYLES.cell}>
-                <div className="flex gap-2 justify-center">
-                  <Button size="sm" style={{ background: COLORS.primary }}>編集</Button>
+                <div className="flex gap-2 justify-center" onClick={e => e.stopPropagation()}>
+                  <Button size="sm" style={{ background: COLORS.primary }} onClick={() => router.push(`/scenarios/${index + 1}/edit`)}>編集</Button>
                   <Dialog>
                     <DialogTrigger asChild>
                       <Button size="sm" variant="outline" style={{ color: COLORS.primary, borderColor: COLORS.primary }} onClick={e => e.stopPropagation()}>
@@ -71,24 +74,31 @@ function ScenarioTable({ data }: ScenarioTableProps) {
                       </Button>
                     </DialogTrigger>
                     <DialogContent className="max-w-md rounded-xl p-0 overflow-hidden">
-                      <DialogHeader className="bg-[#7C6CF6] px-6 py-4">
-                        <DialogTitle className="text-white text-center text-lg">シナリオコピー</DialogTitle>
-                      </DialogHeader>
-                      <div className="px-8 py-8 text-center text-base text-[#666]">
-                        {copyTarget && (
-                          <span>
-                            {copyTarget.company}のシナリオをコピーしますか？
-                          </span>
-                        )}
+                      <div className="relative">
+                        <DialogHeader className="bg-[#7C6CF6] px-6 py-4 flex justify-center items-center">
+                          <DialogTitle className="text-white text-center text-lg w-full">シナリオコピー</DialogTitle>
+                          <DialogClose asChild>
+                            <button className="absolute right-4 top-4 text-white text-2xl leading-none">×</button>
+                          </DialogClose>
+                        </DialogHeader>
+                        <div className="px-8 py-12 text-center text-base text-[#666]">
+                          {scenario.company ? (
+                            <span>
+                              {scenario.company}のシナリオをコピーしますか？
+                            </span>
+                          ) : (
+                            <span>このシナリオをコピーしますか？</span>
+                          )}
+                        </div>
+                        <div className="flex justify-center gap-4 pb-8">
+                          <DialogClose asChild>
+                            <Button variant="outline" className="w-32">キャンセル</Button>
+                          </DialogClose>
+                          <DialogClose asChild>
+                            <Button style={{ background: '#7C6CF6' }} className="w-32 text-white">コピー</Button>
+                          </DialogClose>
+                        </div>
                       </div>
-                      <DialogFooter className="flex justify-center gap-4 pb-6">
-                        <DialogClose asChild>
-                          <Button variant="outline" className="w-28">キャンセル</Button>
-                        </DialogClose>
-                        <DialogClose asChild>
-                          <Button style={{ background: '#7C6CF6' }} className="w-28 text-white">コピー</Button>
-                        </DialogClose>
-                      </DialogFooter>
                     </DialogContent>
                   </Dialog>
                 </div>
@@ -126,6 +136,7 @@ export default function ScenariosPage() {
       createdAt: "2025-06-16 10:12:00",
     },
   ];
+  const router = useRouter();
 
   // ファイル選択・ドロップ処理
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -168,12 +179,14 @@ export default function ScenariosPage() {
 
   return (
     <div className={LAYOUT_STYLES.container}>
-      <h1 className={LAYOUT_STYLES.pageTitle} style={{ color: COLORS.primary }}>
-        シナリオ
-      </h1>
+      <div className="flex justify-between items-center mb-4">
+        <h1 className={LAYOUT_STYLES.pageTitle} style={{ color: COLORS.primary }}>
+          シナリオ
+        </h1>
+      </div>
       <Card className="p-8" style={{ borderColor: COLORS.border }}>
         <div className="flex mb-4 gap-2">
-          <Button style={{ background: COLORS.primary }}>
+          <Button style={{ background: COLORS.primary }} onClick={() => router.push('/scenarios/new')}>
             ＋新規作成
           </Button>
           <Dialog open={importOpen} onOpenChange={setImportOpen}>
@@ -223,7 +236,7 @@ export default function ScenariosPage() {
         <ScenarioTable data={scenarios} />
       </Card>
       <footer className="w-full text-xs text-gray-500 text-center mt-8 pb-4">
-        AI 電話番 V1.8.0.4 | Copyright © 2022-2025 Softsu Co., Ltd , All Rights Reserved | AI 電話番 ホームページ
+        AI 電話番 V1.8.0.4 | Copyright © 2025 Enginee Co., Ltd , All Rights Reserved | AI 電話番
       </footer>
     </div>
   );

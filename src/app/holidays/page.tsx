@@ -91,11 +91,11 @@ export default function HolidaysPage() {
         <HolidayTable data={holidays} />
 
         <div className="text-xs text-gray-500 mt-4">
-          AI 電話番 V1.8.0.4 | Copyright © 2022-2025 Softsu Co., Ltd , All Rights Reserved | AI 電話番 ホームページ
+          AI 電話番 V1.8.0.4 | Copyright © 2025 Enginee Co., Ltd , All Rights Reserved | AI 電話番
         </div>
       </Card>
       <footer className="w-full text-xs text-gray-500 text-center mt-8 pb-4">
-        AI 電話番 V1.8.0.4 | Copyright © 2022-2025 Softsu Co., Ltd , All Rights Reserved | AI 電話番 ホームページ
+        AI 電話番 V1.8.0.4 | Copyright © 2025 Enginee Co., Ltd , All Rights Reserved | AI 電話番
       </footer>
     </div>
   );
