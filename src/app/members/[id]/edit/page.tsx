@@ -69,7 +69,6 @@ export default function MemberEditPage() {
         </Button>
         <h1 className="text-2xl font-bold" style={{ color: '#5B7FFF' }}>社員名簿編集</h1>
       </div>
-
       <Card className="mb-8 p-6">
         <h2 className="text-lg font-semibold mb-4" style={{ color: '#5B7FFF' }}>基本情報</h2>
         <Separator className="mb-4" />

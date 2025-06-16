@@ -11,6 +11,7 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@
 import { Checkbox } from '@/components/ui/checkbox';
 import { useState } from 'react';
 import { ClickableTableRow } from '@/components/ClickableTableRow';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
 interface PhoneNumber {
   id: string;
@@ -37,8 +38,9 @@ interface PhoneNumberTableProps {
 
 function PhoneNumberTable({ data }: PhoneNumberTableProps) {
   const [open, setOpen] = useState(false);
-  // ダミーのフォーム状態
-  const [form] = useState({
+  // 編集用フォームstate
+  const [form, setForm] = useState({
+    mode: '稼働時間設定',
     startDate: '2025-06-15',
     endDate: '2100-12-31',
     days: ['月', '火', '水', '木', '金'],
@@ -48,6 +50,19 @@ function PhoneNumberTable({ data }: PhoneNumberTableProps) {
     scenarioOut: '折り返し専用(担当者、用件確認)',
   });
   const allDays = ['月', '火', '水', '木', '金', '土', '日', '祝'];
+  // テーブル反映用state
+  const [tableData, setTableData] = useState(data);
+  // 保存処理
+  const handleSave = () => {
+    setTableData(prev => prev.map(row => ({
+      ...row,
+      businessHoursAction: { ...row.businessHoursAction, scenario: form.scenarioIn },
+      validPeriod: { start: form.startDate, end: form.endDate },
+      businessHours: { days: form.days.join(''), time: `${form.startTime}〜${form.endTime}` },
+      afterHoursAction: form.scenarioOut,
+    })));
+    setOpen(false);
+  };
   return (
     <div className="overflow-x-auto w-full">
       <Table>
@@ -63,7 +78,7 @@ function PhoneNumberTable({ data }: PhoneNumberTableProps) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data.map((phone) => (
+          {tableData.map((phone) => (
             <ClickableTableRow key={phone.id} href={`/numbers/${phone.id}`}>
               <TableCell className={TABLE_STYLES.cell}>{phone.id}</TableCell>
               <TableCell className={TABLE_STYLES.cell}>
@@ -91,37 +106,52 @@ function PhoneNumberTable({ data }: PhoneNumberTableProps) {
                           変更
                         </Button>
                       </DialogTrigger>
-                      <DialogContent className="max-w-2xl rounded-xl p-0 overflow-hidden">
+                      <DialogContent className="max-w-2xl rounded-xl p-0 overflow-hidden" data-no-row-link>
                         <DialogHeader className="bg-[#7C6CF6] px-6 py-4">
                           <DialogTitle className="text-white text-center text-lg">稼働時間設定</DialogTitle>
                         </DialogHeader>
                         <div className="px-8 py-8 bg-white">
                           <div className="mb-4 p-3 rounded bg-orange-50 text-orange-600 text-sm flex items-center gap-2">
                             <span className="text-xl">⚠️</span>
-                            30日間の無料デモ利用AI電話番号では、セリフの変更やチャットとの連携を体験いただけます。転送機能をお試ししたいには、プランのご契約が必要です。
+                            30日間の無料デモ用AI電話番号では、セリフの変更やチャットとの連携を体験いただけます。転送機能をお試ししたいには、プランのご契約が必要です。
                           </div>
-                          <form className="space-y-4">
-                            <div className="grid grid-cols-2 gap-4 items-center">
-                              <label className="font-medium">稼働期間 <span className="text-red-500">*</span></label>
+                          <form className="space-y-4" onSubmit={e => { e.preventDefault(); handleSave(); }}>
+                            <div className="flex gap-8 mb-4">
+                              <RadioGroup value={form.mode} onValueChange={v => setForm(f => ({ ...f, mode: v }))} className="flex gap-8">
+                                <div className="flex items-center gap-2">
+                                  <RadioGroupItem value="24時間稼働" id="mode-24" />
+                                  <label htmlFor="mode-24" className="font-medium">24時間稼働</label>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                  <RadioGroupItem value="稼働時間設定" id="mode-custom" />
+                                  <label htmlFor="mode-custom" className="font-medium">稼働時間設定</label>
+                                </div>
+                              </RadioGroup>
+                            </div>
+                            <div className="grid grid-cols-2 gap-4 items-center bg-[#F5F6FB] p-4 rounded-xl">
+                              <label className="font-medium">稼働時期 <span className="text-red-500">*</span></label>
                               <div className="flex gap-2">
-                                <Input type="date" value={form.startDate} className="w-36" readOnly />
+                                <Input type="date" value={form.startDate} onChange={e => setForm(f => ({ ...f, startDate: e.target.value }))} className="w-36" required />
                                 <span>〜</span>
-                                <Input type="date" value={form.endDate} className="w-36" readOnly />
+                                <Input type="date" value={form.endDate} onChange={e => setForm(f => ({ ...f, endDate: e.target.value }))} className="w-36" required />
                               </div>
                               <label className="font-medium">有効日 <span className="text-red-500">*</span></label>
                               <div className="flex gap-2 flex-wrap">
                                 {allDays.map(day => (
-                                  <Checkbox key={day} checked={form.days.includes(day)} disabled className="mr-1" />
+                                  <label key={day} className="flex items-center gap-1">
+                                    <Checkbox checked={form.days.includes(day)} onCheckedChange={checked => setForm(f => ({ ...f, days: checked ? [...f.days, day] : f.days.filter(d => d !== day) }))} />
+                                    <span>{day}</span>
+                                  </label>
                                 ))}
                               </div>
                               <label className="font-medium">稼働時間 <span className="text-red-500">*</span></label>
                               <div className="flex gap-2 items-center">
-                                <Input type="time" value={form.startTime} className="w-24" readOnly />
+                                <Input type="time" value={form.startTime} onChange={e => setForm(f => ({ ...f, startTime: e.target.value }))} className="w-24" required />
                                 <span>〜</span>
-                                <Input type="time" value={form.endTime} className="w-24" readOnly />
+                                <Input type="time" value={form.endTime} onChange={e => setForm(f => ({ ...f, endTime: e.target.value }))} className="w-24" required />
                               </div>
                               <label className="font-medium">稼働時間内の動作 <span className="text-red-500">*</span></label>
-                              <Select value={form.scenarioIn}>
+                              <Select value={form.scenarioIn} onValueChange={v => setForm(f => ({ ...f, scenarioIn: v }))}>
                                 <SelectTrigger className="w-full">
                                   <SelectValue placeholder="シナリオ" />
                                 </SelectTrigger>
@@ -131,7 +161,7 @@ function PhoneNumberTable({ data }: PhoneNumberTableProps) {
                                 </SelectContent>
                               </Select>
                               <label className="font-medium">稼働時間外の動作 <span className="text-red-500">*</span></label>
-                              <Select value={form.scenarioOut}>
+                              <Select value={form.scenarioOut} onValueChange={v => setForm(f => ({ ...f, scenarioOut: v }))}>
                                 <SelectTrigger className="w-full">
                                   <SelectValue placeholder="シナリオ" />
                                 </SelectTrigger>
@@ -142,9 +172,7 @@ function PhoneNumberTable({ data }: PhoneNumberTableProps) {
                               </Select>
                             </div>
                             <div className="flex justify-center mt-8">
-                              <DialogClose asChild>
-                                <Button style={{ background: '#7C6CF6', color: '#fff', width: 200 }}>設定を反映する</Button>
-                              </DialogClose>
+                              <Button type="submit" style={{ background: '#7C6CF6', color: '#fff', width: 200 }}>設定を反映する</Button>
                             </div>
                           </form>
                         </div>

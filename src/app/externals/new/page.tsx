@@ -7,6 +7,7 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { COLORS } from '@/constants/styles';
+import { ChevronLeft } from 'lucide-react';
 
 export default function ExternalNewPage() {
   const router = useRouter();
@@ -36,7 +37,12 @@ export default function ExternalNewPage() {
   };
   return (
     <div className="container mx-auto py-8">
-      <h1 className="mb-8 text-2xl font-bold" style={{ color: '#5B7FFF' }}>社外名簿新規</h1>
+      <div className="flex items-center gap-2 mb-6">
+        <Button variant="ghost" size="icon" onClick={() => router.back()}>
+          <ChevronLeft className="h-6 w-6 text-[#5B7FFF]" />
+        </Button>
+        <h1 className="mb-8 text-2xl font-bold" style={{ color: '#5B7FFF' }}>社外名簿新規</h1>
+      </div>
       <Card className="p-8" style={{ borderColor: COLORS.border }}>
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
