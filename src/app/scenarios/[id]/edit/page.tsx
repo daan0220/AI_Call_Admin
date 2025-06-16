@@ -4,11 +4,12 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
-import { COLORS } from "@/constants/styles";
+import { COLORS, LAYOUT_STYLES } from "@/constants/styles";
 import { useRouter } from "next/navigation";
 import ReactFlow, { ReactFlowProvider, Background, Controls, MiniMap, ReactFlowInstance, Handle, Position } from 'reactflow';
 import 'reactflow/dist/style.css';
 import type { NodeProps } from 'reactflow';
+import { ChevronLeft } from "lucide-react";
 
 const initialScenario = {
   company: "株式会社サンプル",
@@ -90,10 +91,12 @@ export default function ScenarioEditPage() {
 
   return (
     <ReactFlowProvider>
-      <div className="container mx-auto py-8 px-2 md:px-8">
+    <div className={LAYOUT_STYLES.container}>
         <div className="flex items-center mb-4">
-          <Button variant="ghost" size="icon" onClick={() => router.back()} className="mr-2">←</Button>
-          <h1 className="text-2xl font-bold" style={{ color: COLORS.primary }}>シナリオ編集</h1>
+        <Button variant="ghost" size="icon" onClick={() => router.back()} className="mr-2">
+        <ChevronLeft className="w-6 h-6" />
+          </Button>
+          <h1 className={LAYOUT_STYLES.pageTitle} style={{ color: COLORS.primary, marginBottom: 12 }}>シナリオ編集</h1>
         </div>
         <Card className="p-6 md:p-8 mb-8 relative" style={{ borderColor: COLORS.border, background: '#F5F8FF' }}>
           <div className="flex justify-between items-center mb-4">

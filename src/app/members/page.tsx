@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import { ClickableTableRow } from '@/components/ClickableTableRow';
 import { useState } from 'react';
 import { CsvImportDialog } from '@/components/CsvImportDialog';
+import { LAYOUT_STYLES, COLORS} from "@/constants/styles";
+import { Card } from '@/components/ui/card';
 
 export default function MembersPage() {
   const router = useRouter();
@@ -23,8 +25,8 @@ export default function MembersPage() {
 
   return (
     <div className="container mx-auto py-8">
-      <h1 className="mb-3 text-2xl font-bold" style={{ color: '#5B7FFF' }}>社員名簿</h1>
-      <div className="rounded-xl shadow-md bg-white p-8" style={{ border: '1px solid #D6E2FF', marginTop: 0 }}>
+      <h1 className={LAYOUT_STYLES.pageTitle} style={{ color: COLORS.primary, marginBottom: 12 }}>社員名簿</h1>
+      <Card className="rounded-xl shadow-md bg-white p-8" style={{ border: '1px solid #D6E2FF', marginTop: 0 }}>
         <div className="flex mb-4 gap-2">
           <Button className="rounded px-4 py-2" style={{ background: '#FFE066', color: '#333' }} onClick={() => router.push('/members/new')}>＋新規作成</Button>
           <CsvImportDialog
@@ -92,7 +94,7 @@ export default function MembersPage() {
             </ClickableTableRow>
           </TableBody>
         </Table>
-      </div>
+      </Card>
     </div>
   );
 } 
