@@ -15,14 +15,17 @@ import {
 } from "@/components/ui/dialog";
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
 import { ClickableTableRow } from '@/components/ClickableTableRow';
+import { UploadCloud } from "lucide-react";
 
 interface Scenario {
-  name: string;
-  template: string;
+  company: string;
+  callerName: string;
+  staff: string;
+  purpose: string;
+  callback: boolean;
+  callbackNumber?: string;
   aiNumber: string;
-  group: string;
   createdAt: string;
-  updatedAt: string;
 }
 
 interface ScenarioTableProps {
@@ -36,24 +39,28 @@ function ScenarioTable({ data }: ScenarioTableProps) {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>名称</TableHead>
-            <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>テンプレート</TableHead>
-            <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>関連AI電話番号</TableHead>
-            <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>グループ</TableHead>
+            <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>会社名</TableHead>
+            <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>相手の名前</TableHead>
+            <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>担当者</TableHead>
+            <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>要件</TableHead>
+            <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>折り返し希望</TableHead>
+            <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>折り返し先電話番号</TableHead>
+            <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>AI電話番号</TableHead>
             <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>作成日</TableHead>
-            <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>編集日</TableHead>
             <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>操作</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {data.map((scenario, index) => (
             <ClickableTableRow key={index} href={`/scenarios/${index + 1}`}>
-              <TableCell className={TABLE_STYLES.cell}>{scenario.name}</TableCell>
-              <TableCell className={TABLE_STYLES.cell}>{scenario.template}</TableCell>
+              <TableCell className={TABLE_STYLES.cell}>{scenario.company}</TableCell>
+              <TableCell className={TABLE_STYLES.cell}>{scenario.callerName}</TableCell>
+              <TableCell className={TABLE_STYLES.cell}>{scenario.staff}</TableCell>
+              <TableCell className={TABLE_STYLES.cell}>{scenario.purpose}</TableCell>
+              <TableCell className={TABLE_STYLES.cell}>{scenario.callback ? 'はい' : 'いいえ'}</TableCell>
+              <TableCell className={TABLE_STYLES.cell}>{scenario.callback ? scenario.callbackNumber : '-'}</TableCell>
               <TableCell className={TABLE_STYLES.cell}>{scenario.aiNumber}</TableCell>
-              <TableCell className={TABLE_STYLES.cell}>{scenario.group}</TableCell>
               <TableCell className={TABLE_STYLES.cell}>{scenario.createdAt}</TableCell>
-              <TableCell className={TABLE_STYLES.cell}>{scenario.updatedAt}</TableCell>
               <TableCell className={TABLE_STYLES.cell}>
                 <div className="flex gap-2 justify-center">
                   <Button size="sm" style={{ background: COLORS.primary }}>編集</Button>
@@ -70,7 +77,7 @@ function ScenarioTable({ data }: ScenarioTableProps) {
                       <div className="px-8 py-8 text-center text-base text-[#666]">
                         {copyTarget && (
                           <span>
-                            {copyTarget.name}のシナリオをコピーしますか？
+                            {copyTarget.company}のシナリオをコピーしますか？
                           </span>
                         )}
                       </div>
@@ -95,24 +102,69 @@ function ScenarioTable({ data }: ScenarioTableProps) {
 }
 
 export default function ScenariosPage() {
+  const [importOpen, setImportOpen] = useState(false);
+  const [importFile, setImportFile] = useState<File | null>(null);
+  const [dragActive, setDragActive] = useState(false);
   const scenarios: Scenario[] = [
     {
-      name: "折り返し専用(担当者、用件確認)",
-      template: "折り返し専用(担当者、用件確認)",
+      company: "株式会社サンプル",
+      callerName: "山田 太郎",
+      staff: "佐藤 花子",
+      purpose: "契約内容の確認",
+      callback: true,
+      callbackNumber: "09012345678",
       aiNumber: "05053690814",
-      group: "-",
       createdAt: "2025-06-15 23:05:00",
-      updatedAt: "2025-06-15 23:06:52",
     },
     {
-      name: "代表電話取次ぎ（営業電話抑止）",
-      template: "代表電話取次ぎ（営業電話抑止）",
-      aiNumber: "05053690814",
-      group: "-",
-      createdAt: "2025-06-15 23:05:00",
-      updatedAt: "2025-06-15 23:06:52",
+      company: "有限会社テスト",
+      callerName: "鈴木 次郎",
+      staff: "田中 一郎",
+      purpose: "資料送付依頼",
+      callback: false,
+      aiNumber: "05053690815",
+      createdAt: "2025-06-16 10:12:00",
     },
   ];
+
+  // ファイル選択・ドロップ処理
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file && file.name.endsWith('.scenario')) {
+      setImportFile(file);
+    } else {
+      setImportFile(null);
+      alert('拡張子が .scenario のファイルのみインポートできます');
+    }
+  };
+  const handleDrop = (e: React.DragEvent<HTMLLabelElement>) => {
+    e.preventDefault();
+    setDragActive(false);
+    const file = e.dataTransfer.files?.[0];
+    if (file && file.name.endsWith('.scenario')) {
+      setImportFile(file);
+    } else {
+      setImportFile(null);
+      alert('拡張子が .scenario のファイルのみインポートできます');
+    }
+  };
+  const handleDragOver = (e: React.DragEvent<HTMLLabelElement>) => {
+    e.preventDefault();
+    setDragActive(true);
+  };
+  const handleDragLeave = (e: React.DragEvent<HTMLLabelElement>) => {
+    e.preventDefault();
+    setDragActive(false);
+  };
+  const handleImport = () => {
+    if (importFile) {
+      alert(`「${importFile.name}」をインポートしました（ダミー処理）`);
+      setImportOpen(false);
+      setImportFile(null);
+    } else {
+      alert('ファイルを選択してください');
+    }
+  };
 
   return (
     <div className={LAYOUT_STYLES.container}>
@@ -124,17 +176,55 @@ export default function ScenariosPage() {
           <Button style={{ background: COLORS.primary }}>
             ＋新規作成
           </Button>
-          <Button style={{ background: COLORS.primary }}>
-            ＋インポート
-          </Button>
+          <Dialog open={importOpen} onOpenChange={setImportOpen}>
+            <DialogTrigger asChild>
+              <Button style={{ background: COLORS.primary }} onClick={() => setImportOpen(true)}>
+                ＋インポート
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-md rounded-xl p-0 overflow-hidden">
+              <DialogHeader className="bg-[#7C6CF6] px-6 py-4">
+                <DialogTitle className="text-white text-center text-lg">シナリオをインポート</DialogTitle>
+              </DialogHeader>
+              <div className="px-8 py-8 text-center text-base text-[#666]">
+                <label
+                  htmlFor="import-file"
+                  className={`block border-2 border-dashed rounded-xl py-8 px-4 mb-4 cursor-pointer transition ${dragActive ? 'border-[#7C6CF6] bg-violet-50' : 'border-[#C7BFFF] bg-white'}`}
+                  onDrop={handleDrop}
+                  onDragOver={handleDragOver}
+                  onDragLeave={handleDragLeave}
+                >
+                  <UploadCloud size={64} className="mx-auto mb-2 text-[#7C6CF6]" />
+                  <div className="mb-2">アップロードするファイルを選択<br />またはファイルをドラッグ＆ドロップします</div>
+                  <input
+                    id="import-file"
+                    type="file"
+                    accept=".scenario"
+                    className="hidden"
+                    onChange={handleFileChange}
+                  />
+                  {importFile && <div className="mt-2 text-sm text-[#7C6CF6]">選択中: {importFile.name}</div>}
+                </label>
+                <ul className="text-xs text-left text-gray-500 leading-relaxed">
+                  <li>※インポートできるのはAI 電話番からエクスポートしたファイル（.scenario）のみになります。</li>
+                  <li>※エクスポートされたファイルを編集するとインポートエラーとなりますのでご注意ください。</li>
+                  <li>※一括インポートはできません。</li>
+                </ul>
+              </div>
+              <div className="flex justify-center gap-4 pb-6">
+                <DialogClose asChild>
+                  <Button variant="outline" className="w-28">キャンセル</Button>
+                </DialogClose>
+                <Button style={{ background: '#7C6CF6' }} className="w-28 text-white" onClick={handleImport}>インポート</Button>
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
-
         <ScenarioTable data={scenarios} />
-
-        <div className="text-xs text-gray-500 mt-4">
-          AI 電話番 V1.8.0.4 | Copyright © 2022-2025 Softsu Co., Ltd , All Rights Reserved | AI 電話番 ホームページ
-        </div>
       </Card>
+      <footer className="w-full text-xs text-gray-500 text-center mt-8 pb-4">
+        AI 電話番 V1.8.0.4 | Copyright © 2022-2025 Softsu Co., Ltd , All Rights Reserved | AI 電話番 ホームページ
+      </footer>
     </div>
   );
 } 
