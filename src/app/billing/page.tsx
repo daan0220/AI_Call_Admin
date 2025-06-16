@@ -7,6 +7,7 @@ import { ClickableTableRow } from '@/components/ClickableTableRow';
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogClose } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { useState } from 'react';
+import Link from "next/link";
 
 interface BillingInfoProps {
   label: string;
@@ -51,13 +52,15 @@ function BillingTable({ data }: BillingTableProps) {
             <TableCell className={TABLE_STYLES.cell}>{bill.amount}</TableCell>
             <TableCell className={TABLE_STYLES.cell}>{bill.budget}</TableCell>
             <TableCell className={TABLE_STYLES.cell}>
-              <Button
-                variant="outline"
-                className="text-xs"
-                style={{ color: COLORS.primary, borderColor: COLORS.primary }}
-              >
-                内訳
-              </Button>
+              <Link href={`/billing/${bill.id}`}>
+                <Button
+                  variant="outline"
+                  className="text-xs"
+                  style={{ color: COLORS.primary, borderColor: COLORS.primary }}
+                >
+                  内訳
+                </Button>
+              </Link>
             </TableCell>
           </ClickableTableRow>
         ))}
