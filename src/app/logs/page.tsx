@@ -30,7 +30,6 @@ interface CallLog {
 
 export default function LogsPage() {
   const [dateRange, setDateRange] = useState<DateRange | undefined>(undefined);
-  const [inputValue, setInputValue] = useState("");
   const [popoverOpen, setPopoverOpen] = useState(false);
   const [timeFrom, setTimeFrom] = useState("00:00");
   const [timeTo, setTimeTo] = useState("23:59");
@@ -145,7 +144,6 @@ export default function LogsPage() {
                     <Button
                       size="sm"
                       onClick={() => {
-                        setInputValue(formatRange(dateRange ?? {}, timeFrom, timeTo));
                         setPopoverOpen(false);
                       }}
                       disabled={!dateRange?.from || !dateRange?.to}

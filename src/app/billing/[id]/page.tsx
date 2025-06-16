@@ -2,8 +2,8 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
-import { LAYOUT_STYLES, COLORS, TABLE_STYLES } from "@/constants/styles";
-import { ChevronLeft, ChevronLeftIcon } from "lucide-react";
+import { LAYOUT_STYLES, COLORS } from "@/constants/styles";
+import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 

@@ -2,7 +2,6 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import { useParams } from "next/navigation";
 import { useMemo } from "react";
 import { LAYOUT_STYLES, COLORS } from "@/constants/styles";
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
@@ -34,7 +33,6 @@ const demoDetail = {
 
 export default function NumberDetailPage() {
   const router = useRouter();
-  const { id } = useParams();
   // 本来はidでAPI取得
   const detail = useMemo(() => demoDetail, []);
   const [editMode, setEditMode] = useState(false);

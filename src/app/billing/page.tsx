@@ -9,20 +9,6 @@ import { Input } from '@/components/ui/input';
 import { useState } from 'react';
 import Link from "next/link";
 
-interface BillingInfoProps {
-  label: string;
-  value: string | React.ReactNode;
-}
-
-function BillingInfo({ label, value }: BillingInfoProps) {
-  return (
-    <div className="mb-2">
-      <span className="font-medium">{label}：</span>
-      <span>{value}</span>
-    </div>
-  );
-}
-
 interface BillingTableProps {
   data: {
     id: string;
