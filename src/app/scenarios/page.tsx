@@ -9,7 +9,6 @@ import {
   DialogTrigger,
   DialogContent,
   DialogHeader,
-  DialogFooter,
   DialogTitle,
   DialogClose,
 } from "@/components/ui/dialog";
@@ -34,7 +33,6 @@ interface ScenarioTableProps {
 }
 
 function ScenarioTable({ data }: ScenarioTableProps) {
-  const [copyTarget] = useState<Scenario | null>(null);
   const router = useRouter();
 
   return (

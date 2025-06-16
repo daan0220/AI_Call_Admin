@@ -3,12 +3,12 @@ import { useState, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { COLORS } from "@/constants/styles";
 import { useRouter } from "next/navigation";
 import ReactFlow, { ReactFlowProvider, Background, Controls, MiniMap, ReactFlowInstance, Handle, Position } from 'reactflow';
 import 'reactflow/dist/style.css';
+import type { NodeProps } from 'reactflow';
 
 const initialScenario = {
   company: "",
@@ -51,7 +51,7 @@ const initialEdges = [
   { id: 'e8-10', source: '8', target: '10', type: 'step', label: '聞き取れない' },
 ];
 
-function CustomNode({ data, id }: { data: any; id: string }) {
+function CustomNode({ data, id }: NodeProps) {
   return (
     <div className="rounded-xl border-2 border-[#7C6CF6] bg-white shadow p-2 min-w-[220px]">
       <div className="flex items-center gap-2 mb-1">
@@ -75,7 +75,7 @@ export default function ScenarioNewPage() {
   const router = useRouter();
   const [scenario, setScenario] = useState(initialScenario);
   const [nodes, setNodes] = useState(initialNodes);
-  const [edges, setEdges] = useState(initialEdges);
+  const [edges] = useState(initialEdges);
   const reactFlowInstanceRef = useRef<ReactFlowInstance | null>(null);
 
   const handleNodeTextChange = (id: string, value: string) => {

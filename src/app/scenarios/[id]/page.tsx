@@ -4,11 +4,12 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { COLORS } from "@/constants/styles";
 import { useRouter } from "next/navigation";
-import { ChevronLeft, ZoomIn, ZoomOut, Shuffle } from "lucide-react";
-import ReactFlow, { Background, Controls, MiniMap, useReactFlow, ReactFlowProvider, Handle, Position } from 'reactflow';
+import { ChevronLeft, ZoomIn, ZoomOut } from "lucide-react";
+import ReactFlow, { Background, Controls, MiniMap, ReactFlowProvider, Handle, Position } from 'reactflow';
 import 'reactflow/dist/style.css';
 import { useState, useRef } from "react";
 import type { ReactFlowInstance } from 'reactflow';
+import type { NodeProps } from 'reactflow';
 
 // 仮データ（実際はAPIやpropsで取得）
 const scenario = {
@@ -23,7 +24,7 @@ const scenario = {
 };
 
 // カスタムノード
-function CustomNode({ data }: { data: any }) {
+function CustomNode({ data }: NodeProps) {
   return (
     <div className="rounded-xl border-2 border-[#7C6CF6] bg-white shadow p-2 min-w-[220px]">
       <div className="flex items-center gap-2 mb-1">
