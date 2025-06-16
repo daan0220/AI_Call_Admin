@@ -1,12 +1,12 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { MemberForm, MemberFormValues } from "@/components/members/MemberForm";
+import { MemberForm } from "@/components/members/MemberForm";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function MemberNewPage() {
   const router = useRouter();
-  const handleSubmit = (values: MemberFormValues) => {
+  const handleSubmit = () => {
     // ここでAPI保存処理など
     router.push("/members");
   };

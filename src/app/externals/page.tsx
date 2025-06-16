@@ -6,8 +6,6 @@ import { LAYOUT_STYLES, COLORS, TABLE_STYLES } from "@/constants/styles";
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
 import { ClickableTableRow } from '@/components/ClickableTableRow';
 import { useRouter } from 'next/navigation';
-import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogClose } from '@/components/ui/dialog';
-import { UploadCloud } from 'lucide-react';
 import { useState } from 'react';
 import { CsvImportDialog } from '@/components/CsvImportDialog';
 

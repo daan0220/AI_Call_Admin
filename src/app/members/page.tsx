@@ -3,8 +3,6 @@ import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { ClickableTableRow } from '@/components/ClickableTableRow';
-import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogClose } from '@/components/ui/dialog';
-import { UploadCloud } from 'lucide-react';
 import { useState } from 'react';
 import { CsvImportDialog } from '@/components/CsvImportDialog';
 

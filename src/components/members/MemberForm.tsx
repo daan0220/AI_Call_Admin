@@ -66,22 +66,14 @@ export function MemberForm({ initialValues = {}, onSubmit, submitLabel = "保存
     callViewScope: initialValues.callViewScope || "本人の通話のみ",
   });
   const [chatText, setChatText] = useState("");
-  const [mailDestList, setMailDestList] = useState<string[]>([]);
 
-  const handleChange = (key: keyof MemberFormValues, value: any) => {
+  const handleChange = (key: keyof MemberFormValues, value: string | boolean) => {
     setValues(v => ({ ...v, [key]: value }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit?.(values);
-  };
-
-  const handleAddMailDest = () => {
-    if (values.mailDest.trim()) {
-      setMailDestList(list => [...list, values.mailDest.trim()]);
-      setValues(v => ({ ...v, mailDest: "" }));
-    }
   };
 
   return (
