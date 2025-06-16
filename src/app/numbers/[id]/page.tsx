@@ -7,6 +7,9 @@ import { useMemo } from "react";
 import { LAYOUT_STYLES, COLORS } from "@/constants/styles";
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
 import { ChevronLeft } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
+import { useState } from "react";
 // 仮データ（実際はAPIやpropsで取得）
 const demoDetail = {
   id: "187",
@@ -34,6 +37,15 @@ export default function NumberDetailPage() {
   const { id } = useParams();
   // 本来はidでAPI取得
   const detail = useMemo(() => demoDetail, []);
+  const [editMode, setEditMode] = useState(false);
+  const [editDetail, setEditDetail] = useState({
+    workMode: detail.workMode,
+    workPeriod: detail.workPeriod,
+    workDays: detail.workDays,
+    workTime: detail.workTime,
+    inAction: detail.inAction,
+    outAction: detail.outAction,
+  });
 
   return (
     <div className={LAYOUT_STYLES.container}>
@@ -49,38 +61,112 @@ export default function NumberDetailPage() {
         <h2 className="text-xl font-bold mb-4" style={{ color: '#3B3172' }}>基本情報</h2>
         <Table className="text-base bg-white rounded-xl border mb-8" style={{ borderColor: '#E0E0F0' }}>
           <TableBody>
-            <TableRow><TableCell className="py-2 px-4 w-48 text-gray-600">電話番号ID</TableCell><TableCell className="py-2 px-4">{detail.id}</TableCell></TableRow>
-            <TableRow><TableCell className="py-2 px-4 text-gray-600">ステータス</TableCell><TableCell className="py-2 px-4">{detail.status}</TableCell></TableRow>
-            <TableRow><TableCell className="py-2 px-4 text-gray-600">電話番号</TableCell><TableCell className="py-2 px-4">{detail.number}</TableCell></TableRow>
-            <TableRow><TableCell className="py-2 px-4 text-gray-600">利用料金</TableCell><TableCell className="py-2 px-4"><span dangerouslySetInnerHTML={{__html: detail.fee}} /></TableCell></TableRow>
-            <TableRow><TableCell className="py-2 px-4 text-gray-600">申請者</TableCell><TableCell className="py-2 px-4">{detail.applicant}</TableCell></TableRow>
-            <TableRow><TableCell className="py-2 px-4 text-gray-600">申請日</TableCell><TableCell className="py-2 px-4">{detail.appliedAt}</TableCell></TableRow>
-            <TableRow><TableCell className="py-2 px-4 text-gray-600">契約開始日</TableCell><TableCell className="py-2 px-4">{detail.contractStart}</TableCell></TableRow>
+            <TableRow><TableCell className="py-2 px-4 w-48 text-gray-600 bg-[#F5F6FB]">電話番号ID</TableCell><TableCell className="py-2 px-4">{detail.id}</TableCell></TableRow>
+            <TableRow><TableCell className="py-2 px-4 text-gray-600 bg-[#F5F6FB]">ステータス</TableCell><TableCell className="py-2 px-4">{detail.status}</TableCell></TableRow>
+            <TableRow><TableCell className="py-2 px-4 text-gray-600 bg-[#F5F6FB]">電話番号</TableCell><TableCell className="py-2 px-4">{detail.number}</TableCell></TableRow>
+            <TableRow><TableCell className="py-2 px-4 text-gray-600 bg-[#F5F6FB]">利用料金</TableCell><TableCell className="py-2 px-4"><span dangerouslySetInnerHTML={{__html: detail.fee}} /></TableCell></TableRow>
+            <TableRow><TableCell className="py-2 px-4 text-gray-600 bg-[#F5F6FB]">申請者</TableCell><TableCell className="py-2 px-4">{detail.applicant}</TableCell></TableRow>
+            <TableRow><TableCell className="py-2 px-4 text-gray-600 bg-[#F5F6FB]">申請日</TableCell><TableCell className="py-2 px-4">{detail.appliedAt}</TableCell></TableRow>
+            <TableRow><TableCell className="py-2 px-4 text-gray-600 bg-[#F5F6FB]">契約開始日</TableCell><TableCell className="py-2 px-4">{detail.contractStart}</TableCell></TableRow>
           </TableBody>
         </Table>
-        <h2 className="text-xl font-bold mb-4" style={{ color: '#3B3172' }}>稼働時間・シナリオ設定</h2>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-bold" style={{ color: '#3B3172' }}>稼働時間・シナリオ設定</h2>
+          {editMode ? (
+            <div>
+              <Button variant="outline" className="mr-2" onClick={() => setEditMode(false)}>キャンセル</Button>
+              <Button style={{ background: COLORS.primary, color: '#fff' }} onClick={() => { setEditMode(false); /* 保存処理 */ }}>保存</Button>
+            </div>
+          ) : (
+            <Button style={{ background: '#00CFFF', color: '#fff', fontWeight: 600 }} onClick={() => setEditMode(true)}>編集</Button>
+          )}
+        </div>
         <div className="mb-4 p-3 rounded bg-orange-50 text-orange-600 text-sm flex items-center gap-2">
           <span className="text-xl">⚠️</span>
           30日間の無料デモ用AI電話番号では、セリフの変更やチャットとの連携を体験いただけます。転送機能をお試ししたいには、プランのご契約が必要です。
         </div>
         <Table className="text-base bg-white rounded-xl border mb-8" style={{ borderColor: '#E0E0F0' }}>
           <TableBody>
-            <TableRow><TableCell className="py-2 px-4 w-48 text-gray-600">稼働モード</TableCell><TableCell className="py-2 px-4">{detail.workMode}</TableCell></TableRow>
-            <TableRow><TableCell className="py-2 px-4 text-gray-600">稼働時期</TableCell><TableCell className="py-2 px-4">{detail.workPeriod}</TableCell></TableRow>
-            <TableRow><TableCell className="py-2 px-4 text-gray-600">有効日</TableCell><TableCell className="py-2 px-4">{detail.workDays}</TableCell></TableRow>
-            <TableRow><TableCell className="py-2 px-4 text-gray-600">稼働時間</TableCell><TableCell className="py-2 px-4">{detail.workTime}</TableCell></TableRow>
-            <TableRow><TableCell className="py-2 px-4 text-gray-600">稼働時間内の動作</TableCell><TableCell className="py-2 px-4">動作：シナリオ<br /><span className="text-[#5B7FFF] underline cursor-pointer">{detail.inAction}</span></TableCell></TableRow>
-            <TableRow><TableCell className="py-2 px-4 text-gray-600">稼働時間外の動作</TableCell><TableCell className="py-2 px-4">動作：シナリオ<br /><span className="text-[#5B7FFF] underline cursor-pointer">{detail.outAction}</span></TableCell></TableRow>
+            <TableRow>
+              <TableCell className="py-2 px-4 w-48 text-gray-600 bg-[#F5F6FB]">稼働モード</TableCell>
+              <TableCell className="py-2 px-4">
+                {editMode ? (
+                  <Select value={editDetail.workMode} onValueChange={v => setEditDetail(d => ({ ...d, workMode: v }))}>
+                    <SelectTrigger className="w-48"><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="24時間稼働">24時間稼働</SelectItem>
+                      <SelectItem value="稼働時間設定">稼働時間設定</SelectItem>
+                    </SelectContent>
+                  </Select>
+                ) : (
+                  detail.workMode
+                )}
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="py-2 px-4 w-48 text-gray-600 bg-[#F5F6FB]">稼働時期</TableCell>
+              <TableCell className="py-2 px-4">
+                {editMode ? (
+                  <Input value={editDetail.workPeriod} onChange={e => setEditDetail(d => ({ ...d, workPeriod: e.target.value }))} />
+                ) : (
+                  detail.workPeriod
+                )}
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="py-2 px-4 w-48 text-gray-600 bg-[#F5F6FB]">有効日</TableCell>
+              <TableCell className="py-2 px-4">
+                {editMode ? (
+                  <Input value={editDetail.workDays} onChange={e => setEditDetail(d => ({ ...d, workDays: e.target.value }))} />
+                ) : (
+                  detail.workDays
+                )}
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="py-2 px-4 w-48 text-gray-600 bg-[#F5F6FB]">稼働時間</TableCell>
+              <TableCell className="py-2 px-4">
+                {editMode ? (
+                  <Input value={editDetail.workTime} onChange={e => setEditDetail(d => ({ ...d, workTime: e.target.value }))} />
+                ) : (
+                  detail.workTime
+                )}
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="py-2 px-4 w-48 text-gray-600 bg-[#F5F6FB]">稼働時間内の動作</TableCell>
+              <TableCell className="py-2 px-4">
+                {editMode ? (
+                  <Input value={editDetail.inAction} onChange={e => setEditDetail(d => ({ ...d, inAction: e.target.value }))} />
+                ) : (
+                  <>
+                    動作：シナリオ<br /><span className="text-[#5B7FFF] underline cursor-pointer">{detail.inAction}</span>
+                  </>
+                )}
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="py-2 px-4 w-48 text-gray-600 bg-[#F5F6FB]">稼働時間外の動作</TableCell>
+              <TableCell className="py-2 px-4">
+                {editMode ? (
+                  <Input value={editDetail.outAction} onChange={e => setEditDetail(d => ({ ...d, outAction: e.target.value }))} />
+                ) : (
+                  <>
+                    動作：シナリオ<br /><span className="text-[#5B7FFF] underline cursor-pointer">{detail.outAction}</span>
+                  </>
+                )}
+              </TableCell>
+            </TableRow>
           </TableBody>
         </Table>
         <h2 className="text-xl font-bold mb-4" style={{ color: '#3B3172' }}>利用履歴</h2>
         <Table className="text-base bg-white rounded-xl border" style={{ borderColor: '#E0E0F0' }}>
           <TableHeader>
-            <TableRow className="bg-[#7C6CF6] text-white">
-              <TableHead className="py-2 px-4">日付</TableHead>
-              <TableHead className="py-2 px-4">アクション</TableHead>
-              <TableHead className="py-2 px-4">関連シナリオ</TableHead>
-              <TableHead className="py-2 px-4">更新者</TableHead>
+            <TableRow>
+              <TableHead className="py-2 px-4 bg-[#5B7FFF] text-white font-semibold">日付</TableHead>
+              <TableHead className="py-2 px-4 bg-[#5B7FFF] text-white font-semibold">アクション</TableHead>
+              <TableHead className="py-2 px-4 bg-[#5B7FFF] text-white font-semibold">関連シナリオ</TableHead>
+              <TableHead className="py-2 px-4 bg-[#5B7FFF] text-white font-semibold">更新者</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
