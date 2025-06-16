@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { LAYOUT_STYLES, COLORS, TABLE_STYLES } from "@/constants/styles";
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
-import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogClose } from '@/components/ui/dialog';
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogClose } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -38,7 +38,7 @@ interface PhoneNumberTableProps {
 function PhoneNumberTable({ data }: PhoneNumberTableProps) {
   const [open, setOpen] = useState(false);
   // ダミーのフォーム状態
-  const [form, setForm] = useState({
+  const [form] = useState({
     startDate: '2025-06-15',
     endDate: '2100-12-31',
     days: ['月', '火', '水', '木', '金'],

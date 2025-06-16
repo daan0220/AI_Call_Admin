@@ -30,7 +30,7 @@ interface ScenarioTableProps {
 }
 
 function ScenarioTable({ data }: ScenarioTableProps) {
-  const [copyTarget, setCopyTarget] = useState<Scenario | null>(null);
+  const [copyTarget] = useState<Scenario | null>(null);
   return (
     <>
       <Table>

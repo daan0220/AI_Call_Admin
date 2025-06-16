@@ -6,40 +6,60 @@ import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
 import { ArrowLeft } from 'lucide-react';
-import { useRouter, useParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-const dummyProfile = {
-  lastName: '安藤',
-  firstName: '太紀',
-  lastNameKana: 'アンドウ',
-  firstNameKana: 'ダイキ',
-  phone: '08093702122',
-  email: 'daikisocceta1@gmail.com',
-  department: '経営部（ケイエイブ）',
-  position: '代表取締役',
-  account: '組織管理者',
-  chatSend: true,
-  mailSend: true,
-  status: '着信可',
-  group: '',
-  note: '',
-  password: '',
-  passwordConfirm: '',
-  history: [
-    {
-      date: '2025-06-15 23:04:59',
-      action: '社員ステータス設定',
-      status: '着信可',
-      updater: '安藤太紀',
-    },
-  ],
-};
+interface Profile {
+  name: string;
+  nameKana: string;
+  phone: string;
+  email: string;
+  department: string;
+  position: string;
+  role: string;
+  account: string;
+  chatSend: boolean;
+  mailSend: boolean;
+  status: string;
+  group: string;
+  note: string;
+  password: string;
+  passwordConfirm: string;
+  history: {
+    date: string;
+    action: string;
+    status: string;
+    updater: string;
+  }[];
+}
 
 export default function MemberEditPage() {
   const router = useRouter();
-  const params = useParams();
-  const [profile, setProfile] = useState(dummyProfile);
+  const [profile] = useState<Profile>({
+    name: '安藤 太紀',
+    nameKana: 'アンドウ ダイキ',
+    phone: '08093702122',
+    email: 'daikisocceta1@gmail.com',
+    department: '経営部',
+    position: '代表取締役',
+    role: '組織管理者',
+    account: '組織管理者',
+    chatSend: true,
+    mailSend: true,
+    status: '着信可',
+    group: '',
+    note: '',
+    password: '',
+    passwordConfirm: '',
+    history: [
+      {
+        date: '2025-06-15 23:04:59',
+        action: '社員ステータス設定',
+        status: '着信可',
+        updater: '安藤太紀',
+      },
+    ],
+  });
 
   return (
     <div className="container mx-auto py-8 px-2 md:px-8">
@@ -56,12 +76,12 @@ export default function MemberEditPage() {
         <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-4">
             <div className="flex gap-2">
-              <Input placeholder="姓" value={profile.lastName} className="w-1/2" readOnly />
-              <Input placeholder="名" value={profile.firstName} className="w-1/2" readOnly />
+              <Input placeholder="姓" value={profile.name.split(' ')[0]} className="w-1/2" readOnly />
+              <Input placeholder="名" value={profile.name.split(' ')[1]} className="w-1/2" readOnly />
             </div>
             <div className="flex gap-2">
-              <Input placeholder="セイ" value={profile.lastNameKana} className="w-1/2" readOnly />
-              <Input placeholder="メイ" value={profile.firstNameKana} className="w-1/2" readOnly />
+              <Input placeholder="セイ" value={profile.nameKana.split(' ')[0]} className="w-1/2" readOnly />
+              <Input placeholder="メイ" value={profile.nameKana.split(' ')[1]} className="w-1/2" readOnly />
             </div>
             <Input placeholder="着信先電話番号" value={profile.phone} readOnly />
             <Input placeholder="メールアドレス" value={profile.email} readOnly />

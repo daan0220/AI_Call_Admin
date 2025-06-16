@@ -1,6 +1,5 @@
 "use client";
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ClickableTableRow } from '@/components/ClickableTableRow';
 
