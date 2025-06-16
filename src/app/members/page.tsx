@@ -69,14 +69,14 @@ export default function MembersPage() {
         <Table className="w-full text-sm mb-4">
           <TableHeader>
             <TableRow>
-              <TableHead className="py-2 px-3 font-semibold" style={{ color: '#5B7FFF' }}>名前</TableHead>
-              <TableHead className="py-2 px-3 font-semibold" style={{ color: '#5B7FFF' }}>名前（カナ）</TableHead>
-              <TableHead className="py-2 px-3 font-semibold" style={{ color: '#5B7FFF' }}>電話番号</TableHead>
-              <TableHead className="py-2 px-3 font-semibold" style={{ color: '#5B7FFF' }}>部門</TableHead>
-              <TableHead className="py-2 px-3 font-semibold" style={{ color: '#5B7FFF' }}>追加確認内容</TableHead>
-              <TableHead className="py-2 px-3 font-semibold" style={{ color: '#5B7FFF' }}>グループ</TableHead>
-              <TableHead className="py-2 px-3 font-semibold" style={{ color: '#5B7FFF' }}>ステータス</TableHead>
-              <TableHead className="py-2 px-3 font-semibold" style={{ color: '#5B7FFF' }}>操作</TableHead>
+              <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">名前</TableHead>
+              <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">名前（カナ）</TableHead>
+              <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">電話番号</TableHead>
+              <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">部門</TableHead>
+              <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">追加確認内容</TableHead>
+              <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">グループ</TableHead>
+              <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">ステータス</TableHead>
+              <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">操作</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

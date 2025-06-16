@@ -24,13 +24,13 @@ function CallLogTable({ data }: CallLogTableProps) {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>発着信時間</TableHead>
-          <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>通話タイプ</TableHead>
-          <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>発信元</TableHead>
-          <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>着信先</TableHead>
-          <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>AI電話番号</TableHead>
-          <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>関連シナリオ</TableHead>
-          <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>通話結果</TableHead>
+          <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">発着信時間</TableHead>
+          <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">通話タイプ</TableHead>
+          <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">発信元</TableHead>
+          <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">着信先</TableHead>
+          <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">AI電話番号</TableHead>
+          <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">関連シナリオ</TableHead>
+          <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">通話結果</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>

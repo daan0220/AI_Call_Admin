@@ -53,13 +53,13 @@ function PhoneNumberTable({ data }: PhoneNumberTableProps) {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>ID</TableHead>
-            <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>ステータス</TableHead>
-            <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>電話番号</TableHead>
-            <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>営業時間内の動作</TableHead>
-            <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>有効日</TableHead>
-            <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>営業時間</TableHead>
-            <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>営業時間外の動作</TableHead>
+            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">ID</TableHead>
+            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">ステータス</TableHead>
+            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">電話番号</TableHead>
+            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">営業時間内の動作</TableHead>
+            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">有効日</TableHead>
+            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">営業時間</TableHead>
+            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">営業時間外の動作</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>

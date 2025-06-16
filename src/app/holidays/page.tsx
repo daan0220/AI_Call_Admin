@@ -22,13 +22,13 @@ function HolidayTable({ data }: HolidayTableProps) {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>日付</TableHead>
-          <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>曜日</TableHead>
-          <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>祝日名</TableHead>
-          <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>備考</TableHead>
-          <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>登録日</TableHead>
-          <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>更新日</TableHead>
-          <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>操作</TableHead>
+          <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">日付</TableHead>
+          <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">曜日</TableHead>
+          <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">祝日名</TableHead>
+          <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">備考</TableHead>
+          <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">登録日</TableHead>
+          <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">更新日</TableHead>
+          <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">操作</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>

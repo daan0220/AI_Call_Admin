@@ -40,15 +40,15 @@ function ScenarioTable({ data }: ScenarioTableProps) {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>会社名</TableHead>
-            <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>相手の名前</TableHead>
-            <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>担当者</TableHead>
-            <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>要件</TableHead>
-            <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>折り返し希望</TableHead>
-            <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>折り返し先電話番号</TableHead>
-            <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>AI電話番号</TableHead>
-            <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>作成日</TableHead>
-            <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>操作</TableHead>
+            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">会社名</TableHead>
+            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">相手の名前</TableHead>
+            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">担当者</TableHead>
+            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">要件</TableHead>
+            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">折り返し希望</TableHead>
+            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">折り返し先電話番号</TableHead>
+            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">AI電話番号</TableHead>
+            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">作成日</TableHead>
+            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">操作</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>

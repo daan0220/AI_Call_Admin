@@ -28,12 +28,12 @@ function ExternalContactTable({ data }: ExternalContactTableProps) {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>名前</TableHead>
-          <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>電話番号</TableHead>
-          <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>会社名</TableHead>
-          <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>部門名</TableHead>
-          <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>着信時の動作</TableHead>
-          <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>操作</TableHead>
+          <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">名前</TableHead>
+          <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">電話番号</TableHead>
+          <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">会社名</TableHead>
+          <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">部門名</TableHead>
+          <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">着信時の動作</TableHead>
+          <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">操作</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>

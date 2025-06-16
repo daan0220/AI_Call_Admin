@@ -32,11 +32,11 @@ function BillingTable({ data }: BillingTableProps) {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>ご請求ID</TableHead>
-          <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>ご利用年月</TableHead>
-          <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>ご利用金額（円/税込）</TableHead>
-          <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>当月分の従量課金予算上限（円/税抜）</TableHead>
-          <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>操作</TableHead>
+          <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">ご請求ID</TableHead>
+          <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">ご利用年月</TableHead>
+          <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">ご利用金額（円/税込）</TableHead>
+          <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">当月分の従量課金予算上限（円/税抜）</TableHead>
+          <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">操作</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
