@@ -8,7 +8,7 @@ import { COLORS } from "@/constants/styles";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "AI 営業事務管理画面",
+  title: "AI 電話番管理画面",
   description: "AI電話自動対応サービスの管理画面",
 };
 

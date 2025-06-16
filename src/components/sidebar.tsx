@@ -104,7 +104,7 @@ export function Sidebar({ menuItems = defaultMenuItems }: SidebarProps) {
             {/* ロゴ画像削除、テキストのみ */}
             {!collapsed && (
               <span className="text-xl font-bold select-none">
-                AI 営業事務
+                AI 電話番
               </span>
             )}
           </div>

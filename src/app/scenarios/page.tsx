@@ -13,6 +13,8 @@ import {
   DialogTitle,
   DialogClose,
 } from "@/components/ui/dialog";
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
+import { ClickableTableRow } from '@/components/ClickableTableRow';
 
 interface Scenario {
   name: string;
@@ -31,43 +33,33 @@ function ScenarioTable({ data }: ScenarioTableProps) {
   const [copyTarget, setCopyTarget] = useState<Scenario | null>(null);
   return (
     <>
-      <table className={TABLE_STYLES.container}>
-        <thead>
-          <tr className={TABLE_STYLES.header}>
-            <th className="py-2 px-3" style={{ color: COLORS.primary }}>名称</th>
-            <th className="py-2 px-3" style={{ color: COLORS.primary }}>テンプレート</th>
-            <th className="py-2 px-3" style={{ color: COLORS.primary }}>関連AI電話番号</th>
-            <th className="py-2 px-3" style={{ color: COLORS.primary }}>グループ</th>
-            <th className="py-2 px-3" style={{ color: COLORS.primary }}>作成日</th>
-            <th className="py-2 px-3" style={{ color: COLORS.primary }}>編集日</th>
-            <th className="py-2 px-3" style={{ color: COLORS.primary }}>操作</th>
-          </tr>
-        </thead>
-        <tbody>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>名称</TableHead>
+            <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>テンプレート</TableHead>
+            <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>関連AI電話番号</TableHead>
+            <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>グループ</TableHead>
+            <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>作成日</TableHead>
+            <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>編集日</TableHead>
+            <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>操作</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {data.map((scenario, index) => (
-            <tr key={index} className={TABLE_STYLES.row}>
-              <td className={TABLE_STYLES.cell}>{scenario.name}</td>
-              <td className={TABLE_STYLES.cell}>{scenario.template}</td>
-              <td className={TABLE_STYLES.cell}>{scenario.aiNumber}</td>
-              <td className={TABLE_STYLES.cell}>{scenario.group}</td>
-              <td className={TABLE_STYLES.cell}>{scenario.createdAt}</td>
-              <td className={TABLE_STYLES.cell}>{scenario.updatedAt}</td>
-              <td className={TABLE_STYLES.cell}>
+            <ClickableTableRow key={index} href={`/scenarios/${index + 1}`}>
+              <TableCell className={TABLE_STYLES.cell}>{scenario.name}</TableCell>
+              <TableCell className={TABLE_STYLES.cell}>{scenario.template}</TableCell>
+              <TableCell className={TABLE_STYLES.cell}>{scenario.aiNumber}</TableCell>
+              <TableCell className={TABLE_STYLES.cell}>{scenario.group}</TableCell>
+              <TableCell className={TABLE_STYLES.cell}>{scenario.createdAt}</TableCell>
+              <TableCell className={TABLE_STYLES.cell}>{scenario.updatedAt}</TableCell>
+              <TableCell className={TABLE_STYLES.cell}>
                 <div className="flex gap-2 justify-center">
-                  <Button
-                    size="sm"
-                    style={{ background: COLORS.primary }}
-                  >
-                    編集
-                  </Button>
+                  <Button size="sm" style={{ background: COLORS.primary }}>編集</Button>
                   <Dialog>
                     <DialogTrigger asChild>
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        style={{ color: COLORS.primary, borderColor: COLORS.primary }}
-                        onClick={() => setCopyTarget(scenario)}
-                      >
+                      <Button size="sm" variant="outline" style={{ color: COLORS.primary, borderColor: COLORS.primary }} onClick={e => e.stopPropagation()}>
                         複製
                       </Button>
                     </DialogTrigger>
@@ -93,11 +85,11 @@ function ScenarioTable({ data }: ScenarioTableProps) {
                     </DialogContent>
                   </Dialog>
                 </div>
-              </td>
-            </tr>
+              </TableCell>
+            </ClickableTableRow>
           ))}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
     </>
   );
 }
@@ -140,7 +132,7 @@ export default function ScenariosPage() {
         <ScenarioTable data={scenarios} />
 
         <div className="text-xs text-gray-500 mt-4">
-          AI 営業事務 V1.8.0.4 | Copyright © 2022-2025 Softsu Co., Ltd , All Rights Reserved | AI 営業事務 ホームページ
+          AI 電話番 V1.8.0.4 | Copyright © 2022-2025 Softsu Co., Ltd , All Rights Reserved | AI 電話番 ホームページ
         </div>
       </Card>
     </div>

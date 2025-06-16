@@ -1,6 +1,8 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { LAYOUT_STYLES, COLORS, TABLE_STYLES } from "@/constants/styles";
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
+import { ClickableTableRow } from '@/components/ClickableTableRow';
 
 interface BillingInfoProps {
   label: string;
@@ -27,24 +29,24 @@ interface BillingTableProps {
 
 function BillingTable({ data }: BillingTableProps) {
   return (
-    <table className={TABLE_STYLES.container}>
-      <thead>
-        <tr className={TABLE_STYLES.header}>
-          <th className="py-2 px-3" style={{ color: COLORS.primary }}>ご請求ID</th>
-          <th className="py-2 px-3" style={{ color: COLORS.primary }}>ご利用年月</th>
-          <th className="py-2 px-3" style={{ color: COLORS.primary }}>ご利用金額（円/税込）</th>
-          <th className="py-2 px-3" style={{ color: COLORS.primary }}>当月分の従量課金予算上限（円/税抜）</th>
-          <th className="py-2 px-3" style={{ color: COLORS.primary }}>操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        {data.map((row) => (
-          <tr key={row.id} className={TABLE_STYLES.row}>
-            <td className={TABLE_STYLES.cell}>{row.id}</td>
-            <td className={TABLE_STYLES.cell}>{row.month}</td>
-            <td className={TABLE_STYLES.cell}>{row.amount}</td>
-            <td className={TABLE_STYLES.cell}>{row.budget}</td>
-            <td className={TABLE_STYLES.cell}>
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>ご請求ID</TableHead>
+          <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>ご利用年月</TableHead>
+          <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>ご利用金額（円/税込）</TableHead>
+          <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>当月分の従量課金予算上限（円/税抜）</TableHead>
+          <TableHead className="py-2 px-3" style={{ color: COLORS.primary }}>操作</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {data.map((bill, index) => (
+          <ClickableTableRow key={index} href={`/billing/${index + 1}`}>
+            <TableCell className={TABLE_STYLES.cell}>{bill.id}</TableCell>
+            <TableCell className={TABLE_STYLES.cell}>{bill.month}</TableCell>
+            <TableCell className={TABLE_STYLES.cell}>{bill.amount}</TableCell>
+            <TableCell className={TABLE_STYLES.cell}>{bill.budget}</TableCell>
+            <TableCell className={TABLE_STYLES.cell}>
               <Button
                 variant="outline"
                 className="text-xs"
@@ -52,11 +54,11 @@ function BillingTable({ data }: BillingTableProps) {
               >
                 内訳
               </Button>
-            </td>
-          </tr>
+            </TableCell>
+          </ClickableTableRow>
         ))}
-      </tbody>
-    </table>
+      </TableBody>
+    </Table>
   );
 }
 
@@ -108,7 +110,7 @@ export default function BillingPage() {
         </div>
 
         <div className="text-xs text-gray-500">
-          AI 営業事務 V1.8.0.4 | Copyright © 2022-2025 Softsu Co., Ltd , All Rights Reserved | AI 営業事務 ホームページ
+          AI 電話番 V1.8.0.4 | Copyright © 2022-2025 Softsu Co., Ltd , All Rights Reserved | AI 電話番 ホームページ
         </div>
       </Card>
     </div>
