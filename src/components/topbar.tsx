@@ -1,6 +1,6 @@
 "use client";
 
-import { Bell, ChevronDown, User, LogOut } from "lucide-react";
+import { Bell, ChevronDown, User, LogOut, PenLine, Mail, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
@@ -18,6 +18,17 @@ export function Topbar() {
     <header className="sticky top-0 z-50 h-14 px-4" style={{ background: '#EEF4FF', borderBottom: '1px solid #D6E2FF' }}>
       <div className="flex h-full items-center justify-end">
         <div className="flex items-center gap-4">
+          <div className="flex gap-2 mr-2">
+            <Button variant="outline" className="border-[#5B7FFF] text-[#5B7FFF] font-normal rounded-full px-4 py-1.5 text-sm flex items-center gap-1 hover:bg-[#F5F6FB]" style={{ borderWidth: 2, background: 'transparent' }}>
+              <PenLine className="w-3.5 h-3.5" /> ご意見・ご要望
+            </Button>
+            <Button variant="outline" className="border-[#5B7FFF] text-[#5B7FFF] font-normal rounded-full px-4 py-1.5 text-sm flex items-center gap-1 hover:bg-[#F5F6FB]" style={{ borderWidth: 2, background: 'transparent' }}>
+              <Mail className="w-3.5 h-3.5" /> お問い合わせ
+            </Button>
+            <Button variant="outline" className="border-[#5B7FFF] text-[#5B7FFF] font-normal rounded-full px-4 py-1.5 text-sm flex items-center gap-1 hover:bg-[#F5F6FB]" style={{ borderWidth: 2, background: 'transparent' }}>
+              <MessageSquare className="w-3.5 h-3.5" /> よくあるご質問
+            </Button>
+          </div>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon" className="relative" style={{ color: '#5B7FFF' }}>
