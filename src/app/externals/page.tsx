@@ -1,8 +1,15 @@
+"use client";
+
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { LAYOUT_STYLES, COLORS, TABLE_STYLES } from "@/constants/styles";
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
 import { ClickableTableRow } from '@/components/ClickableTableRow';
+import { useRouter } from 'next/navigation';
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogClose } from '@/components/ui/dialog';
+import { UploadCloud } from 'lucide-react';
+import { useState } from 'react';
+import { CsvImportDialog } from '@/components/CsvImportDialog';
 
 interface ExternalContact {
   name: string;
@@ -62,6 +69,13 @@ export default function ExternalsPage() {
       action: "-",
     },
   ];
+  
+  const router = useRouter();
+  const [csvDialogOpen, setCsvDialogOpen] = useState(false);
+  const handleImport = (file: File) => {
+    alert(`「${file.name}」をインポートしました（ダミー処理）`);
+    setCsvDialogOpen(false);
+  };
 
   return (
     <div className={LAYOUT_STYLES.container}>
@@ -70,23 +84,30 @@ export default function ExternalsPage() {
       </h1>
       <Card className="p-8" style={{ borderColor: COLORS.border }}>
         <div className="flex mb-4 gap-2">
-          <Button style={{ background: COLORS.primary }}>
+          <Button style={{ background: COLORS.primary }} onClick={() => router.push('/externals/new')}>
             ＋新規作成
           </Button>
-          <Button style={{ background: COLORS.primary }}>
-            ＋CSVファイルで一括作成
-          </Button>
+          <CsvImportDialog
+            open={csvDialogOpen}
+            onOpenChange={setCsvDialogOpen}
+            trigger={<Button style={{ background: COLORS.primary }}>＋CSVファイルで一括作成</Button>}
+            title="一括社外名簿新規作成"
+            description={<>CSVテンプレートをダウンロードの上、名簿データを作成しアップロードしてください。<br />以下薄青色のフィールドにドラッグ＆ドロップ後、インポートボタンを押すことで、社外名簿を反映することができます。</>}
+            templateLabel="CSVテンプレートをダウンロード"
+            onTemplateDownload={() => alert('テンプレートDL（ダミー）')}
+            onImport={handleImport}
+            importButtonLabel="インポート"
+            notes={[
+              '※ アップロード可能なファイルは「.CSV」のみになります。',
+              '※ CSVファイルから一度に最大500までの社外名簿を追加することができます。',
+              '※ 姓名および読み方（カナ）を含め必ずご入力ください。',
+              '※ 着信先を判別できるよう、1社につき1つの番号のみ登録することができます。同じ会社・同じ電話番号で複数名を登録される場合は、個人の携帯電話番号などでの登録を推奨いたします。',
+            ]}
+            accept=".csv"
+          />
         </div>
-
         <ExternalContactTable data={contacts} />
-
-        <div className="text-xs text-gray-500 mt-4">
-          AI 電話番 V1.8.0.4 | Copyright © 2025 Enginee Co., Ltd , All Rights Reserved | AI 電話番
-        </div>
       </Card>
-      <footer className="w-full text-xs text-gray-500 text-center mt-8 pb-4">
-        AI 電話番 V1.8.0.4 | Copyright © 2025 Enginee Co., Ltd , All Rights Reserved | AI 電話番
-      </footer>
     </div>
   );
 } 

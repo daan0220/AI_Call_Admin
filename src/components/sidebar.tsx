@@ -21,6 +21,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { useState } from "react";
+import { useSidebarTransition } from "@/contexts/TransitionContext";
 
 export type MenuItem = {
   href: string;
@@ -47,6 +48,7 @@ interface SidebarProps {
 export function Sidebar({ menuItems = defaultMenuItems }: SidebarProps) {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
+  const { setSidebarTransition } = useSidebarTransition();
 
   const NavContent = () => (
     <ScrollArea className="h-full py-1">
@@ -58,6 +60,7 @@ export function Sidebar({ menuItems = defaultMenuItems }: SidebarProps) {
             <Link
               key={item.href}
               href={item.href}
+              onClick={() => setSidebarTransition(true)}
               className={cn(
                 "flex items-center gap-5 rounded-lg px-3 py-4 text-base font-medium transition-all",
                 collapsed ? "justify-center px-2" : "",

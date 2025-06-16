@@ -14,8 +14,8 @@ import {
 } from "@/components/ui/dialog";
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
 import { ClickableTableRow } from '@/components/ClickableTableRow';
-import { UploadCloud } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { CsvImportDialog } from '@/components/CsvImportDialog';
 
 interface Scenario {
   company: string;
@@ -111,8 +111,6 @@ function ScenarioTable({ data }: ScenarioTableProps) {
 
 export default function ScenariosPage() {
   const [importOpen, setImportOpen] = useState(false);
-  const [importFile, setImportFile] = useState<File | null>(null);
-  const [dragActive, setDragActive] = useState(false);
   const scenarios: Scenario[] = [
     {
       company: "株式会社サンプル",
@@ -136,45 +134,6 @@ export default function ScenariosPage() {
   ];
   const router = useRouter();
 
-  // ファイル選択・ドロップ処理
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file && file.name.endsWith('.scenario')) {
-      setImportFile(file);
-    } else {
-      setImportFile(null);
-      alert('拡張子が .scenario のファイルのみインポートできます');
-    }
-  };
-  const handleDrop = (e: React.DragEvent<HTMLLabelElement>) => {
-    e.preventDefault();
-    setDragActive(false);
-    const file = e.dataTransfer.files?.[0];
-    if (file && file.name.endsWith('.scenario')) {
-      setImportFile(file);
-    } else {
-      setImportFile(null);
-      alert('拡張子が .scenario のファイルのみインポートできます');
-    }
-  };
-  const handleDragOver = (e: React.DragEvent<HTMLLabelElement>) => {
-    e.preventDefault();
-    setDragActive(true);
-  };
-  const handleDragLeave = (e: React.DragEvent<HTMLLabelElement>) => {
-    e.preventDefault();
-    setDragActive(false);
-  };
-  const handleImport = () => {
-    if (importFile) {
-      alert(`「${importFile.name}」をインポートしました（ダミー処理）`);
-      setImportOpen(false);
-      setImportFile(null);
-    } else {
-      alert('ファイルを選択してください');
-    }
-  };
-
   return (
     <div className={LAYOUT_STYLES.container}>
       <div className="flex justify-between items-center mb-4">
@@ -187,49 +146,22 @@ export default function ScenariosPage() {
           <Button style={{ background: COLORS.primary }} onClick={() => router.push('/scenarios/new')}>
             ＋新規作成
           </Button>
-          <Dialog open={importOpen} onOpenChange={setImportOpen}>
-            <DialogTrigger asChild>
-              <Button style={{ background: COLORS.primary }} onClick={() => setImportOpen(true)}>
-                ＋インポート
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="max-w-md rounded-xl p-0 overflow-hidden">
-              <DialogHeader className="bg-[#7C6CF6] px-6 py-4">
-                <DialogTitle className="text-white text-center text-lg">シナリオをインポート</DialogTitle>
-              </DialogHeader>
-              <div className="px-8 py-8 text-center text-base text-[#666]">
-                <label
-                  htmlFor="import-file"
-                  className={`block border-2 border-dashed rounded-xl py-8 px-4 mb-4 cursor-pointer transition ${dragActive ? 'border-[#7C6CF6] bg-violet-50' : 'border-[#C7BFFF] bg-white'}`}
-                  onDrop={handleDrop}
-                  onDragOver={handleDragOver}
-                  onDragLeave={handleDragLeave}
-                >
-                  <UploadCloud size={64} className="mx-auto mb-2 text-[#7C6CF6]" />
-                  <div className="mb-2">アップロードするファイルを選択<br />またはファイルをドラッグ＆ドロップします</div>
-                  <input
-                    id="import-file"
-                    type="file"
-                    accept=".scenario"
-                    className="hidden"
-                    onChange={handleFileChange}
-                  />
-                  {importFile && <div className="mt-2 text-sm text-[#7C6CF6]">選択中: {importFile.name}</div>}
-                </label>
-                <ul className="text-xs text-left text-gray-500 leading-relaxed">
-                  <li>※インポートできるのはAI 電話番からエクスポートしたファイル（.scenario）のみになります。</li>
-                  <li>※エクスポートされたファイルを編集するとインポートエラーとなりますのでご注意ください。</li>
-                  <li>※一括インポートはできません。</li>
-                </ul>
-              </div>
-              <div className="flex justify-center gap-4 pb-6">
-                <DialogClose asChild>
-                  <Button variant="outline" className="w-28">キャンセル</Button>
-                </DialogClose>
-                <Button style={{ background: '#7C6CF6' }} className="w-28 text-white" onClick={handleImport}>インポート</Button>
-              </div>
-            </DialogContent>
-          </Dialog>
+          <CsvImportDialog
+            open={importOpen}
+            onOpenChange={setImportOpen}
+            trigger={<Button className="rounded px-4 py-2" style={{ background: '#5B7FFF', color: '#fff' }}>＋インポート</Button>}
+            title="シナリオインポート"
+            description={<><span className="text-[#5B7FFF] font-bold">.scenarioファイルをドラッグ＆ドロップまたは選択してください。</span><br />インポート後、シナリオ一覧に追加されます。</>}
+            templateLabel=".scenarioテンプレートをダウンロード"
+            onTemplateDownload={() => alert('テンプレートDL（ダミー）')}
+            onImport={() => alert('インポート処理（ダミー）')}
+            importButtonLabel="インポート"
+            notes={[
+              '※.scenarioファイルのみインポート可能です。',
+              '※インポートしたシナリオは一覧に追加されます。',
+            ]}
+            accept=".scenario"
+          />
         </div>
         <ScenarioTable data={scenarios} />
       </Card>
