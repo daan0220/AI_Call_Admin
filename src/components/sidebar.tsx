@@ -98,7 +98,7 @@ export function Sidebar({ menuItems = defaultMenuItems }: SidebarProps) {
             <Menu className="h-6 w-6" />
           </Button>
         </SheetTrigger>
-        <SheetContent side="left" className="w-[264px] p-0" style={{ background: '#EEF4FF' }}>
+        <SheetContent side="left" className="w-[264px] p-0" style={{ background: '#FFFFFF' }}>
           <NavContent />
         </SheetContent>
       </Sheet>
@@ -108,7 +108,7 @@ export function Sidebar({ menuItems = defaultMenuItems }: SidebarProps) {
         className={
           `hidden md:flex flex-col border-r h-screen transition-all duration-300 ${collapsed ? 'w-[64px]' : 'w-[264px]'}`
         }
-        style={{ background: '#EEF4FF' }}
+        style={{ background: '#FFFFFF' }}
       >
         {/* ロゴ＋テキスト＋折りたたみボタン */}
         <div className={`flex items-center justify-between px-4 py-2 ${collapsed ? 'justify-center' : ''}`}

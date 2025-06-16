@@ -196,10 +196,10 @@ export default function NumbersPage() {
 
   return (
     <div className={LAYOUT_STYLES.container}>
-      <h1 className={LAYOUT_STYLES.pageTitle} style={{ color: COLORS.primary }}>
+      <h1 className={LAYOUT_STYLES.pageTitle} style={{ color: COLORS.primary, marginBottom: 12 }}>
         AI電話番号
       </h1>
-      <Card className="p-8" style={{ borderColor: COLORS.border }}>
+      <Card className="p-8" style={{ borderColor: COLORS.border, marginTop: 0 }}>
         <div className="mb-4 text-base font-semibold" style={{ color: COLORS.primary }}>
           デモ利用中
         </div>

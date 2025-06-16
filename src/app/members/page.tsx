@@ -23,8 +23,8 @@ export default function MembersPage() {
 
   return (
     <div className="container mx-auto py-8">
-      <h1 className="mb-8 text-2xl font-bold" style={{ color: '#5B7FFF' }}>社員名簿</h1>
-      <div className="rounded-xl shadow-md bg-white p-8" style={{ border: '1px solid #D6E2FF' }}>
+      <h1 className="mb-3 text-2xl font-bold" style={{ color: '#5B7FFF' }}>社員名簿</h1>
+      <div className="rounded-xl shadow-md bg-white p-8" style={{ border: '1px solid #D6E2FF', marginTop: 0 }}>
         <div className="flex mb-4 gap-2">
           <Button className="rounded px-4 py-2" style={{ background: '#FFE066', color: '#333' }} onClick={() => router.push('/members/new')}>＋新規作成</Button>
           <CsvImportDialog
@@ -93,9 +93,6 @@ export default function MembersPage() {
           </TableBody>
         </Table>
       </div>
-      <footer className="w-full text-xs text-gray-500 text-center mt-8 pb-4">
-        AI 電話番 V1.8.0.4 | Copyright © 2025 Enginee Co., Ltd , All Rights Reserved | AI 電話番
-      </footer>
     </div>
   );
 } 

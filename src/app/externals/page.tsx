@@ -77,10 +77,10 @@ export default function ExternalsPage() {
 
   return (
     <div className={LAYOUT_STYLES.container}>
-      <h1 className={LAYOUT_STYLES.pageTitle} style={{ color: COLORS.primary }}>
+      <h1 className={LAYOUT_STYLES.pageTitle} style={{ color: COLORS.primary, marginBottom: 12 }}>
         社外名簿
       </h1>
-      <Card className="p-8" style={{ borderColor: COLORS.border }}>
+      <Card className="p-8" style={{ borderColor: COLORS.border, marginTop: 0 }}>
         <div className="flex mb-4 gap-2">
           <Button style={{ background: '#FFE066', color: '#333' }} onClick={() => router.push('/externals/new')}>
             ＋新規作成

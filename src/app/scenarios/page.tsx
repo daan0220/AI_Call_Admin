@@ -136,12 +136,12 @@ export default function ScenariosPage() {
 
   return (
     <div className={LAYOUT_STYLES.container}>
-      <div className="flex justify-between items-center mb-4">
-        <h1 className={LAYOUT_STYLES.pageTitle} style={{ color: COLORS.primary }}>
+      <div className="flex justify-between items-center mb-3">
+        <h1 className={LAYOUT_STYLES.pageTitle} style={{ color: COLORS.primary, marginBottom: 0 }}>
           シナリオ
         </h1>
       </div>
-      <Card className="p-8" style={{ borderColor: COLORS.border }}>
+      <Card className="p-8" style={{ borderColor: COLORS.border, marginTop: 0 }}>
         <div className="flex mb-4 gap-2">
           <Button style={{ background: '#FFE066', color: '#333' }} onClick={() => router.push('/scenarios/new')}>
             ＋新規作成
@@ -165,9 +165,6 @@ export default function ScenariosPage() {
         </div>
         <ScenarioTable data={scenarios} />
       </Card>
-      <footer className="w-full text-xs text-gray-500 text-center mt-8 pb-4">
-        AI 電話番 V1.8.0.4 | Copyright © 2025 Enginee Co., Ltd , All Rights Reserved | AI 電話番
-      </footer>
     </div>
   );
 } 

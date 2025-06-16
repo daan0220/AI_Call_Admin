@@ -74,10 +74,10 @@ export default function BillingPage() {
 
   return (
     <div className={LAYOUT_STYLES.container}>
-      <h1 className={LAYOUT_STYLES.pageTitle} style={{ color: COLORS.primary }}>
+      <h1 className={LAYOUT_STYLES.pageTitle} style={{ color: COLORS.primary, marginBottom: 12 }}>
         ご請求
       </h1>
-      <Card className="p-8" style={{ borderColor: COLORS.border }}>
+      <Card className="p-8" style={{ borderColor: COLORS.border, marginTop: 0 }}>
         <div className="mb-6">
           <span className="block text-base font-semibold mb-2" style={{ color: COLORS.primary }}>
             最新のご利用基本情報

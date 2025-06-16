@@ -65,10 +65,10 @@ export default function LogsPage() {
 
   return (
     <div className={LAYOUT_STYLES.container}>
-      <h1 className={LAYOUT_STYLES.pageTitle} style={{ color: COLORS.primary }}>
+      <h1 className={LAYOUT_STYLES.pageTitle} style={{ color: COLORS.primary, marginBottom: 12 }}>
         通話履歴
       </h1>
-      <Card className="p-8" style={{ borderColor: COLORS.border }}>
+      <Card className="p-8" style={{ borderColor: COLORS.border, marginTop: 0 }}>
         <div className="flex mb-4 gap-2">
           <Input
             placeholder="キーワード"
