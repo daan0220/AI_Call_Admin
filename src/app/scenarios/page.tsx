@@ -143,13 +143,13 @@ export default function ScenariosPage() {
       </div>
       <Card className="p-8" style={{ borderColor: COLORS.border }}>
         <div className="flex mb-4 gap-2">
-          <Button style={{ background: COLORS.primary }} onClick={() => router.push('/scenarios/new')}>
+          <Button style={{ background: '#FFE066', color: '#333' }} onClick={() => router.push('/scenarios/new')}>
             ＋新規作成
           </Button>
           <CsvImportDialog
             open={importOpen}
             onOpenChange={setImportOpen}
-            trigger={<Button className="rounded px-4 py-2" style={{ background: '#5B7FFF', color: '#fff' }}>＋インポート</Button>}
+            trigger={<Button className="rounded px-4 py-2" style={{ background: '#FFE066', color: '#333' }}>＋インポート</Button>}
             title="シナリオインポート"
             description={<><span className="text-[#5B7FFF] font-bold">.scenarioファイルをドラッグ＆ドロップまたは選択してください。</span><br />インポート後、シナリオ一覧に追加されます。</>}
             templateLabel=".scenarioテンプレートをダウンロード"

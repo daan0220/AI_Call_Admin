@@ -46,7 +46,7 @@ export function Topbar() {
                 <Avatar style={{ background: '#5B7FFF', width: 32, height: 32 }}>
                   <AvatarFallback style={{ background: '#5B7FFF', color: '#fff' }}>MA</AvatarFallback>
                 </Avatar>
-                <span className="font-semibold text-[#5B7FFF] text-base">安藤　太紀様</span>
+                <span className="font-semibold text-[#222] text-base">安藤　太紀様</span>
                 <ChevronDown className="h-5 w-5 text-[#5B7FFF]" />
               </Button>
             </DropdownMenuTrigger>

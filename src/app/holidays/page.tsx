@@ -83,7 +83,7 @@ export default function HolidaysPage() {
       </h1>
       <Card className="p-8" style={{ borderColor: COLORS.border }}>
         <div className="flex mb-4 gap-2">
-          <Button style={{ background: COLORS.primary }}>
+          <Button style={{ background: '#FFE066', color: '#333' }}>
             ＋新規作成
           </Button>
         </div>

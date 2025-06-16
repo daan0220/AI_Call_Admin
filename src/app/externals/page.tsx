@@ -84,13 +84,13 @@ export default function ExternalsPage() {
       </h1>
       <Card className="p-8" style={{ borderColor: COLORS.border }}>
         <div className="flex mb-4 gap-2">
-          <Button style={{ background: COLORS.primary }} onClick={() => router.push('/externals/new')}>
+          <Button style={{ background: '#FFE066', color: '#333' }} onClick={() => router.push('/externals/new')}>
             ＋新規作成
           </Button>
           <CsvImportDialog
             open={csvDialogOpen}
             onOpenChange={setCsvDialogOpen}
-            trigger={<Button style={{ background: COLORS.primary }}>＋CSVファイルで一括作成</Button>}
+            trigger={<Button style={{ background: '#FFE066', color: '#333' }}>＋CSVファイルで一括作成</Button>}
             title="一括社外名簿新規作成"
             description={<>CSVテンプレートをダウンロードの上、名簿データを作成しアップロードしてください。<br />以下薄青色のフィールドにドラッグ＆ドロップ後、インポートボタンを押すことで、社外名簿を反映することができます。</>}
             templateLabel="CSVテンプレートをダウンロード"

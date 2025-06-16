@@ -7,12 +7,6 @@ import { Separator } from '@/components/ui/separator';
 export default function HomePage() {
   return (
     <div className="container mx-auto py-10 px-4">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2" style={{ color: COLORS.primary }}>ホーム</h1>
-        <div className="text-gray-500 text-base mb-2">AI 電話番管理ダッシュボードへようこそ</div>
-        <Separator className="my-2 bg-[#5B7FFF] h-1 w-16 rounded" />
-      </div>
-
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 mb-10">
         {stats.map((stat) => (
           <StatCard key={stat.title} {...stat} />

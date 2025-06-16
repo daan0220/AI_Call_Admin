@@ -52,7 +52,7 @@ export function Sidebar({ menuItems = defaultMenuItems }: SidebarProps) {
 
   const NavContent = () => (
     <ScrollArea className="h-full py-1">
-      <nav className="grid gap-1 px-2">
+      <nav className="grid gap-3 px-2">
         {menuItems.map((item) => {
           const Icon = item.icon;
           const isActive = pathname === item.href;
@@ -62,15 +62,25 @@ export function Sidebar({ menuItems = defaultMenuItems }: SidebarProps) {
               href={item.href}
               onClick={() => setSidebarTransition(true)}
               className={cn(
-                "flex items-center gap-5 rounded-lg px-3 py-4 text-base font-medium transition-all",
+                "flex items-center gap-5 rounded-lg px-4 py-4 text-base font-bold transition-all font-sans",
                 collapsed ? "justify-center px-2" : "",
                 isActive
-                  ? "bg-[#5B7FFF] text-white"
-                  : "hover:bg-[#EEF4FF] hover:text-[#5B7FFF] text-[#222]"
+                  ? "bg-gradient-to-r from-[#5B7FFF] to-[#7C8BFF] text-[#F5F7FA] shadow-lg"
+                  : "hover:bg-[#EEF4FF] hover:text-[#5B7FFF] text-[#6B687A]"
               )}
-              style={isActive ? { boxShadow: "0 0 0 2px #5B7FFF inset" } : {}}
+              style={isActive ? {
+                boxShadow: "0 4px 24px 0 #7C8BFF44",
+                letterSpacing: '0.04em',
+                fontWeight: 700,
+                fontFamily: '"Noto Sans JP", "Meiryo", sans-serif',
+                filter: 'drop-shadow(0 2px 8px #7C8BFF33)'
+              } : {
+                letterSpacing: '0.04em',
+                fontWeight: 700,
+                fontFamily: '"Noto Sans JP", "Meiryo", sans-serif'
+              }}
             >
-              <Icon className="h-4 w-4" />
+              <Icon className="h-5 w-5" />
               {!collapsed && item.label}
             </Link>
           );
@@ -88,7 +98,7 @@ export function Sidebar({ menuItems = defaultMenuItems }: SidebarProps) {
             <Menu className="h-6 w-6" />
           </Button>
         </SheetTrigger>
-        <SheetContent side="left" className="w-[240px] p-0" style={{ background: '#EEF4FF' }}>
+        <SheetContent side="left" className="w-[264px] p-0" style={{ background: '#EEF4FF' }}>
           <NavContent />
         </SheetContent>
       </Sheet>
@@ -96,7 +106,7 @@ export function Sidebar({ menuItems = defaultMenuItems }: SidebarProps) {
       {/* デスクトップ用固定サイドバー */}
       <aside
         className={
-          `hidden md:flex flex-col border-r h-screen transition-all duration-300 ${collapsed ? 'w-[64px]' : 'w-[240px]'}`
+          `hidden md:flex flex-col border-r h-screen transition-all duration-300 ${collapsed ? 'w-[64px]' : 'w-[264px]'}`
         }
         style={{ background: '#EEF4FF' }}
       >
