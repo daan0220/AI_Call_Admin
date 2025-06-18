@@ -2,60 +2,11 @@
 
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { LAYOUT_STYLES, COLORS, TABLE_STYLES } from "@/constants/styles";
-import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
-import { ClickableTableRow } from '@/components/ClickableTableRow';
+import { LAYOUT_STYLES, COLORS } from "@/constants/styles";
+import { ExternalContactTable, ExternalContact } from '@/components/externals/ExternalContactTable';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { CsvImportDialog } from '@/components/CsvImportDialog';
-
-interface ExternalContact {
-  name: string;
-  phoneNumber: string;
-  company: string;
-  department: string;
-  action: string;
-}
-
-interface ExternalContactTableProps {
-  data: ExternalContact[];
-}
-
-function ExternalContactTable({ data }: ExternalContactTableProps) {
-  return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">名前</TableHead>
-          <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">電話番号</TableHead>
-          <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">会社名</TableHead>
-          <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">部門名</TableHead>
-          <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">着信時の動作</TableHead>
-          <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">操作</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {data.map((contact, index) => (
-          <ClickableTableRow key={index} href="/externals/1">
-            <TableCell className={TABLE_STYLES.cell}>{contact.name}</TableCell>
-            <TableCell className={TABLE_STYLES.cell}>{contact.phoneNumber}</TableCell>
-            <TableCell className={TABLE_STYLES.cell}>{contact.company}</TableCell>
-            <TableCell className={TABLE_STYLES.cell}>{contact.department}</TableCell>
-            <TableCell className={TABLE_STYLES.cell}>{contact.action}</TableCell>
-            <TableCell className={TABLE_STYLES.cell}>
-              <Button
-                size="sm"
-                style={{ background: COLORS.primary }}
-              >
-                編集
-              </Button>
-            </TableCell>
-          </ClickableTableRow>
-        ))}
-      </TableBody>
-    </Table>
-  );
-}
 
 export default function ExternalsPage() {
   const contacts: ExternalContact[] = [
@@ -64,7 +15,6 @@ export default function ExternalsPage() {
       phoneNumber: "-",
       company: "-",
       department: "-",
-      action: "-",
     },
   ];
   

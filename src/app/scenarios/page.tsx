@@ -73,10 +73,9 @@ function ScenarioTable({ data }: ScenarioTableProps) {
                     </DialogTrigger>
                     <DialogContent className="max-w-md rounded-xl p-0 overflow-hidden">
                       <div className="relative">
-                        <DialogHeader className="bg-[#7C6CF6] px-6 py-4 flex justify-center items-center">
+                        <DialogHeader className="bg-[#5B7FFF] px-6 py-4 flex justify-center items-center">
                           <DialogTitle className="text-white text-center text-lg w-full">シナリオコピー</DialogTitle>
                           <DialogClose asChild>
-                            <button className="absolute right-4 top-4 text-white text-2xl leading-none">×</button>
                           </DialogClose>
                         </DialogHeader>
                         <div className="px-8 py-12 text-center text-base text-[#666]">
@@ -93,7 +92,7 @@ function ScenarioTable({ data }: ScenarioTableProps) {
                             <Button variant="outline" className="w-32">キャンセル</Button>
                           </DialogClose>
                           <DialogClose asChild>
-                            <Button style={{ background: '#7C6CF6' }} className="w-32 text-white">コピー</Button>
+                            <Button style={{ background: '#5B7FFF' }} className="w-32 text-white">コピー</Button>
                           </DialogClose>
                         </div>
                       </div>

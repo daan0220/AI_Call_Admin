@@ -10,6 +10,7 @@ import ReactFlow, { ReactFlowProvider, Background, Controls, MiniMap, ReactFlowI
 import 'reactflow/dist/style.css';
 import type { NodeProps } from 'reactflow';
 import { ChevronLeft } from "lucide-react";
+import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 
 const initialScenario = {
   company: "株式会社サンプル",
@@ -98,26 +99,50 @@ export default function ScenarioEditPage() {
           </Button>
           <h1 className={LAYOUT_STYLES.pageTitle} style={{ color: COLORS.primary, marginBottom: 12 }}>シナリオ編集</h1>
         </div>
-        <Card className="p-6 md:p-8 mb-8 relative" style={{ borderColor: COLORS.border, background: '#F5F8FF' }}>
+        <Card className="p-6 md:p-8 mb-8 relative" style={{ borderColor: COLORS.border}}>
           <div className="flex justify-between items-center mb-4">
             <span className="text-lg font-semibold" style={{ color: COLORS.primary }}>基本設定</span>
           </div>
           <div className="overflow-x-auto">
-            <table className="w-full text-sm bg-white rounded-xl border" style={{ borderColor: COLORS.border }}>
-              <tbody>
-                <tr><td className="py-2 px-4 w-48 text-gray-600">会社名</td><td className="py-2 px-4"><Input value={scenario.company} onChange={e => setScenario(s => ({ ...s, company: e.target.value }))} /></td></tr>
-                <tr><td className="py-2 px-4 text-gray-600">相手の名前</td><td className="py-2 px-4"><Input value={scenario.callerName} onChange={e => setScenario(s => ({ ...s, callerName: e.target.value }))} /></td></tr>
-                <tr><td className="py-2 px-4 text-gray-600">担当者</td><td className="py-2 px-4"><Input value={scenario.staff} onChange={e => setScenario(s => ({ ...s, staff: e.target.value }))} /></td></tr>
-                <tr><td className="py-2 px-4 text-gray-600">要件</td><td className="py-2 px-4"><Input value={scenario.purpose} onChange={e => setScenario(s => ({ ...s, purpose: e.target.value }))} /></td></tr>
-                <tr><td className="py-2 px-4 text-gray-600">折り返し希望</td><td className="py-2 px-4"><Switch checked={scenario.callback} onCheckedChange={v => setScenario(s => ({ ...s, callback: v }))} /></td></tr>
-                <tr><td className="py-2 px-4 text-gray-600">折り返し先電話番号</td><td className="py-2 px-4"><Input value={scenario.callbackNumber} onChange={e => setScenario(s => ({ ...s, callbackNumber: e.target.value }))} /></td></tr>
-                <tr><td className="py-2 px-4 text-gray-600">AI電話番号</td><td className="py-2 px-4"><Input value={scenario.aiNumber} onChange={e => setScenario(s => ({ ...s, aiNumber: e.target.value }))} /></td></tr>
-                <tr><td className="py-2 px-4 text-gray-600">作成日</td><td className="py-2 px-4"><Input value={scenario.createdAt} onChange={e => setScenario(s => ({ ...s, createdAt: e.target.value }))} /></td></tr>
-              </tbody>
-            </table>
+            <Table className="w-full text-sm bg-white rounded-xl border" style={{ borderColor: COLORS.border }}>
+              <TableBody>
+                <TableRow>
+                  <TableCell className="py-2 px-4 w-48 bg-[#F5F6FB] text-gray-600 font-semibold">会社名</TableCell>
+                  <TableCell className="py-2 px-4"><Input value={scenario.company} onChange={e => setScenario(s => ({ ...s, company: e.target.value }))} /></TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="py-2 px-4 bg-[#F5F6FB] text-gray-600 font-semibold">相手の名前</TableCell>
+                  <TableCell className="py-2 px-4"><Input value={scenario.callerName} onChange={e => setScenario(s => ({ ...s, callerName: e.target.value }))} /></TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="py-2 px-4 bg-[#F5F6FB] text-gray-600 font-semibold">担当者</TableCell>
+                  <TableCell className="py-2 px-4"><Input value={scenario.staff} onChange={e => setScenario(s => ({ ...s, staff: e.target.value }))} /></TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="py-2 px-4 bg-[#F5F6FB] text-gray-600 font-semibold">要件</TableCell>
+                  <TableCell className="py-2 px-4"><Input value={scenario.purpose} onChange={e => setScenario(s => ({ ...s, purpose: e.target.value }))} /></TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="py-2 px-4 bg-[#F5F6FB] text-gray-600 font-semibold">折り返し希望</TableCell>
+                  <TableCell className="py-2 px-4"><Switch checked={scenario.callback} onCheckedChange={v => setScenario(s => ({ ...s, callback: v }))} /></TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="py-2 px-4 bg-[#F5F6FB] text-gray-600 font-semibold">折り返し先電話番号</TableCell>
+                  <TableCell className="py-2 px-4"><Input value={scenario.callbackNumber} onChange={e => setScenario(s => ({ ...s, callbackNumber: e.target.value }))} /></TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="py-2 px-4 bg-[#F5F6FB] text-gray-600 font-semibold">AI電話番号</TableCell>
+                  <TableCell className="py-2 px-4"><Input value={scenario.aiNumber} onChange={e => setScenario(s => ({ ...s, aiNumber: e.target.value }))} /></TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="py-2 px-4 bg-[#F5F6FB] text-gray-600 font-semibold">作成日</TableCell>
+                  <TableCell className="py-2 px-4"><Input value={scenario.createdAt} onChange={e => setScenario(s => ({ ...s, createdAt: e.target.value }))} /></TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
           </div>
         </Card>
-        <Card className="p-6 md:p-8 mb-8" style={{ borderColor: COLORS.border, background: '#F5F8FF' }}>
+        <Card className="p-6 md:p-8 mb-8" style={{ borderColor: COLORS.border}}>
           <div className="flex items-center mb-2">
             <span className="text-lg font-semibold mr-2" style={{ color: COLORS.primary }}>会話詳細フロー</span>
           </div>
