@@ -9,6 +9,8 @@ import { ChevronLeft } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { useState } from "react";
+import { EntityDetailActions } from '@/components/common/EntityDetailActions';
+import { DeleteEntityDialog } from '@/components/common/DeleteEntityDialog';
 // 仮データ（実際はAPIやpropsで取得）
 const demoDetail = {
   id: "187",
@@ -31,9 +33,24 @@ const demoDetail = {
   ]
 };
 
+function PhoneNumberDetailTable({ phone }: { phone: typeof demoDetail }) {
+  return (
+    <Table className="text-base bg-white rounded-xl border mb-8" style={{ borderColor: '#E0E0F0' }}>
+      <TableBody>
+        <TableRow><TableCell className="py-2 px-4 w-48 text-gray-600 bg-[#F5F6FB]">電話番号ID</TableCell><TableCell className="py-2 px-4">{phone.id}</TableCell></TableRow>
+        <TableRow><TableCell className="py-2 px-4 text-gray-600 bg-[#F5F6FB]">ステータス</TableCell><TableCell className="py-2 px-4">{phone.status}</TableCell></TableRow>
+        <TableRow><TableCell className="py-2 px-4 text-gray-600 bg-[#F5F6FB]">電話番号</TableCell><TableCell className="py-2 px-4">{phone.number}</TableCell></TableRow>
+        <TableRow><TableCell className="py-2 px-4 text-gray-600 bg-[#F5F6FB]">利用料金</TableCell><TableCell className="py-2 px-4"><span dangerouslySetInnerHTML={{__html: phone.fee}} /></TableCell></TableRow>
+        <TableRow><TableCell className="py-2 px-4 text-gray-600 bg-[#F5F6FB]">申請者</TableCell><TableCell className="py-2 px-4">{phone.applicant}</TableCell></TableRow>
+        <TableRow><TableCell className="py-2 px-4 text-gray-600 bg-[#F5F6FB]">申請日</TableCell><TableCell className="py-2 px-4">{phone.appliedAt}</TableCell></TableRow>
+        <TableRow><TableCell className="py-2 px-4 text-gray-600 bg-[#F5F6FB]">契約開始日</TableCell><TableCell className="py-2 px-4">{phone.contractStart}</TableCell></TableRow>
+      </TableBody>
+    </Table>
+  );
+}
+
 export default function NumberDetailPage() {
   const router = useRouter();
-  // 本来はidでAPI取得
   const detail = useMemo(() => demoDetail, []);
   const [editMode, setEditMode] = useState(false);
   const [editDetail, setEditDetail] = useState({
@@ -44,30 +61,28 @@ export default function NumberDetailPage() {
     inAction: detail.inAction,
     outAction: detail.outAction,
   });
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const handleEdit = () => {/* 編集ページ遷移 */};
+  const handleDelete = () => setDeleteDialogOpen(true);
+  const handleDeleteConfirm = () => { setDeleteDialogOpen(false); router.back(); };
 
   return (
     <div className={LAYOUT_STYLES.container}>
-        <div className="flex items-center mb-4">
-          <Button variant="ghost" size="icon" onClick={() => router.back()} className="mr-2">
-            <ChevronLeft className="w-6 h-6" />
-          </Button>
-          <h1 className={LAYOUT_STYLES.pageTitle} style={{ color: COLORS.primary, marginBottom: 12 }}>
-            デモ利用中電話 {detail.number} 詳細
-          </h1>
-        </div>
+      <div className="flex items-center mb-4">
+        <Button variant="ghost" size="icon" onClick={() => router.back()} className="mr-2">
+          <ChevronLeft className="w-6 h-6" />
+        </Button>
+        <h1 className={LAYOUT_STYLES.pageTitle} style={{ color: COLORS.primary, marginBottom: 12 }}>
+          デモ利用中電話 {detail.number} 詳細
+        </h1>
+      </div>
       <Card className="p-8" style={{ borderColor: COLORS.border, marginTop: 0 }}>
-        <h2 className="text-xl font-bold mb-4" style={{ color: '#3B3172' }}>基本情報</h2>
-        <Table className="text-base bg-white rounded-xl border mb-8" style={{ borderColor: '#E0E0F0' }}>
-          <TableBody>
-            <TableRow><TableCell className="py-2 px-4 w-48 text-gray-600 bg-[#F5F6FB]">電話番号ID</TableCell><TableCell className="py-2 px-4">{detail.id}</TableCell></TableRow>
-            <TableRow><TableCell className="py-2 px-4 text-gray-600 bg-[#F5F6FB]">ステータス</TableCell><TableCell className="py-2 px-4">{detail.status}</TableCell></TableRow>
-            <TableRow><TableCell className="py-2 px-4 text-gray-600 bg-[#F5F6FB]">電話番号</TableCell><TableCell className="py-2 px-4">{detail.number}</TableCell></TableRow>
-            <TableRow><TableCell className="py-2 px-4 text-gray-600 bg-[#F5F6FB]">利用料金</TableCell><TableCell className="py-2 px-4"><span dangerouslySetInnerHTML={{__html: detail.fee}} /></TableCell></TableRow>
-            <TableRow><TableCell className="py-2 px-4 text-gray-600 bg-[#F5F6FB]">申請者</TableCell><TableCell className="py-2 px-4">{detail.applicant}</TableCell></TableRow>
-            <TableRow><TableCell className="py-2 px-4 text-gray-600 bg-[#F5F6FB]">申請日</TableCell><TableCell className="py-2 px-4">{detail.appliedAt}</TableCell></TableRow>
-            <TableRow><TableCell className="py-2 px-4 text-gray-600 bg-[#F5F6FB]">契約開始日</TableCell><TableCell className="py-2 px-4">{detail.contractStart}</TableCell></TableRow>
-          </TableBody>
-        </Table>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-bold" style={{ color: '#3B3172' }}>基本情報</h2>
+          <EntityDetailActions onEdit={handleEdit} onDelete={handleDelete} />
+        </div>
+        <PhoneNumberDetailTable phone={detail} />
+        <DeleteEntityDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen} entityName={detail.number} onDelete={handleDeleteConfirm} onCancel={() => setDeleteDialogOpen(false)} />
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-bold" style={{ color: '#3B3172' }}>稼働時間・シナリオ設定</h2>
           {editMode ? (

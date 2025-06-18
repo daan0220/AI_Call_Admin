@@ -10,17 +10,18 @@ import 'reactflow/dist/style.css';
 import { useState, useRef } from "react";
 import type { ReactFlowInstance } from 'reactflow';
 import type { NodeProps } from 'reactflow';
+import { EntityDetailActions } from '@/components/common/EntityDetailActions';
+import { DeleteEntityDialog } from '@/components/common/DeleteEntityDialog';
 
-// 仮データ（実際はAPIやpropsで取得）
-const scenario = {
-  company: "株式会社サンプル",
-  callerName: "山田 太郎",
-  staff: "佐藤 花子",
-  purpose: "契約内容の確認",
-  callback: true,
-  callbackNumber: "09012345678",
-  aiNumber: "05053690814",
-  createdAt: "2025-06-15 23:05:00",
+type Scenario = {
+  company: string;
+  callerName: string;
+  staff: string;
+  purpose: string;
+  callback: boolean;
+  callbackNumber: string;
+  aiNumber: string;
+  createdAt: string;
 };
 
 // カスタムノード
@@ -72,10 +73,39 @@ const flowEdges = [
   { id: 'e8-10', source: '8', target: '10', type: 'step', label: '聞き取れない' },
 ];
 
+function ScenarioDetailTable({ scenario }: { scenario: Scenario }) {
+  return (
+    <table className="w-full text-sm bg-white rounded-xl border" style={{ borderColor: COLORS.border }}>
+      <tbody>
+        <tr className="border-b"><td className="py-2 px-4 w-48 text-gray-600">会社名</td><td className="py-2 px-4">{scenario.company}</td></tr>
+        <tr className="border-b"><td className="py-2 px-4 text-gray-600">相手の名前</td><td className="py-2 px-4">{scenario.callerName}</td></tr>
+        <tr className="border-b"><td className="py-2 px-4 text-gray-600">担当者</td><td className="py-2 px-4">{scenario.staff}</td></tr>
+        <tr className="border-b"><td className="py-2 px-4 text-gray-600">要件</td><td className="py-2 px-4">{scenario.purpose}</td></tr>
+        <tr className="border-b"><td className="py-2 px-4 text-gray-600">折り返し希望</td><td className="py-2 px-4">{scenario.callback ? 'はい' : 'いいえ'}</td></tr>
+        <tr className="border-b"><td className="py-2 px-4 text-gray-600">折り返し先電話番号</td><td className="py-2 px-4">{scenario.callback ? scenario.callbackNumber : '-'}</td></tr>
+        <tr className="border-b"><td className="py-2 px-4 text-gray-600">AI電話番号</td><td className="py-2 px-4">{scenario.aiNumber}</td></tr>
+        <tr><td className="py-2 px-4 text-gray-600">作成日</td><td className="py-2 px-4">{scenario.createdAt}</td></tr>
+      </tbody>
+    </table>
+  );
+}
+
+const scenarioData: Scenario = {
+  company: "株式会社サンプル",
+  callerName: "山田 太郎",
+  staff: "佐藤 花子",
+  purpose: "契約内容の確認",
+  callback: true,
+  callbackNumber: "09012345678",
+  aiNumber: "05053690814",
+  createdAt: "2025-06-15 23:05:00",
+};
+
 export default function ScenarioDetailPage() {
   const router = useRouter();
   const [zoom, setZoom] = useState(1);
   const reactFlowInstanceRef = useRef<ReactFlowInstance | null>(null);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
   const handleZoomIn = () => {
     if (reactFlowInstanceRef.current) {
@@ -92,62 +122,56 @@ export default function ScenarioDetailPage() {
     }
   };
 
+  const handleEdit = () => { router.push(`/scenarios/1/edit`); };
+  const handleDelete = () => setDeleteDialogOpen(true);
+  const handleDeleteConfirm = () => { setDeleteDialogOpen(false); router.back(); };
+
   return (
     <ReactFlowProvider>
     <div className={LAYOUT_STYLES.container}>
       <div className="flex items-center mb-4">
-          <Button variant="ghost" size="icon" onClick={() => router.back()} className="mr-2">
-            <ChevronLeft className="w-6 h-6" />
-          </Button>
-          <h1 className={LAYOUT_STYLES.pageTitle} style={{ color: COLORS.primary, marginBottom: 12 }}>シナリオ詳細</h1>
-        </div>
-        <Card className="p-6 md:p-8 mb-8 relative" style={{ borderColor: COLORS.border}}>
-          <div className="flex justify-between items-center mb-4">
-            <span className="text-lg font-semibold" style={{ color: COLORS.primary }}>基本設定</span>
-            <Button style={{ background: COLORS.primary }} className="px-6" onClick={() => router.push(`/scenarios/${1}/edit`)}>編集</Button>
-          </div>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm bg-white rounded-xl border" style={{ borderColor: COLORS.border }}>
-              <tbody>
-                <tr className="border-b"><td className="py-2 px-4 w-48 text-gray-600">会社名</td><td className="py-2 px-4">{scenario.company}</td></tr>
-                <tr className="border-b"><td className="py-2 px-4 text-gray-600">相手の名前</td><td className="py-2 px-4">{scenario.callerName}</td></tr>
-                <tr className="border-b"><td className="py-2 px-4 text-gray-600">担当者</td><td className="py-2 px-4">{scenario.staff}</td></tr>
-                <tr className="border-b"><td className="py-2 px-4 text-gray-600">要件</td><td className="py-2 px-4">{scenario.purpose}</td></tr>
-                <tr className="border-b"><td className="py-2 px-4 text-gray-600">折り返し希望</td><td className="py-2 px-4">{scenario.callback ? 'はい' : 'いいえ'}</td></tr>
-                <tr className="border-b"><td className="py-2 px-4 text-gray-600">折り返し先電話番号</td><td className="py-2 px-4">{scenario.callback ? scenario.callbackNumber : '-'}</td></tr>
-                <tr className="border-b"><td className="py-2 px-4 text-gray-600">AI電話番号</td><td className="py-2 px-4">{scenario.aiNumber}</td></tr>
-                <tr><td className="py-2 px-4 text-gray-600">作成日</td><td className="py-2 px-4">{scenario.createdAt}</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </Card>
-        <Card className="p-6 md:p-8 mb-8" style={{ borderColor: COLORS.border}}>
-          <div className="flex items-center mb-2">
-            <span className="text-lg font-semibold mr-2" style={{ color: COLORS.primary }}>会話詳細フロー</span>
-            <Button variant="outline" size="icon" className="mr-2" onClick={handleZoomIn} style={{ borderColor: COLORS.primary, color: COLORS.primary }}><ZoomIn className="w-5 h-5" /></Button>
-            <Button variant="outline" size="icon" onClick={handleZoomOut} style={{ borderColor: COLORS.primary, color: COLORS.primary }}><ZoomOut className="w-5 h-5" /></Button>
-          </div>
-          <div className="bg-[#EEF4FF] border rounded-xl h-[400px] w-full overflow-auto" style={{ borderColor: COLORS.border }}>
-            <ReactFlow
-              nodes={flowNodes}
-              edges={flowEdges}
-              nodeTypes={nodeTypes}
-              fitView
-              zoomOnScroll={false}
-              zoomOnPinch={false}
-              panOnScroll
-              minZoom={0.4}
-              maxZoom={2}
-              style={{ width: '100%', height: 360, background: '#EEF4FF' }}
-              onInit={instance => { reactFlowInstanceRef.current = instance; }}
-            >
-              <Background gap={24} size={2} color="#C7BFFF" />
-              <MiniMap />
-              <Controls showInteractive={false} />
-            </ReactFlow>
-          </div>
-        </Card>
+        <Button variant="ghost" size="icon" onClick={() => router.back()} className="mr-2">
+          <ChevronLeft className="w-6 h-6" />
+        </Button>
+        <h1 className={LAYOUT_STYLES.pageTitle} style={{ color: COLORS.primary, marginBottom: 12 }}>シナリオ詳細</h1>
       </div>
+      <Card className="p-6 md:p-8 mb-8 relative" style={{ borderColor: COLORS.border}}>
+        <div className="flex justify-between items-center mb-4">
+          <span className="text-lg font-semibold" style={{ color: COLORS.primary }}>基本設定</span>
+          <EntityDetailActions onEdit={handleEdit} onDelete={handleDelete} />
+        </div>
+        <div className="overflow-x-auto">
+          <ScenarioDetailTable scenario={scenarioData} />
+        </div>
+        <DeleteEntityDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen} entityName={scenarioData.company} onDelete={handleDeleteConfirm} onCancel={() => setDeleteDialogOpen(false)} />
+      </Card>
+      <Card className="p-6 md:p-8 mb-8" style={{ borderColor: COLORS.border}}>
+        <div className="flex items-center mb-2">
+          <span className="text-lg font-semibold mr-2" style={{ color: COLORS.primary }}>会話詳細フロー</span>
+          <Button variant="outline" size="icon" className="mr-2" onClick={handleZoomIn} style={{ borderColor: COLORS.primary, color: COLORS.primary }}><ZoomIn className="w-5 h-5" /></Button>
+          <Button variant="outline" size="icon" onClick={handleZoomOut} style={{ borderColor: COLORS.primary, color: COLORS.primary }}><ZoomOut className="w-5 h-5" /></Button>
+        </div>
+        <div className="bg-[#EEF4FF] border rounded-xl h-[400px] w-full overflow-auto" style={{ borderColor: COLORS.border }}>
+          <ReactFlow
+            nodes={flowNodes}
+            edges={flowEdges}
+            nodeTypes={nodeTypes}
+            fitView
+            zoomOnScroll={false}
+            zoomOnPinch={false}
+            panOnScroll
+            minZoom={0.4}
+            maxZoom={2}
+            style={{ width: '100%', height: 360, background: '#EEF4FF' }}
+            onInit={instance => { reactFlowInstanceRef.current = instance; }}
+          >
+            <Background gap={24} size={2} color="#C7BFFF" />
+            <MiniMap />
+            <Controls showInteractive={false} />
+          </ReactFlow>
+        </div>
+      </Card>
+    </div>
     </ReactFlowProvider>
   );
 } 

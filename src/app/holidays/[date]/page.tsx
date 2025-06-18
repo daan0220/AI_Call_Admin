@@ -6,15 +6,16 @@ import { ChevronLeft } from 'lucide-react';
 import { COLORS, LAYOUT_STYLES, TABLE_STYLES } from '@/constants/styles';
 import { Table, TableBody, TableRow, TableCell } from '@/components/ui/table';
 import { useState } from 'react';
-import { DeleteHolidayDialog } from '@/components/holidays/DeleteHolidayDialog';
-import { Holiday } from '@/components/holidays/HolidayTable';
+import { EntityDetailActions } from '@/components/common/EntityDetailActions';
+import { DeleteEntityDialog } from '@/components/common/DeleteEntityDialog';
+import { HolidayDetailTable, HolidayDetail } from '@/components/holidays/HolidayDetailTable';
 
 export default function HolidayDetailPage() {
   const router = useRouter();
   const params = useParams();
   const date = decodeURIComponent(params.date as string);
   // 仮データ（本来はAPI取得）
-  const [holiday] = useState({
+  const [holiday] = useState<HolidayDetail>({
     name: '海の日',
     date: '2025-07-21',
     dayOfWeek: '月',
@@ -50,47 +51,11 @@ export default function HolidayDetailPage() {
       <Card className="p-8" style={{ borderColor: COLORS.border, marginTop: 0 }}>
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-bold text-[#6B687A]">基本設定</h2>
-          <div className="flex gap-2">
-            <Button style={{ background: '#00CFFF', color: '#fff', fontWeight: 600 }} onClick={handleEdit}>編集</Button>
-            <Button style={{ background: '#F87171', color: '#fff', fontWeight: 600 }} onClick={handleDelete}>削除</Button>
-          </div>
+          <EntityDetailActions onEdit={handleEdit} onDelete={handleDelete} />
         </div>
-        <Table className="mb-0 text-base bg-white rounded-xl border" style={{ borderColor: COLORS.border }}>
-          <TableBody>
-            <TableRow>
-              <TableCell className="bg-[#F5F6FB] font-semibold w-64 align-middle" style={{fontWeight:600}}>祝日名 <span className="text-red-500">*</span></TableCell>
-              <TableCell className={TABLE_STYLES.cell}>{holiday.name}</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell className="bg-[#F5F6FB] font-semibold w-64 align-middle" style={{fontWeight:600}}>日付 <span className="text-red-500">*</span></TableCell>
-              <TableCell className={TABLE_STYLES.cell}>{holiday.date}</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell className="bg-[#F5F6FB] font-semibold w-64 align-middle" style={{fontWeight:600}}>曜日</TableCell>
-              <TableCell className={TABLE_STYLES.cell}>{holiday.dayOfWeek}</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell className="bg-[#F5F6FB] font-semibold w-64 align-middle" style={{fontWeight:600}}>登録日</TableCell>
-              <TableCell className={TABLE_STYLES.cell}>{holiday.createdAt}</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell className="bg-[#F5F6FB] font-semibold w-64 align-middle" style={{fontWeight:600}}>更新日</TableCell>
-              <TableCell className={TABLE_STYLES.cell}>{holiday.updatedAt}</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell className="bg-[#F5F6FB] font-semibold w-64 align-middle" style={{fontWeight:600}}>備考</TableCell>
-              <TableCell className={TABLE_STYLES.cell}>{holiday.note}</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
+        <HolidayDetailTable holiday={holiday} />
+        <DeleteEntityDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen} entityName={holiday.name} onDelete={handleDeleteConfirm} onCancel={() => setDeleteDialogOpen(false)} />
       </Card>
-      <DeleteHolidayDialog
-        open={deleteDialogOpen}
-        onOpenChange={setDeleteDialogOpen}
-        holiday={holiday as Holiday}
-        onDelete={handleDeleteConfirm}
-        onCancel={() => setDeleteDialogOpen(false)}
-      />
     </div>
   );
 } 

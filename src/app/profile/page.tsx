@@ -6,6 +6,9 @@ import { Separator } from '@/components/ui/separator';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { ArrowLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { EntityDetailActions } from '@/components/common/EntityDetailActions';
+import { DeleteEntityDialog } from '@/components/common/DeleteEntityDialog';
+import { useState } from 'react';
 
 const profile = {
   name: '安藤 太紀',
@@ -32,8 +35,33 @@ const history = [
   },
 ];
 
+function EmployeeDetailTable({ employee }: { employee: typeof profile }) {
+  return (
+    <Table className="mb-0 text-base bg-white rounded-xl border">
+      <TableBody>
+        <TableRow><TableCell className="bg-[#F5F4FF] font-semibold w-56">名前</TableCell><TableCell>{employee.name}</TableCell></TableRow>
+        <TableRow><TableCell className="bg-[#F5F4FF] font-semibold">名前（カタカナ）</TableCell><TableCell>{employee.nameKana}</TableCell></TableRow>
+        <TableRow><TableCell className="bg-[#F5F4FF] font-semibold">着信先電話番号</TableCell><TableCell>{employee.phone}</TableCell></TableRow>
+        <TableRow><TableCell className="bg-[#F5F4FF] font-semibold">メールアドレス</TableCell><TableCell>{employee.email}</TableCell></TableRow>
+        <TableRow><TableCell className="bg-[#F5F4FF] font-semibold">部署</TableCell><TableCell>{employee.department}</TableCell></TableRow>
+        <TableRow><TableCell className="bg-[#F5F4FF] font-semibold">役職</TableCell><TableCell>{employee.position}</TableCell></TableRow>
+        <TableRow><TableCell className="bg-[#F5F4FF] font-semibold">アカウント種別</TableCell><TableCell>{employee.account}</TableCell></TableRow>
+        <TableRow><TableCell className="bg-[#F5F4FF] font-semibold">全内容を専用チャットに送信</TableCell><TableCell>{employee.chatSend}</TableCell></TableRow>
+        <TableRow><TableCell className="bg-[#F5F4FF] font-semibold">全内容のメール送信</TableCell><TableCell>{employee.mailSend}</TableCell></TableRow>
+        <TableRow><TableCell className="bg-[#F5F4FF] font-semibold">ステータス</TableCell><TableCell>{employee.status}</TableCell></TableRow>
+        <TableRow><TableCell className="bg-[#F5F4FF] font-semibold">所属グループ</TableCell><TableCell>{employee.group}</TableCell></TableRow>
+        <TableRow><TableCell className="bg-[#F5F4FF] font-semibold">備考</TableCell><TableCell>{employee.note}</TableCell></TableRow>
+      </TableBody>
+    </Table>
+  );
+}
+
 export default function ProfilePage() {
   const router = useRouter();
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const handleEdit = () => {/* 編集ページ遷移 */};
+  const handleDelete = () => setDeleteDialogOpen(true);
+  const handleDeleteConfirm = () => { setDeleteDialogOpen(false); router.back(); };
   return (
     <div className="container mx-auto py-8 px-2 md:px-8">
       <div className="flex items-center gap-2 mb-6">
@@ -42,69 +70,17 @@ export default function ProfilePage() {
         </Button>
         <h1 className="text-2xl font-bold" style={{ color: '#5B7FFF' }}>社員名簿詳細</h1>
       </div>
-
       <Card className="mb-8 p-6">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-semibold" style={{ color: '#5B7FFF' }}>基本情報</h2>
-          <Button style={{ background: '#00D2FF', color: '#fff' }}>編集</Button>
+          <EntityDetailActions onEdit={handleEdit} onDelete={handleDelete} />
         </div>
         <Separator className="mb-4" />
         <div className="overflow-x-auto">
-          <Table>
-            <TableBody>
-              <TableRow>
-                <TableCell className="bg-[#F5F4FF] font-semibold w-56">名前</TableCell>
-                <TableCell>{profile.name}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="bg-[#F5F4FF] font-semibold">名前（カタカナ）</TableCell>
-                <TableCell>{profile.nameKana}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="bg-[#F5F4FF] font-semibold">着信先電話番号</TableCell>
-                <TableCell>{profile.phone}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="bg-[#F5F4FF] font-semibold">メールアドレス</TableCell>
-                <TableCell>{profile.email}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="bg-[#F5F4FF] font-semibold">部署</TableCell>
-                <TableCell>{profile.department}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="bg-[#F5F4FF] font-semibold">役職</TableCell>
-                <TableCell>{profile.position}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="bg-[#F5F4FF] font-semibold">アカウント種別</TableCell>
-                <TableCell>{profile.account}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="bg-[#F5F4FF] font-semibold">全内容を専用チャットに送信</TableCell>
-                <TableCell>{profile.chatSend}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="bg-[#F5F4FF] font-semibold">全内容のメール送信</TableCell>
-                <TableCell>{profile.mailSend}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="bg-[#F5F4FF] font-semibold">ステータス</TableCell>
-                <TableCell>{profile.status}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="bg-[#F5F4FF] font-semibold">所属グループ</TableCell>
-                <TableCell>{profile.group}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="bg-[#F5F4FF] font-semibold">備考</TableCell>
-                <TableCell>{profile.note}</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
+          <EmployeeDetailTable employee={profile} />
         </div>
+        <DeleteEntityDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen} entityName={profile.name} onDelete={handleDeleteConfirm} onCancel={() => setDeleteDialogOpen(false)} />
       </Card>
-
       <Card className="p-6">
         <h2 className="text-lg font-semibold mb-4" style={{ color: '#5B7FFF' }}>作成履歴</h2>
         <div className="overflow-x-auto">
