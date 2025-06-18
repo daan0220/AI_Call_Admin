@@ -7,6 +7,7 @@ import { ExternalContactTable, ExternalContact } from '@/components/externals/Ex
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { CsvImportDialog } from '@/components/CsvImportDialog';
+import { EXTERNALS_LIST_TEXTS } from '@/constants/texts';
 
 export default function ExternalsPage() {
   const contacts: ExternalContact[] = [
@@ -28,17 +29,17 @@ export default function ExternalsPage() {
   return (
     <div className={LAYOUT_STYLES.container}>
       <h1 className={LAYOUT_STYLES.pageTitle} style={{ color: COLORS.primary, marginBottom: 12 }}>
-        社外名簿
+        {EXTERNALS_LIST_TEXTS.pageTitle}
       </h1>
       <Card className="p-8" style={{ borderColor: COLORS.border, marginTop: 0 }}>
         <div className="flex mb-4 gap-2">
           <Button style={{ background: '#FFE066', color: '#333' }} onClick={() => router.push('/externals/new')}>
-            ＋新規作成
+            {EXTERNALS_LIST_TEXTS.newButton}
           </Button>
           <CsvImportDialog
             open={csvDialogOpen}
             onOpenChange={setCsvDialogOpen}
-            trigger={<Button style={{ background: '#FFE066', color: '#333' }}>＋CSVファイルで一括作成</Button>}
+            trigger={<Button style={{ background: '#FFE066', color: '#333' }}>{EXTERNALS_LIST_TEXTS.csvCreate}</Button>}
             title="一括社外名簿新規作成"
             description={<>CSVテンプレートをダウンロードの上、名簿データを作成しアップロードしてください。<br />以下薄青色のフィールドにドラッグ＆ドロップ後、インポートボタンを押すことで、社外名簿を反映することができます。</>}
             templateLabel="CSVテンプレートをダウンロード"

@@ -5,6 +5,7 @@ import { ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { LAYOUT_STYLES, COLORS } from "@/constants/styles";
+import { EXTERNAL_EDIT_TEXTS } from '@/constants/texts';
 
 export default function ExternalNewPage() {
   const router = useRouter();
@@ -18,10 +19,10 @@ export default function ExternalNewPage() {
         <Button variant="ghost" size="icon" onClick={() => router.back()}>
           <ChevronLeft className="h-6 w-6 text-[#5B7FFF]" />
         </Button>
-        <h1 className={LAYOUT_STYLES.pageTitle} style={{ color: COLORS.primary, marginBottom: 12 }}>社外名簿新規</h1>
+        <h1 className={LAYOUT_STYLES.pageTitle} style={{ color: COLORS.primary, marginBottom: 12 }}>{EXTERNAL_EDIT_TEXTS.newPageTitle}</h1>
       </div>
       <Card className="p-8" style={{ borderColor: COLORS.border, marginTop: 0 }}>
-        <ExternalContactForm submitLabel="新規社外連絡先を追加する" onSubmit={handleSubmit} />
+        <ExternalContactForm submitLabel={EXTERNAL_EDIT_TEXTS.addNew} onSubmit={handleSubmit} />
       </Card>
     </div>
   );

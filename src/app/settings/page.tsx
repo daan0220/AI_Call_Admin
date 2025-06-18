@@ -6,6 +6,7 @@ import { LAYOUT_STYLES, COLORS } from "@/constants/styles";
 import { useState } from "react";
 import { OrgInfoSection, OrgInfo } from '@/components/settings/OrgInfoSection';
 import { IpRestrictionTable, IpRestriction } from '@/components/settings/IpRestrictionTable';
+import { SETTINGS_TEXTS } from '@/constants/texts';
 
 export default function SettingsPage() {
   const [tab, setTab] = useState<'org' | 'ip'>('org');
@@ -18,14 +19,14 @@ export default function SettingsPage() {
           style={{ minWidth: 120 }}
           onClick={() => setTab('org')}
         >
-          組織情報
+          {SETTINGS_TEXTS.orgInfo}
         </Button>
         <Button
           className={`px-6 py-2 rounded-xl font-bold text-sm transition-colors duration-150 ${tab === 'ip' ? 'bg-[#5B7FFF] text-white shadow' : 'bg-white text-[#6B687A] border border-[#E0E0F0]'}`}
           style={{ minWidth: 120 }}
           onClick={() => setTab('ip')}
         >
-          IP制限
+          {SETTINGS_TEXTS.ipRestriction}
         </Button>
         </div>
       {tab === 'org' && (
@@ -48,10 +49,10 @@ export default function SettingsPage() {
       {tab === 'ip' && (
         <Card className="p-8" style={{ borderColor: COLORS.border }}>
           <div className="flex justify-between items-center mb-4">
-            <Button style={{ background: '#FFE066', color: '#333', fontWeight: 600 }}>＋新規作成</Button>
+            <Button style={{ background: '#FFE066', color: '#333', fontWeight: 600 }}>{SETTINGS_TEXTS.newButton}</Button>
             <div className="flex items-center gap-2">
-              <input type="text" placeholder="キーワード" className="border rounded px-3 py-1 text-sm" />
-              <a href="#" className="text-[#5B7FFF] text-sm font-semibold underline">詳細検索</a>
+              <input type="text" placeholder={SETTINGS_TEXTS.keyword} className="border rounded px-3 py-1 text-sm" />
+              <a href="#" className="text-[#5B7FFF] text-sm font-semibold underline">{SETTINGS_TEXTS.detailSearch}</a>
         </div>
       </div>
           <div className="overflow-x-auto">

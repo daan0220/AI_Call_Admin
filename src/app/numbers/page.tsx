@@ -12,6 +12,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { useState } from 'react';
 import { ClickableTableRow } from '@/components/ClickableTableRow';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { NUMBERS_TEXTS } from '@/constants/texts';
 
 interface PhoneNumber {
   id: string;
@@ -68,13 +69,13 @@ function PhoneNumberTable({ data }: PhoneNumberTableProps) {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">ID</TableHead>
-            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">ステータス</TableHead>
-            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">電話番号</TableHead>
-            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">営業時間内の動作</TableHead>
-            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">有効日</TableHead>
-            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">営業時間</TableHead>
-            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">営業時間外の動作</TableHead>
+            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">{NUMBERS_TEXTS.table.id}</TableHead>
+            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">{NUMBERS_TEXTS.table.status}</TableHead>
+            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">{NUMBERS_TEXTS.table.number}</TableHead>
+            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">{NUMBERS_TEXTS.table.inAction}</TableHead>
+            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">{NUMBERS_TEXTS.table.validPeriod}</TableHead>
+            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">{NUMBERS_TEXTS.table.businessHours}</TableHead>
+            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">{NUMBERS_TEXTS.table.outAction}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -108,12 +109,12 @@ function PhoneNumberTable({ data }: PhoneNumberTableProps) {
                       </DialogTrigger>
                       <DialogContent className="max-w-2xl rounded-xl p-0 overflow-hidden" data-no-row-link>
                         <DialogHeader className="bg-[#7C6CF6] px-6 py-4">
-                          <DialogTitle className="text-white text-center text-lg">稼働時間設定</DialogTitle>
+                          <DialogTitle className="text-white text-center text-lg">{NUMBERS_TEXTS.dialog.title}</DialogTitle>
                         </DialogHeader>
                         <div className="px-8 py-8 bg-white">
                           <div className="mb-4 p-3 rounded bg-orange-50 text-orange-600 text-sm flex items-center gap-2">
                             <span className="text-xl">⚠️</span>
-                            30日間の無料デモ用AI電話番号では、セリフの変更やチャットとの連携を体験いただけます。転送機能をお試ししたいには、プランのご契約が必要です。
+                            {NUMBERS_TEXTS.dialog.alert}
                           </div>
                           <form className="space-y-4" onSubmit={e => { e.preventDefault(); handleSave(); }}>
                             <div className="flex gap-8 mb-4">
@@ -129,13 +130,13 @@ function PhoneNumberTable({ data }: PhoneNumberTableProps) {
                               </RadioGroup>
                             </div>
                             <div className="grid grid-cols-2 gap-4 items-center bg-[#F5F6FB] p-4 rounded-xl">
-                              <label className="font-medium">稼働時期 <span className="text-red-500">*</span></label>
+                              <label className="font-medium">{NUMBERS_TEXTS.dialog.period} <span className="text-red-500">*</span></label>
                               <div className="flex gap-2">
                                 <Input type="date" value={form.startDate} onChange={e => setForm(f => ({ ...f, startDate: e.target.value }))} className="w-36" required />
                                 <span>〜</span>
                                 <Input type="date" value={form.endDate} onChange={e => setForm(f => ({ ...f, endDate: e.target.value }))} className="w-36" required />
                               </div>
-                              <label className="font-medium">有効日 <span className="text-red-500">*</span></label>
+                              <label className="font-medium">{NUMBERS_TEXTS.dialog.validDays} <span className="text-red-500">*</span></label>
                               <div className="flex gap-2 flex-wrap">
                                 {allDays.map(day => (
                                   <label key={day} className="flex items-center gap-1">
@@ -144,13 +145,13 @@ function PhoneNumberTable({ data }: PhoneNumberTableProps) {
                                   </label>
                                 ))}
                               </div>
-                              <label className="font-medium">稼働時間 <span className="text-red-500">*</span></label>
+                              <label className="font-medium">{NUMBERS_TEXTS.dialog.businessTime} <span className="text-red-500">*</span></label>
                               <div className="flex gap-2 items-center">
                                 <Input type="time" value={form.startTime} onChange={e => setForm(f => ({ ...f, startTime: e.target.value }))} className="w-24" required />
                                 <span>〜</span>
                                 <Input type="time" value={form.endTime} onChange={e => setForm(f => ({ ...f, endTime: e.target.value }))} className="w-24" required />
                               </div>
-                              <label className="font-medium">稼働時間内の動作 <span className="text-red-500">*</span></label>
+                              <label className="font-medium">{NUMBERS_TEXTS.dialog.inAction} <span className="text-red-500">*</span></label>
                               <Select value={form.scenarioIn} onValueChange={v => setForm(f => ({ ...f, scenarioIn: v }))}>
                                 <SelectTrigger className="w-full">
                                   <SelectValue placeholder="シナリオ" />
@@ -160,7 +161,7 @@ function PhoneNumberTable({ data }: PhoneNumberTableProps) {
                                   <SelectItem value="折り返し専用(担当者、用件確認)">折り返し専用(担当者、用件確認)</SelectItem>
                                 </SelectContent>
                               </Select>
-                              <label className="font-medium">稼働時間外の動作 <span className="text-red-500">*</span></label>
+                              <label className="font-medium">{NUMBERS_TEXTS.dialog.outAction} <span className="text-red-500">*</span></label>
                               <Select value={form.scenarioOut} onValueChange={v => setForm(f => ({ ...f, scenarioOut: v }))}>
                                 <SelectTrigger className="w-full">
                                   <SelectValue placeholder="シナリオ" />
@@ -172,7 +173,7 @@ function PhoneNumberTable({ data }: PhoneNumberTableProps) {
                               </Select>
                             </div>
                             <div className="flex justify-center mt-8">
-                              <Button type="submit" style={{ background: '#7C6CF6', color: '#fff', width: 200 }}>設定を反映する</Button>
+                              <Button type="submit" style={{ background: '#7C6CF6', color: '#fff', width: 200 }}>{NUMBERS_TEXTS.dialog.reflect}</Button>
                             </div>
                           </form>
                         </div>
@@ -225,11 +226,11 @@ export default function NumbersPage() {
   return (
     <div className={LAYOUT_STYLES.container}>
       <h1 className={LAYOUT_STYLES.pageTitle} style={{ color: COLORS.primary, marginBottom: 12 }}>
-        AI電話番号
+        {NUMBERS_TEXTS.pageTitle}
       </h1>
       <Card className="p-8" style={{ borderColor: COLORS.border, marginTop: 0 }}>
         <div className="mb-4 text-base font-semibold" style={{ color: COLORS.primary }}>
-          デモ利用中
+          {NUMBERS_TEXTS.demoStatus}
         </div>
         <PhoneNumberTable data={phoneNumbers} />
       </Card>

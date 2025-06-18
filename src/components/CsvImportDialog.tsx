@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogClose } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { UploadCloud } from 'lucide-react';
+import { CSV_IMPORT_DIALOG_TEXTS } from '@/constants/texts';
 
 interface CsvImportDialogProps {
   open: boolean;
@@ -56,7 +57,7 @@ export function CsvImportDialog({
       onImport(file);
       setFile(null);
     } else {
-      alert('ファイルを選択してください');
+      alert(CSV_IMPORT_DIALOG_TEXTS.selectFile);
     }
   };
 
@@ -87,7 +88,7 @@ export function CsvImportDialog({
             onDragLeave={handleDragLeave}
           >
             <UploadCloud size={64} className="mx-auto mb-2 text-[#5B7FFF]" />
-            <div className="mb-2">アップロードするファイルを選択<br />またはファイルをドラッグ＆ドロップします</div>
+            <div className="mb-2">{CSV_IMPORT_DIALOG_TEXTS.uploadText}<br />{CSV_IMPORT_DIALOG_TEXTS.dragDropText}</div>
             <input
               id="csv-upload"
               type="file"
@@ -95,7 +96,7 @@ export function CsvImportDialog({
               className="hidden"
               onChange={handleFileChange}
             />
-            {file && <div className="mt-2 text-sm text-[#5B7FFF]">選択中: {file.name}</div>}
+            {file && <div className="mt-2 text-sm text-[#5B7FFF]">{CSV_IMPORT_DIALOG_TEXTS.selectedFile} {file.name}</div>}
           </label>
           {notes.length > 0 && (
             <ul className="text-xs text-left text-gray-500 leading-relaxed">
@@ -105,7 +106,7 @@ export function CsvImportDialog({
         </div>
         <div className="flex justify-center gap-4 pb-6">
           <DialogClose asChild>
-            <Button variant="outline" className="w-32">キャンセル</Button>
+            <Button variant="outline" className="w-32">{CSV_IMPORT_DIALOG_TEXTS.cancel}</Button>
           </DialogClose>
           <Button style={{ background: '#5B7FFF' }} className="w-32 text-white" type="button" onClick={handleImport}>{importButtonLabel}</Button>
         </div>

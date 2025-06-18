@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { EntityDetailActions } from '@/components/common/EntityDetailActions';
 import { DeleteEntityDialog } from '@/components/common/DeleteEntityDialog';
 import { HolidayDetailTable, HolidayDetail } from '@/components/holidays/HolidayDetailTable';
+import { HOLIDAY_TEXTS } from '@/constants/texts';
 
 export default function HolidayDetailPage() {
   const router = useRouter();
@@ -46,11 +47,11 @@ export default function HolidayDetailPage() {
         <Button variant="ghost" size="icon" onClick={() => router.back()} className="mr-2">
           <ChevronLeft className="h-6 w-6 text-[#5B7FFF]" />
         </Button>
-        <h1 className={LAYOUT_STYLES.pageTitle} style={{ color: COLORS.primary, marginBottom: 12 }}>祝日詳細</h1>
+        <h1 className={LAYOUT_STYLES.pageTitle} style={{ color: COLORS.primary, marginBottom: 12 }}>{HOLIDAY_TEXTS.detailPageTitle}</h1>
       </div>
       <Card className="p-8" style={{ borderColor: COLORS.border, marginTop: 0 }}>
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-bold text-[#6B687A]">基本設定</h2>
+          <h2 className="text-xl font-bold text-[#6B687A]">{HOLIDAY_TEXTS.basicSettings}</h2>
           <EntityDetailActions onEdit={handleEdit} onDelete={handleDelete} />
         </div>
         <HolidayDetailTable holiday={holiday} />

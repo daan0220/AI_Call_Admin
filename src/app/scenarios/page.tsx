@@ -16,6 +16,7 @@ import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@
 import { ClickableTableRow } from '@/components/ClickableTableRow';
 import { useRouter } from "next/navigation";
 import { CsvImportDialog } from '@/components/CsvImportDialog';
+import { SCENARIO_TEXTS } from "@/constants/texts";
 
 interface Scenario {
   company: string;
@@ -40,15 +41,15 @@ function ScenarioTable({ data }: ScenarioTableProps) {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">会社名</TableHead>
-            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">相手の名前</TableHead>
-            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">担当者</TableHead>
-            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">要件</TableHead>
-            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">折り返し希望</TableHead>
-            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">折り返し先電話番号</TableHead>
-            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">AI電話番号</TableHead>
-            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">作成日</TableHead>
-            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">操作</TableHead>
+            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">{SCENARIO_TEXTS.table.company}</TableHead>
+            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">{SCENARIO_TEXTS.table.callerName}</TableHead>
+            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">{SCENARIO_TEXTS.table.staff}</TableHead>
+            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">{SCENARIO_TEXTS.table.purpose}</TableHead>
+            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">{SCENARIO_TEXTS.table.callback}</TableHead>
+            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">{SCENARIO_TEXTS.table.callbackNumber}</TableHead>
+            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">{SCENARIO_TEXTS.table.aiNumber}</TableHead>
+            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">{SCENARIO_TEXTS.table.createdAt}</TableHead>
+            <TableHead className="py-2 px-3 bg-[#5B7FFF] text-white font-semibold">{SCENARIO_TEXTS.table.action}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -68,31 +69,27 @@ function ScenarioTable({ data }: ScenarioTableProps) {
                   <Dialog>
                     <DialogTrigger asChild>
                       <Button size="sm" variant="outline" style={{ color: COLORS.primary, borderColor: COLORS.primary }} onClick={e => e.stopPropagation()}>
-                        複製
+                        {SCENARIO_TEXTS.copy}
                       </Button>
                     </DialogTrigger>
                     <DialogContent className="max-w-md rounded-xl p-0 overflow-hidden">
                       <div className="relative">
                         <DialogHeader className="bg-[#5B7FFF] px-6 py-4 flex justify-center items-center">
-                          <DialogTitle className="text-white text-center text-lg w-full">シナリオコピー</DialogTitle>
+                          <DialogTitle className="text-white text-center text-lg w-full">{SCENARIO_TEXTS.copyDialog.title}</DialogTitle>
                           <DialogClose asChild>
                           </DialogClose>
                         </DialogHeader>
                         <div className="px-8 py-12 text-center text-base text-[#666]">
-                          {scenario.company ? (
-                            <span>
-                              {scenario.company}のシナリオをコピーしますか？
-                            </span>
-                          ) : (
-                            <span>このシナリオをコピーしますか？</span>
-                          )}
+                          <span>
+                            {SCENARIO_TEXTS.copyDialog.confirm(scenario.company)}
+                          </span>
                         </div>
                         <div className="flex justify-center gap-4 pb-8">
                           <DialogClose asChild>
-                            <Button variant="outline" className="w-32">キャンセル</Button>
+                            <Button variant="outline" className="w-32">{SCENARIO_TEXTS.copyDialog.cancel}</Button>
                           </DialogClose>
                           <DialogClose asChild>
-                            <Button style={{ background: '#5B7FFF' }} className="w-32 text-white">コピー</Button>
+                            <Button style={{ background: '#5B7FFF' }} className="w-32 text-white">{SCENARIO_TEXTS.copyDialog.copy}</Button>
                           </DialogClose>
                         </div>
                       </div>
@@ -137,28 +134,25 @@ export default function ScenariosPage() {
     <div className={LAYOUT_STYLES.container}>
       <div className="flex justify-between items-center mb-3">
         <h1 className={LAYOUT_STYLES.pageTitle} style={{ color: COLORS.primary, marginBottom: 0 }}>
-          シナリオ
+          {SCENARIO_TEXTS.pageTitle}
         </h1>
       </div>
       <Card className="p-8" style={{ borderColor: COLORS.border, marginTop: 0 }}>
         <div className="flex mb-4 gap-2">
           <Button style={{ background: '#FFE066', color: '#333' }} onClick={() => router.push('/scenarios/new')}>
-            ＋新規作成
+            {SCENARIO_TEXTS.newButton}
           </Button>
           <CsvImportDialog
             open={importOpen}
             onOpenChange={setImportOpen}
-            trigger={<Button className="rounded px-4 py-2" style={{ background: '#FFE066', color: '#333' }}>＋インポート</Button>}
-            title="シナリオインポート"
-            description={<><span className="text-[#5B7FFF] font-bold">.scenarioファイルをドラッグ＆ドロップまたは選択してください。</span><br />インポート後、シナリオ一覧に追加されます。</>}
-            templateLabel=".scenarioテンプレートをダウンロード"
+            trigger={<Button className="rounded px-4 py-2" style={{ background: '#FFE066', color: '#333' }}>{SCENARIO_TEXTS.importButton}</Button>}
+            title={SCENARIO_TEXTS.importDialog.title}
+            description={<><span className="text-[#5B7FFF] font-bold">{SCENARIO_TEXTS.importDialog.description}</span></>}
+            templateLabel={SCENARIO_TEXTS.importDialog.templateLabel}
             onTemplateDownload={() => alert('テンプレートDL（ダミー）')}
             onImport={() => alert('インポート処理（ダミー）')}
-            importButtonLabel="インポート"
-            notes={[
-              '※.scenarioファイルのみインポート可能です。',
-              '※インポートしたシナリオは一覧に追加されます。',
-            ]}
+            importButtonLabel={SCENARIO_TEXTS.importDialog.importButton}
+            notes={SCENARIO_TEXTS.importDialog.notes}
             accept=".scenario"
           />
         </div>

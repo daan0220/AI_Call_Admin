@@ -12,6 +12,7 @@ import type { ReactFlowInstance } from 'reactflow';
 import type { NodeProps } from 'reactflow';
 import { EntityDetailActions } from '@/components/common/EntityDetailActions';
 import { DeleteEntityDialog } from '@/components/common/DeleteEntityDialog';
+import { SCENARIO_TEXTS } from "@/constants/texts";
 
 type Scenario = {
   company: string;
@@ -77,14 +78,14 @@ function ScenarioDetailTable({ scenario }: { scenario: Scenario }) {
   return (
     <table className="w-full text-sm bg-white rounded-xl border" style={{ borderColor: COLORS.border }}>
       <tbody>
-        <tr className="border-b"><td className="py-2 px-4 w-48 text-gray-600">会社名</td><td className="py-2 px-4">{scenario.company}</td></tr>
-        <tr className="border-b"><td className="py-2 px-4 text-gray-600">相手の名前</td><td className="py-2 px-4">{scenario.callerName}</td></tr>
-        <tr className="border-b"><td className="py-2 px-4 text-gray-600">担当者</td><td className="py-2 px-4">{scenario.staff}</td></tr>
-        <tr className="border-b"><td className="py-2 px-4 text-gray-600">要件</td><td className="py-2 px-4">{scenario.purpose}</td></tr>
-        <tr className="border-b"><td className="py-2 px-4 text-gray-600">折り返し希望</td><td className="py-2 px-4">{scenario.callback ? 'はい' : 'いいえ'}</td></tr>
-        <tr className="border-b"><td className="py-2 px-4 text-gray-600">折り返し先電話番号</td><td className="py-2 px-4">{scenario.callback ? scenario.callbackNumber : '-'}</td></tr>
-        <tr className="border-b"><td className="py-2 px-4 text-gray-600">AI電話番号</td><td className="py-2 px-4">{scenario.aiNumber}</td></tr>
-        <tr><td className="py-2 px-4 text-gray-600">作成日</td><td className="py-2 px-4">{scenario.createdAt}</td></tr>
+        <tr className="border-b"><td className="py-2 px-4 w-48 text-gray-600">{SCENARIO_TEXTS.table.company}</td><td className="py-2 px-4">{scenario.company}</td></tr>
+        <tr className="border-b"><td className="py-2 px-4 text-gray-600">{SCENARIO_TEXTS.table.callerName}</td><td className="py-2 px-4">{scenario.callerName}</td></tr>
+        <tr className="border-b"><td className="py-2 px-4 text-gray-600">{SCENARIO_TEXTS.table.staff}</td><td className="py-2 px-4">{scenario.staff}</td></tr>
+        <tr className="border-b"><td className="py-2 px-4 text-gray-600">{SCENARIO_TEXTS.table.purpose}</td><td className="py-2 px-4">{scenario.purpose}</td></tr>
+        <tr className="border-b"><td className="py-2 px-4 text-gray-600">{SCENARIO_TEXTS.table.callback}</td><td className="py-2 px-4">{scenario.callback ? 'はい' : 'いいえ'}</td></tr>
+        <tr className="border-b"><td className="py-2 px-4 text-gray-600">{SCENARIO_TEXTS.table.callbackNumber}</td><td className="py-2 px-4">{scenario.callback ? scenario.callbackNumber : '-'}</td></tr>
+        <tr className="border-b"><td className="py-2 px-4 text-gray-600">{SCENARIO_TEXTS.table.aiNumber}</td><td className="py-2 px-4">{scenario.aiNumber}</td></tr>
+        <tr><td className="py-2 px-4 text-gray-600">{SCENARIO_TEXTS.table.createdAt}</td><td className="py-2 px-4">{scenario.createdAt}</td></tr>
       </tbody>
     </table>
   );
@@ -133,11 +134,11 @@ export default function ScenarioDetailPage() {
         <Button variant="ghost" size="icon" onClick={() => router.back()} className="mr-2">
           <ChevronLeft className="w-6 h-6" />
         </Button>
-        <h1 className={LAYOUT_STYLES.pageTitle} style={{ color: COLORS.primary, marginBottom: 12 }}>シナリオ詳細</h1>
+        <h1 className={LAYOUT_STYLES.pageTitle} style={{ color: COLORS.primary, marginBottom: 12 }}>{SCENARIO_TEXTS.detailPageTitle}</h1>
       </div>
       <Card className="p-6 md:p-8 mb-8 relative" style={{ borderColor: COLORS.border}}>
         <div className="flex justify-between items-center mb-4">
-          <span className="text-lg font-semibold" style={{ color: COLORS.primary }}>基本設定</span>
+          <span className="text-lg font-semibold" style={{ color: COLORS.primary }}>{SCENARIO_TEXTS.basicSettings}</span>
           <EntityDetailActions onEdit={handleEdit} onDelete={handleDelete} />
         </div>
         <div className="overflow-x-auto">
@@ -147,7 +148,7 @@ export default function ScenarioDetailPage() {
       </Card>
       <Card className="p-6 md:p-8 mb-8" style={{ borderColor: COLORS.border}}>
         <div className="flex items-center mb-2">
-          <span className="text-lg font-semibold mr-2" style={{ color: COLORS.primary }}>会話詳細フロー</span>
+          <span className="text-lg font-semibold mr-2" style={{ color: COLORS.primary }}>{SCENARIO_TEXTS.conversationFlow}</span>
           <Button variant="outline" size="icon" className="mr-2" onClick={handleZoomIn} style={{ borderColor: COLORS.primary, color: COLORS.primary }}><ZoomIn className="w-5 h-5" /></Button>
           <Button variant="outline" size="icon" onClick={handleZoomOut} style={{ borderColor: COLORS.primary, color: COLORS.primary }}><ZoomOut className="w-5 h-5" /></Button>
         </div>

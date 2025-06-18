@@ -10,6 +10,7 @@ import { SearchDialog } from '@/components/logs/SearchDialog';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import { useState } from 'react';
 import type { DateRange } from "react-day-picker";
+import { LOGS_TEXTS } from '@/constants/texts';
 
 export default function LogsPage() {
   const [dateRange, setDateRange] = useState<DateRange | undefined>(undefined);
@@ -43,7 +44,7 @@ export default function LogsPage() {
   return (
     <div className={LAYOUT_STYLES.container}>
       <h1 className={LAYOUT_STYLES.pageTitle} style={{ color: COLORS.primary, marginBottom: 12 }}>
-        通話履歴
+        {LOGS_TEXTS.pageTitle}
       </h1>
       <Card className="p-8" style={{ borderColor: COLORS.border, marginTop: 0 }}>
         <div className="flex flex-wrap items-center gap-3 mb-4">
@@ -59,10 +60,10 @@ export default function LogsPage() {
           />
           <Select>
             <SelectTrigger className="w-48">
-              <SelectValue placeholder="全てのAI番号" />
+              <SelectValue placeholder={LOGS_TEXTS.allNumbers} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">全てのAI番号</SelectItem>
+              <SelectItem value="all">{LOGS_TEXTS.allNumbers}</SelectItem>
               <SelectItem value="05053690814">05053690814</SelectItem>
             </SelectContent>
           </Select>
@@ -77,16 +78,16 @@ export default function LogsPage() {
               opacity: 1,
             }}
           >
-            ダウンロード(最大5000件)
+            {LOGS_TEXTS.download}
           </Button>
           <div className="flex-1" />
-          <Input placeholder="キーワード" className="w-48" style={{ borderColor: COLORS.border }} />
+          <Input placeholder={LOGS_TEXTS.keyword} className="w-48" style={{ borderColor: COLORS.border }} />
           <SearchDialog
             open={searchDialogOpen}
             onOpenChange={setSearchDialogOpen}
             searchForm={searchForm}
             setSearchForm={setSearchForm}
-            trigger={<Button variant="link" className="text-[#5B7FFF] underline">詳細検索</Button>}
+            trigger={<Button variant="link" className="text-[#5B7FFF] underline">{LOGS_TEXTS.detailSearch}</Button>}
           />
         </div>
         <div className="overflow-x-auto">

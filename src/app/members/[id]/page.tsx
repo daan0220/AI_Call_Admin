@@ -7,6 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { ArrowLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useParams } from 'next/navigation';
+import { MEMBER_DETAIL_TEXTS } from '@/constants/texts';
 
 type ProfileHistory = {
   date: string;
@@ -71,64 +72,64 @@ export default function MemberDetailPage() {
         <Button variant="ghost" size="icon" onClick={() => router.back()}>
           <ArrowLeft className="h-6 w-6 text-[#5B7FFF]" />
         </Button>
-        <h1 className="text-2xl font-bold" style={{ color: '#5B7FFF' }}>社員名簿詳細</h1>
+        <h1 className="text-2xl font-bold" style={{ color: '#5B7FFF' }}>{MEMBER_DETAIL_TEXTS.pageTitle}</h1>
       </div>
 
       <Card className="mb-8 p-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold" style={{ color: '#5B7FFF' }}>基本情報</h2>
-          <Button style={{ background: '#00D2FF', color: '#fff' }}>編集</Button>
+          <h2 className="text-lg font-semibold" style={{ color: '#5B7FFF' }}>{MEMBER_DETAIL_TEXTS.basicInfo}</h2>
+          <Button style={{ background: '#00D2FF', color: '#fff' }}>{MEMBER_DETAIL_TEXTS.edit}</Button>
         </div>
         <Separator className="mb-4" />
         <div className="overflow-x-auto">
           <Table>
             <TableBody>
               <TableRow>
-                <TableCell className="bg-[#F5F4FF] font-semibold w-56">名前</TableCell>
+                <TableCell className="bg-[#F5F4FF] font-semibold w-56">{MEMBER_DETAIL_TEXTS.table.name}</TableCell>
                 <TableCell>{profile.name}</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell className="bg-[#F5F4FF] font-semibold">名前（カタカナ）</TableCell>
+                <TableCell className="bg-[#F5F4FF] font-semibold">{MEMBER_DETAIL_TEXTS.table.kana}</TableCell>
                 <TableCell>{profile.nameKana}</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell className="bg-[#F5F4FF] font-semibold">着信先電話番号</TableCell>
+                <TableCell className="bg-[#F5F4FF] font-semibold">{MEMBER_DETAIL_TEXTS.table.phone}</TableCell>
                 <TableCell>{profile.phone}</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell className="bg-[#F5F4FF] font-semibold">メールアドレス</TableCell>
+                <TableCell className="bg-[#F5F4FF] font-semibold">{MEMBER_DETAIL_TEXTS.table.email}</TableCell>
                 <TableCell>{profile.email}</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell className="bg-[#F5F4FF] font-semibold">部署</TableCell>
+                <TableCell className="bg-[#F5F4FF] font-semibold">{MEMBER_DETAIL_TEXTS.table.department}</TableCell>
                 <TableCell>{profile.department}</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell className="bg-[#F5F4FF] font-semibold">役職</TableCell>
+                <TableCell className="bg-[#F5F4FF] font-semibold">{MEMBER_DETAIL_TEXTS.table.position}</TableCell>
                 <TableCell>{profile.position}</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell className="bg-[#F5F4FF] font-semibold">アカウント種別</TableCell>
+                <TableCell className="bg-[#F5F4FF] font-semibold">{MEMBER_DETAIL_TEXTS.table.account}</TableCell>
                 <TableCell>{profile.account}</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell className="bg-[#F5F4FF] font-semibold">全内容を専用チャットに送信</TableCell>
+                <TableCell className="bg-[#F5F4FF] font-semibold">{MEMBER_DETAIL_TEXTS.table.chatSend}</TableCell>
                 <TableCell>{profile.chatSend}</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell className="bg-[#F5F4FF] font-semibold">全内容のメール送信</TableCell>
+                <TableCell className="bg-[#F5F4FF] font-semibold">{MEMBER_DETAIL_TEXTS.table.mailSend}</TableCell>
                 <TableCell>{profile.mailSend}</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell className="bg-[#F5F4FF] font-semibold">ステータス</TableCell>
+                <TableCell className="bg-[#F5F4FF] font-semibold">{MEMBER_DETAIL_TEXTS.table.status}</TableCell>
                 <TableCell>{profile.status}</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell className="bg-[#F5F4FF] font-semibold">所属グループ</TableCell>
+                <TableCell className="bg-[#F5F4FF] font-semibold">{MEMBER_DETAIL_TEXTS.table.group}</TableCell>
                 <TableCell>{profile.group}</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell className="bg-[#F5F4FF] font-semibold">備考</TableCell>
+                <TableCell className="bg-[#F5F4FF] font-semibold">{MEMBER_DETAIL_TEXTS.table.note}</TableCell>
                 <TableCell>{profile.note}</TableCell>
               </TableRow>
             </TableBody>
@@ -137,15 +138,15 @@ export default function MemberDetailPage() {
       </Card>
 
       <Card className="p-6">
-        <h2 className="text-lg font-semibold mb-4" style={{ color: '#5B7FFF' }}>作成履歴</h2>
+        <h2 className="text-lg font-semibold mb-4" style={{ color: '#5B7FFF' }}>{MEMBER_DETAIL_TEXTS.history}</h2>
         <div className="overflow-x-auto">
           <Table>
             <TableHeader>
               <TableRow className="bg-[#7C6CF6] text-white">
-                <TableHead className="text-white">日付</TableHead>
-                <TableHead className="text-white">アクション</TableHead>
-                <TableHead className="text-white">ステータス</TableHead>
-                <TableHead className="text-white">更新者</TableHead>
+                <TableHead className="text-white">{MEMBER_DETAIL_TEXTS.table.date}</TableHead>
+                <TableHead className="text-white">{MEMBER_DETAIL_TEXTS.table.action}</TableHead>
+                <TableHead className="text-white">{MEMBER_DETAIL_TEXTS.table.status}</TableHead>
+                <TableHead className="text-white">{MEMBER_DETAIL_TEXTS.table.updater}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

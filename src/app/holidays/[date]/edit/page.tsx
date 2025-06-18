@@ -9,6 +9,7 @@ import { ChevronLeft } from 'lucide-react';
 import { COLORS, LAYOUT_STYLES, TABLE_STYLES } from '@/constants/styles';
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
 import { HolidayEditTable, HolidayEditForm } from '@/components/holidays/HolidayEditTable';
+import { HOLIDAY_TEXTS } from '@/constants/texts';
 
 export default function HolidayEditPage() {
   const router = useRouter();
@@ -34,15 +35,15 @@ export default function HolidayEditPage() {
         <Button variant="ghost" size="icon" onClick={() => router.back()} className="mr-2">
           <ChevronLeft className="h-6 w-6 text-[#5B7FFF]" />
         </Button>
-        <h1 className={LAYOUT_STYLES.pageTitle} style={{ color: COLORS.primary, marginBottom: 12 }}>祝日編集</h1>
+        <h1 className={LAYOUT_STYLES.pageTitle} style={{ color: COLORS.primary, marginBottom: 12 }}>{HOLIDAY_TEXTS.editPageTitle}</h1>
       </div>
       <Card className="p-8" style={{ borderColor: COLORS.border, marginTop: 0 }}>
-        <h2 className="text-xl font-bold mb-6 text-[#6B687A]">基本設定</h2>
+        <h2 className="text-xl font-bold mb-6 text-[#6B687A]">{HOLIDAY_TEXTS.basicSettings}</h2>
         <form>
           <HolidayEditTable form={form} onChange={setForm} />
           <div className="flex justify-center py-8">
             <Button type="button" style={{ background: '#22C55E', color: '#fff', width: 240, fontWeight: 700 }} onClick={handleSave}>
-              保存
+              {HOLIDAY_TEXTS.save}
             </Button>
           </div>
         </form>

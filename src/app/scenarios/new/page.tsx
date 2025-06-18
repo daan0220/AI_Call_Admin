@@ -11,6 +11,7 @@ import 'reactflow/dist/style.css';
 import type { NodeProps } from 'reactflow';
 import { Table, TableBody, TableRow, TableCell } from "@/components/ui/table";
 import { ChevronLeft } from "lucide-react";
+import { SCENARIO_TEXTS } from "@/constants/texts";
 
 const initialScenario = {
   company: "",
@@ -92,30 +93,30 @@ export default function ScenarioNewPage() {
           <Button variant="ghost" size="icon" onClick={() => router.back()} className="mr-2">
             <ChevronLeft className="w-6 h-6" />
           </Button>
-          <h1 className="text-2xl font-bold" style={{ color: COLORS.primary }}>シナリオ新規作成</h1>
+          <h1 className="text-2xl font-bold" style={{ color: COLORS.primary }}>{SCENARIO_TEXTS.newPageTitle}</h1>
         </div>
         <Card className="p-6 md:p-8 mb-8 relative" style={{ borderColor: COLORS.border}}>
           <div className="flex justify-between items-center mb-4">
-            <span className="text-lg font-semibold" style={{ color: COLORS.primary }}>基本設定</span>
+            <span className="text-lg font-semibold" style={{ color: COLORS.primary }}>{SCENARIO_TEXTS.basicSettings}</span>
           </div>
           <div className="overflow-x-auto">
             <Table className="w-full text-sm bg-white rounded-xl border" style={{ borderColor: COLORS.border }}>
               <TableBody>
-                <TableRow><TableCell className="py-2 px-4 w-48 text-gray-600">会社名</TableCell><TableCell className="py-2 px-4"><Input value={scenario.company} onChange={e => setScenario(s => ({ ...s, company: e.target.value }))} /></TableCell></TableRow>
-                <TableRow><TableCell className="py-2 px-4 text-gray-600">相手の名前</TableCell><TableCell className="py-2 px-4"><Input value={scenario.callerName} onChange={e => setScenario(s => ({ ...s, callerName: e.target.value }))} /></TableCell></TableRow>
-                <TableRow><TableCell className="py-2 px-4 text-gray-600">担当者</TableCell><TableCell className="py-2 px-4"><Input value={scenario.staff} onChange={e => setScenario(s => ({ ...s, staff: e.target.value }))} /></TableCell></TableRow>
-                <TableRow><TableCell className="py-2 px-4 text-gray-600">要件</TableCell><TableCell className="py-2 px-4"><Input value={scenario.purpose} onChange={e => setScenario(s => ({ ...s, purpose: e.target.value }))} /></TableCell></TableRow>
-                <TableRow><TableCell className="py-2 px-4 text-gray-600">折り返し希望</TableCell><TableCell className="py-2 px-4"><Switch checked={scenario.callback} onCheckedChange={v => setScenario(s => ({ ...s, callback: v }))} /></TableCell></TableRow>
-                <TableRow><TableCell className="py-2 px-4 text-gray-600">折り返し先電話番号</TableCell><TableCell className="py-2 px-4"><Input value={scenario.callbackNumber} onChange={e => setScenario(s => ({ ...s, callbackNumber: e.target.value }))} /></TableCell></TableRow>
-                <TableRow><TableCell className="py-2 px-4 text-gray-600">AI電話番号</TableCell><TableCell className="py-2 px-4"><Input value={scenario.aiNumber} onChange={e => setScenario(s => ({ ...s, aiNumber: e.target.value }))} /></TableCell></TableRow>
-                <TableRow><TableCell className="py-2 px-4 text-gray-600">作成日</TableCell><TableCell className="py-2 px-4"><Input value={scenario.createdAt} onChange={e => setScenario(s => ({ ...s, createdAt: e.target.value }))} /></TableCell></TableRow>
+                <TableRow><TableCell className="py-2 px-4 w-48 text-gray-600">{SCENARIO_TEXTS.table.company}</TableCell><TableCell className="py-2 px-4"><Input value={scenario.company} onChange={e => setScenario(s => ({ ...s, company: e.target.value }))} /></TableCell></TableRow>
+                <TableRow><TableCell className="py-2 px-4 text-gray-600">{SCENARIO_TEXTS.table.callerName}</TableCell><TableCell className="py-2 px-4"><Input value={scenario.callerName} onChange={e => setScenario(s => ({ ...s, callerName: e.target.value }))} /></TableCell></TableRow>
+                <TableRow><TableCell className="py-2 px-4 text-gray-600">{SCENARIO_TEXTS.table.staff}</TableCell><TableCell className="py-2 px-4"><Input value={scenario.staff} onChange={e => setScenario(s => ({ ...s, staff: e.target.value }))} /></TableCell></TableRow>
+                <TableRow><TableCell className="py-2 px-4 text-gray-600">{SCENARIO_TEXTS.table.purpose}</TableCell><TableCell className="py-2 px-4"><Input value={scenario.purpose} onChange={e => setScenario(s => ({ ...s, purpose: e.target.value }))} /></TableCell></TableRow>
+                <TableRow><TableCell className="py-2 px-4 text-gray-600">{SCENARIO_TEXTS.table.callback}</TableCell><TableCell className="py-2 px-4"><Switch checked={scenario.callback} onCheckedChange={v => setScenario(s => ({ ...s, callback: v }))} /></TableCell></TableRow>
+                <TableRow><TableCell className="py-2 px-4 text-gray-600">{SCENARIO_TEXTS.table.callbackNumber}</TableCell><TableCell className="py-2 px-4"><Input value={scenario.callbackNumber} onChange={e => setScenario(s => ({ ...s, callbackNumber: e.target.value }))} /></TableCell></TableRow>
+                <TableRow><TableCell className="py-2 px-4 text-gray-600">{SCENARIO_TEXTS.table.aiNumber}</TableCell><TableCell className="py-2 px-4"><Input value={scenario.aiNumber} onChange={e => setScenario(s => ({ ...s, aiNumber: e.target.value }))} /></TableCell></TableRow>
+                <TableRow><TableCell className="py-2 px-4 text-gray-600">{SCENARIO_TEXTS.table.createdAt}</TableCell><TableCell className="py-2 px-4"><Input value={scenario.createdAt} onChange={e => setScenario(s => ({ ...s, createdAt: e.target.value }))} /></TableCell></TableRow>
               </TableBody>
             </Table>
           </div>
         </Card>
         <Card className="p-6 md:p-8 mb-8" style={{ borderColor: COLORS.border}}>
           <div className="flex items-center mb-2">
-            <span className="text-lg font-semibold mr-2" style={{ color: COLORS.primary }}>会話詳細フロー</span>
+            <span className="text-lg font-semibold mr-2" style={{ color: COLORS.primary }}>{SCENARIO_TEXTS.conversationFlow}</span>
           </div>
           <div className="bg-[#EEF4FF] border rounded-xl h-[400px] w-full overflow-auto" style={{ borderColor: COLORS.border }}>
             <ReactFlow
@@ -138,8 +139,8 @@ export default function ScenarioNewPage() {
           </div>
         </Card>
         <div className="flex justify-end gap-4">
-          <Button variant="outline" onClick={() => router.back()}>キャンセル</Button>
-          <Button style={{ background: COLORS.primary }} onClick={() => router.push(`/scenarios`)}>保存</Button>
+          <Button variant="outline" onClick={() => router.back()}>{SCENARIO_TEXTS.cancel}</Button>
+          <Button style={{ background: COLORS.primary }} onClick={() => router.push(`/scenarios`)}>{SCENARIO_TEXTS.save}</Button>
         </div>
       </div>
     </ReactFlowProvider>

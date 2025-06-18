@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { useSidebarTransition } from "@/contexts/TransitionContext";
+import { SIDEBAR_TEXTS } from '@/constants/texts';
 
 export type MenuItem = {
   href: string;
@@ -30,15 +31,15 @@ export type MenuItem = {
 };
 
 const defaultMenuItems: MenuItem[] = [
-  { href: "/", label: "ホーム", icon: Home },
-  { href: "/numbers", label: "AI電話番号", icon: Phone },
-  { href: "/scenarios", label: "シナリオ", icon: Workflow },
-  { href: "/members", label: "社員名簿", icon: Users },
-  { href: "/externals", label: "社外名簿", icon: Contact },
-  { href: "/holidays", label: "祝日一覧", icon: Calendar },
-  { href: "/logs", label: "通話履歴", icon: History },
-  { href: "/billing", label: "ご請求", icon: CreditCard },
-  { href: "/settings", label: "設定", icon: Settings },
+  { href: "/", label: SIDEBAR_TEXTS.menu[0], icon: Home },
+  { href: "/numbers", label: SIDEBAR_TEXTS.menu[1], icon: Phone },
+  { href: "/scenarios", label: SIDEBAR_TEXTS.menu[2], icon: Workflow },
+  { href: "/members", label: SIDEBAR_TEXTS.menu[3], icon: Users },
+  { href: "/externals", label: SIDEBAR_TEXTS.menu[4], icon: Contact },
+  { href: "/holidays", label: SIDEBAR_TEXTS.menu[5], icon: Calendar },
+  { href: "/logs", label: SIDEBAR_TEXTS.menu[6], icon: History },
+  { href: "/billing", label: SIDEBAR_TEXTS.menu[7], icon: CreditCard },
+  { href: "/settings", label: SIDEBAR_TEXTS.menu[8], icon: Settings },
 ];
 
 interface SidebarProps {
@@ -117,7 +118,7 @@ export function Sidebar({ menuItems = defaultMenuItems }: SidebarProps) {
             {/* ロゴ画像削除、テキストのみ */}
             {!collapsed && (
               <span className="text-xl font-bold select-none">
-                AI 電話番
+                {SIDEBAR_TEXTS.logo}
               </span>
             )}
           </div>
@@ -126,7 +127,7 @@ export function Sidebar({ menuItems = defaultMenuItems }: SidebarProps) {
             size="icon"
             className={`ml-2 transition-all ${collapsed ? '' : ''}`}
             onClick={() => setCollapsed((v) => !v)}
-            aria-label={collapsed ? '展開' : '折りたたみ'}
+            aria-label={collapsed ? SIDEBAR_TEXTS.expand : SIDEBAR_TEXTS.collapse}
           >
             {collapsed ? <ChevronRight className="h-5 w-5" /> : <ChevronLeft className="h-5 w-5" />}
           </Button>

@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import { MemberForm } from "@/components/members/MemberForm";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { MEMBER_DETAIL_TEXTS } from "@/constants/texts";
 
 export default function MemberNewPage() {
   const router = useRouter();
@@ -16,9 +17,9 @@ export default function MemberNewPage() {
         <Button variant="ghost" size="icon" onClick={() => router.back()}>
           <ArrowLeft className="h-6 w-6 text-[#5B7FFF]" />
         </Button>
-        <h1 className="text-2xl font-bold" style={{ color: '#5B7FFF' }}>社員名簿新規</h1>
+        <h1 className="text-2xl font-bold" style={{ color: '#5B7FFF' }}>{MEMBER_DETAIL_TEXTS.newPageTitle}</h1>
       </div>
-      <MemberForm submitLabel="新規ユーザーにメール送信し追加する" onSubmit={handleSubmit} />
+      <MemberForm submitLabel={MEMBER_DETAIL_TEXTS.addNew} onSubmit={handleSubmit} />
     </div>
   );
 } 

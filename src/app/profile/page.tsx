@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import { EntityDetailActions } from '@/components/common/EntityDetailActions';
 import { DeleteEntityDialog } from '@/components/common/DeleteEntityDialog';
 import { useState } from 'react';
+import { PROFILE_TEXTS } from '@/constants/texts';
 
 const profile = {
   name: '安藤 太紀',
@@ -39,18 +40,18 @@ function EmployeeDetailTable({ employee }: { employee: typeof profile }) {
   return (
     <Table className="mb-0 text-base bg-white rounded-xl border">
       <TableBody>
-        <TableRow><TableCell className="bg-[#F5F4FF] font-semibold w-56">名前</TableCell><TableCell>{employee.name}</TableCell></TableRow>
-        <TableRow><TableCell className="bg-[#F5F4FF] font-semibold">名前（カタカナ）</TableCell><TableCell>{employee.nameKana}</TableCell></TableRow>
-        <TableRow><TableCell className="bg-[#F5F4FF] font-semibold">着信先電話番号</TableCell><TableCell>{employee.phone}</TableCell></TableRow>
-        <TableRow><TableCell className="bg-[#F5F4FF] font-semibold">メールアドレス</TableCell><TableCell>{employee.email}</TableCell></TableRow>
-        <TableRow><TableCell className="bg-[#F5F4FF] font-semibold">部署</TableCell><TableCell>{employee.department}</TableCell></TableRow>
-        <TableRow><TableCell className="bg-[#F5F4FF] font-semibold">役職</TableCell><TableCell>{employee.position}</TableCell></TableRow>
-        <TableRow><TableCell className="bg-[#F5F4FF] font-semibold">アカウント種別</TableCell><TableCell>{employee.account}</TableCell></TableRow>
-        <TableRow><TableCell className="bg-[#F5F4FF] font-semibold">全内容を専用チャットに送信</TableCell><TableCell>{employee.chatSend}</TableCell></TableRow>
-        <TableRow><TableCell className="bg-[#F5F4FF] font-semibold">全内容のメール送信</TableCell><TableCell>{employee.mailSend}</TableCell></TableRow>
-        <TableRow><TableCell className="bg-[#F5F4FF] font-semibold">ステータス</TableCell><TableCell>{employee.status}</TableCell></TableRow>
-        <TableRow><TableCell className="bg-[#F5F4FF] font-semibold">所属グループ</TableCell><TableCell>{employee.group}</TableCell></TableRow>
-        <TableRow><TableCell className="bg-[#F5F4FF] font-semibold">備考</TableCell><TableCell>{employee.note}</TableCell></TableRow>
+        <TableRow><TableCell className="bg-[#F5F4FF] font-semibold w-56">{PROFILE_TEXTS.table.name}</TableCell><TableCell>{employee.name}</TableCell></TableRow>
+        <TableRow><TableCell className="bg-[#F5F4FF] font-semibold">{PROFILE_TEXTS.table.kana}</TableCell><TableCell>{employee.nameKana}</TableCell></TableRow>
+        <TableRow><TableCell className="bg-[#F5F4FF] font-semibold">{PROFILE_TEXTS.table.phone}</TableCell><TableCell>{employee.phone}</TableCell></TableRow>
+        <TableRow><TableCell className="bg-[#F5F4FF] font-semibold">{PROFILE_TEXTS.table.email}</TableCell><TableCell>{employee.email}</TableCell></TableRow>
+        <TableRow><TableCell className="bg-[#F5F4FF] font-semibold">{PROFILE_TEXTS.table.department}</TableCell><TableCell>{employee.department}</TableCell></TableRow>
+        <TableRow><TableCell className="bg-[#F5F4FF] font-semibold">{PROFILE_TEXTS.table.position}</TableCell><TableCell>{employee.position}</TableCell></TableRow>
+        <TableRow><TableCell className="bg-[#F5F4FF] font-semibold">{PROFILE_TEXTS.table.account}</TableCell><TableCell>{employee.account}</TableCell></TableRow>
+        <TableRow><TableCell className="bg-[#F5F4FF] font-semibold">{PROFILE_TEXTS.table.chatSend}</TableCell><TableCell>{employee.chatSend}</TableCell></TableRow>
+        <TableRow><TableCell className="bg-[#F5F4FF] font-semibold">{PROFILE_TEXTS.table.mailSend}</TableCell><TableCell>{employee.mailSend}</TableCell></TableRow>
+        <TableRow><TableCell className="bg-[#F5F4FF] font-semibold">{PROFILE_TEXTS.table.status}</TableCell><TableCell>{employee.status}</TableCell></TableRow>
+        <TableRow><TableCell className="bg-[#F5F4FF] font-semibold">{PROFILE_TEXTS.table.group}</TableCell><TableCell>{employee.group}</TableCell></TableRow>
+        <TableRow><TableCell className="bg-[#F5F4FF] font-semibold">{PROFILE_TEXTS.table.note}</TableCell><TableCell>{employee.note}</TableCell></TableRow>
       </TableBody>
     </Table>
   );
@@ -68,11 +69,11 @@ export default function ProfilePage() {
         <Button variant="ghost" size="icon" onClick={() => router.back()}>
           <ArrowLeft className="h-6 w-6 text-[#5B7FFF]" />
         </Button>
-        <h1 className="text-2xl font-bold" style={{ color: '#5B7FFF' }}>社員名簿詳細</h1>
+        <h1 className="text-2xl font-bold" style={{ color: '#5B7FFF' }}>{PROFILE_TEXTS.pageTitle}</h1>
       </div>
       <Card className="mb-8 p-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold" style={{ color: '#5B7FFF' }}>基本情報</h2>
+          <h2 className="text-lg font-semibold" style={{ color: '#5B7FFF' }}>{PROFILE_TEXTS.basicInfo}</h2>
           <EntityDetailActions onEdit={handleEdit} onDelete={handleDelete} />
         </div>
         <Separator className="mb-4" />
@@ -82,15 +83,15 @@ export default function ProfilePage() {
         <DeleteEntityDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen} entityName={profile.name} onDelete={handleDeleteConfirm} onCancel={() => setDeleteDialogOpen(false)} />
       </Card>
       <Card className="p-6">
-        <h2 className="text-lg font-semibold mb-4" style={{ color: '#5B7FFF' }}>作成履歴</h2>
+        <h2 className="text-lg font-semibold mb-4" style={{ color: '#5B7FFF' }}>{PROFILE_TEXTS.history}</h2>
         <div className="overflow-x-auto">
           <Table>
             <TableHeader>
               <TableRow className="bg-[#7C6CF6] text-white">
-                <TableHead className="text-white">日付</TableHead>
-                <TableHead className="text-white">アクション</TableHead>
-                <TableHead className="text-white">ステータス</TableHead>
-                <TableHead className="text-white">更新者</TableHead>
+                <TableHead className="text-white">{PROFILE_TEXTS.table.date}</TableHead>
+                <TableHead className="text-white">{PROFILE_TEXTS.table.action}</TableHead>
+                <TableHead className="text-white">{PROFILE_TEXTS.table.status}</TableHead>
+                <TableHead className="text-white">{PROFILE_TEXTS.table.updater}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

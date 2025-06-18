@@ -16,6 +16,7 @@ import {
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { DeleteHolidayDialog } from '@/components/holidays/DeleteHolidayDialog';
+import { HOLIDAYS_LIST_TEXTS } from '@/constants/texts';
 
 // 2025〜2030年の日本の祝日データ（曜日は後で自動計算）
 const rawHolidays = [
@@ -100,12 +101,12 @@ export default function HolidaysPage() {
   return (
     <div className={LAYOUT_STYLES.container}>
       <h1 className={LAYOUT_STYLES.pageTitle} style={{ color: COLORS.primary, marginBottom: 12 }}>
-        祝日一覧
+        {HOLIDAYS_LIST_TEXTS.pageTitle}
       </h1>
       <Card className="p-8" style={{ borderColor: COLORS.border, marginTop: 0 }}>
         <div className="flex mb-4 gap-2">
           <Button style={{ background: '#FFE066', color: '#333' }}>
-            ＋新規作成
+            {HOLIDAYS_LIST_TEXTS.newButton}
           </Button>
         </div>
         <HolidayTable data={pagedData} onEdit={handleEdit} onDelete={handleDelete}/>
@@ -118,7 +119,7 @@ export default function HolidaysPage() {
         />
         <div className="flex items-center justify-between w-full mt-8 mb-6 px-0">
           <div className="flex items-center gap-2 text-[15px] text-[#6B687A] font-bold min-w-[320px]">
-            <span>1ページ表示行数:</span>
+            <span>{HOLIDAYS_LIST_TEXTS.pagination.rowsPerPage}</span>
             <select
               className="border border-[#E0E0E0] rounded-md px-2 py-1 h-[32px] focus:outline-none bg-white text-[#6B687A] font-bold text-[15px] shadow-sm"
               value={pageSize}
@@ -129,7 +130,7 @@ export default function HolidaysPage() {
                 <option key={opt} value={opt}>{opt}</option>
               ))}
             </select>
-            <span className="ml-2 text-[15px] font-bold text-[#6B687A]">{(page - 1) * pageSize + 1}~{Math.min(page * pageSize, totalCount)} / {totalCount} 行</span>
+            <span className="ml-2 text-[15px] font-bold text-[#6B687A]">{(page - 1) * pageSize + 1}~{Math.min(page * pageSize, totalCount)} / {totalCount} {HOLIDAYS_LIST_TEXTS.pagination.rows}</span>
           </div>
           <div className="flex-1 flex justify-end">
             <Pagination>

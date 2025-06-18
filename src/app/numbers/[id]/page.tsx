@@ -11,6 +11,7 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@
 import { useState } from "react";
 import { EntityDetailActions } from '@/components/common/EntityDetailActions';
 import { DeleteEntityDialog } from '@/components/common/DeleteEntityDialog';
+import { NUMBER_DETAIL_TEXTS } from '@/constants/texts';
 // 仮データ（実際はAPIやpropsで取得）
 const demoDetail = {
   id: "187",
@@ -37,13 +38,13 @@ function PhoneNumberDetailTable({ phone }: { phone: typeof demoDetail }) {
   return (
     <Table className="text-base bg-white rounded-xl border mb-8" style={{ borderColor: '#E0E0F0' }}>
       <TableBody>
-        <TableRow><TableCell className="py-2 px-4 w-48 text-gray-600 bg-[#F5F6FB]">電話番号ID</TableCell><TableCell className="py-2 px-4">{phone.id}</TableCell></TableRow>
-        <TableRow><TableCell className="py-2 px-4 text-gray-600 bg-[#F5F6FB]">ステータス</TableCell><TableCell className="py-2 px-4">{phone.status}</TableCell></TableRow>
-        <TableRow><TableCell className="py-2 px-4 text-gray-600 bg-[#F5F6FB]">電話番号</TableCell><TableCell className="py-2 px-4">{phone.number}</TableCell></TableRow>
-        <TableRow><TableCell className="py-2 px-4 text-gray-600 bg-[#F5F6FB]">利用料金</TableCell><TableCell className="py-2 px-4"><span dangerouslySetInnerHTML={{__html: phone.fee}} /></TableCell></TableRow>
-        <TableRow><TableCell className="py-2 px-4 text-gray-600 bg-[#F5F6FB]">申請者</TableCell><TableCell className="py-2 px-4">{phone.applicant}</TableCell></TableRow>
-        <TableRow><TableCell className="py-2 px-4 text-gray-600 bg-[#F5F6FB]">申請日</TableCell><TableCell className="py-2 px-4">{phone.appliedAt}</TableCell></TableRow>
-        <TableRow><TableCell className="py-2 px-4 text-gray-600 bg-[#F5F6FB]">契約開始日</TableCell><TableCell className="py-2 px-4">{phone.contractStart}</TableCell></TableRow>
+        <TableRow><TableCell className="py-2 px-4 w-48 text-gray-600 bg-[#F5F6FB]">{NUMBER_DETAIL_TEXTS.table.id}</TableCell><TableCell className="py-2 px-4">{phone.id}</TableCell></TableRow>
+        <TableRow><TableCell className="py-2 px-4 text-gray-600 bg-[#F5F6FB]">{NUMBER_DETAIL_TEXTS.table.status}</TableCell><TableCell className="py-2 px-4">{phone.status}</TableCell></TableRow>
+        <TableRow><TableCell className="py-2 px-4 text-gray-600 bg-[#F5F6FB]">{NUMBER_DETAIL_TEXTS.table.number}</TableCell><TableCell className="py-2 px-4">{phone.number}</TableCell></TableRow>
+        <TableRow><TableCell className="py-2 px-4 text-gray-600 bg-[#F5F6FB]">{NUMBER_DETAIL_TEXTS.table.fee}</TableCell><TableCell className="py-2 px-4"><span dangerouslySetInnerHTML={{__html: phone.fee}} /></TableCell></TableRow>
+        <TableRow><TableCell className="py-2 px-4 text-gray-600 bg-[#F5F6FB]">{NUMBER_DETAIL_TEXTS.table.applicant}</TableCell><TableCell className="py-2 px-4">{phone.applicant}</TableCell></TableRow>
+        <TableRow><TableCell className="py-2 px-4 text-gray-600 bg-[#F5F6FB]">{NUMBER_DETAIL_TEXTS.table.appliedAt}</TableCell><TableCell className="py-2 px-4">{phone.appliedAt}</TableCell></TableRow>
+        <TableRow><TableCell className="py-2 px-4 text-gray-600 bg-[#F5F6FB]">{NUMBER_DETAIL_TEXTS.table.contractStart}</TableCell><TableCell className="py-2 px-4">{phone.contractStart}</TableCell></TableRow>
       </TableBody>
     </Table>
   );
@@ -73,35 +74,35 @@ export default function NumberDetailPage() {
           <ChevronLeft className="w-6 h-6" />
         </Button>
         <h1 className={LAYOUT_STYLES.pageTitle} style={{ color: COLORS.primary, marginBottom: 12 }}>
-          デモ利用中電話 {detail.number} 詳細
+          {NUMBER_DETAIL_TEXTS.pageTitle(detail.number)}
         </h1>
       </div>
       <Card className="p-8" style={{ borderColor: COLORS.border, marginTop: 0 }}>
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-bold" style={{ color: '#3B3172' }}>基本情報</h2>
+          <h2 className="text-xl font-bold" style={{ color: '#3B3172' }}>{NUMBER_DETAIL_TEXTS.info.basic}</h2>
           <EntityDetailActions onEdit={handleEdit} onDelete={handleDelete} />
         </div>
         <PhoneNumberDetailTable phone={detail} />
         <DeleteEntityDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen} entityName={detail.number} onDelete={handleDeleteConfirm} onCancel={() => setDeleteDialogOpen(false)} />
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-bold" style={{ color: '#3B3172' }}>稼働時間・シナリオ設定</h2>
+          <h2 className="text-xl font-bold" style={{ color: '#3B3172' }}>{NUMBER_DETAIL_TEXTS.info.scenario}</h2>
           {editMode ? (
             <div>
-              <Button variant="outline" className="mr-2" onClick={() => setEditMode(false)}>キャンセル</Button>
-              <Button style={{ background: COLORS.primary, color: '#fff' }} onClick={() => { setEditMode(false); /* 保存処理 */ }}>保存</Button>
+              <Button variant="outline" className="mr-2" onClick={() => setEditMode(false)}>{NUMBER_DETAIL_TEXTS.cancel}</Button>
+              <Button style={{ background: COLORS.primary, color: '#fff' }} onClick={() => { setEditMode(false); /* 保存処理 */ }}>{NUMBER_DETAIL_TEXTS.save}</Button>
             </div>
           ) : (
-            <Button style={{ background: '#00CFFF', color: '#fff', fontWeight: 600 }} onClick={() => setEditMode(true)}>編集</Button>
+            <Button style={{ background: '#00CFFF', color: '#fff', fontWeight: 600 }} onClick={() => setEditMode(true)}>{NUMBER_DETAIL_TEXTS.edit}</Button>
           )}
         </div>
         <div className="mb-4 p-3 rounded bg-orange-50 text-orange-600 text-sm flex items-center gap-2">
           <span className="text-xl">⚠️</span>
-          30日間の無料デモ用AI電話番号では、セリフの変更やチャットとの連携を体験いただけます。転送機能をお試ししたいには、プランのご契約が必要です。
+          {NUMBER_DETAIL_TEXTS.alert}
         </div>
         <Table className="text-base bg-white rounded-xl border mb-8" style={{ borderColor: '#E0E0F0' }}>
           <TableBody>
             <TableRow>
-              <TableCell className="py-2 px-4 w-48 text-gray-600 bg-[#F5F6FB]">稼働モード</TableCell>
+              <TableCell className="py-2 px-4 w-48 text-gray-600 bg-[#F5F6FB]">{NUMBER_DETAIL_TEXTS.table.workMode}</TableCell>
               <TableCell className="py-2 px-4">
                 {editMode ? (
                   <Select value={editDetail.workMode} onValueChange={v => setEditDetail(d => ({ ...d, workMode: v }))}>
@@ -117,7 +118,7 @@ export default function NumberDetailPage() {
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell className="py-2 px-4 w-48 text-gray-600 bg-[#F5F6FB]">稼働時期</TableCell>
+              <TableCell className="py-2 px-4 w-48 text-gray-600 bg-[#F5F6FB]">{NUMBER_DETAIL_TEXTS.table.workPeriod}</TableCell>
               <TableCell className="py-2 px-4">
                 {editMode ? (
                   <Input value={editDetail.workPeriod} onChange={e => setEditDetail(d => ({ ...d, workPeriod: e.target.value }))} />
@@ -127,7 +128,7 @@ export default function NumberDetailPage() {
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell className="py-2 px-4 w-48 text-gray-600 bg-[#F5F6FB]">有効日</TableCell>
+              <TableCell className="py-2 px-4 w-48 text-gray-600 bg-[#F5F6FB]">{NUMBER_DETAIL_TEXTS.table.workDays}</TableCell>
               <TableCell className="py-2 px-4">
                 {editMode ? (
                   <Input value={editDetail.workDays} onChange={e => setEditDetail(d => ({ ...d, workDays: e.target.value }))} />
@@ -137,7 +138,7 @@ export default function NumberDetailPage() {
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell className="py-2 px-4 w-48 text-gray-600 bg-[#F5F6FB]">稼働時間</TableCell>
+              <TableCell className="py-2 px-4 w-48 text-gray-600 bg-[#F5F6FB]">{NUMBER_DETAIL_TEXTS.table.workTime}</TableCell>
               <TableCell className="py-2 px-4">
                 {editMode ? (
                   <Input value={editDetail.workTime} onChange={e => setEditDetail(d => ({ ...d, workTime: e.target.value }))} />
@@ -147,7 +148,7 @@ export default function NumberDetailPage() {
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell className="py-2 px-4 w-48 text-gray-600 bg-[#F5F6FB]">稼働時間内の動作</TableCell>
+              <TableCell className="py-2 px-4 w-48 text-gray-600 bg-[#F5F6FB]">{NUMBER_DETAIL_TEXTS.table.inAction}</TableCell>
               <TableCell className="py-2 px-4">
                 {editMode ? (
                   <Input value={editDetail.inAction} onChange={e => setEditDetail(d => ({ ...d, inAction: e.target.value }))} />
@@ -159,7 +160,7 @@ export default function NumberDetailPage() {
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell className="py-2 px-4 w-48 text-gray-600 bg-[#F5F6FB]">稼働時間外の動作</TableCell>
+              <TableCell className="py-2 px-4 w-48 text-gray-600 bg-[#F5F6FB]">{NUMBER_DETAIL_TEXTS.table.outAction}</TableCell>
               <TableCell className="py-2 px-4">
                 {editMode ? (
                   <Input value={editDetail.outAction} onChange={e => setEditDetail(d => ({ ...d, outAction: e.target.value }))} />
@@ -172,14 +173,14 @@ export default function NumberDetailPage() {
             </TableRow>
           </TableBody>
         </Table>
-        <h2 className="text-xl font-bold mb-4" style={{ color: '#3B3172' }}>利用履歴</h2>
+        <h2 className="text-xl font-bold mb-4" style={{ color: '#3B3172' }}>{NUMBER_DETAIL_TEXTS.info.history}</h2>
         <Table className="text-base bg-white rounded-xl border" style={{ borderColor: '#E0E0F0' }}>
           <TableHeader>
             <TableRow>
-              <TableHead className="py-2 px-4 bg-[#5B7FFF] text-white font-semibold">日付</TableHead>
-              <TableHead className="py-2 px-4 bg-[#5B7FFF] text-white font-semibold">アクション</TableHead>
-              <TableHead className="py-2 px-4 bg-[#5B7FFF] text-white font-semibold">関連シナリオ</TableHead>
-              <TableHead className="py-2 px-4 bg-[#5B7FFF] text-white font-semibold">更新者</TableHead>
+              <TableHead className="py-2 px-4 bg-[#5B7FFF] text-white font-semibold">{NUMBER_DETAIL_TEXTS.logTable.date}</TableHead>
+              <TableHead className="py-2 px-4 bg-[#5B7FFF] text-white font-semibold">{NUMBER_DETAIL_TEXTS.logTable.action}</TableHead>
+              <TableHead className="py-2 px-4 bg-[#5B7FFF] text-white font-semibold">{NUMBER_DETAIL_TEXTS.logTable.scenario}</TableHead>
+              <TableHead className="py-2 px-4 bg-[#5B7FFF] text-white font-semibold">{NUMBER_DETAIL_TEXTS.logTable.updater}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

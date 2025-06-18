@@ -8,6 +8,7 @@ import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@
 import { ArrowLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { MEMBER_DETAIL_TEXTS } from '@/constants/texts';
 
 interface Profile {
   name: string;
@@ -67,10 +68,10 @@ export default function MemberEditPage() {
         <Button variant="ghost" size="icon" onClick={() => router.back()}>
           <ArrowLeft className="h-6 w-6 text-[#5B7FFF]" />
         </Button>
-        <h1 className="text-2xl font-bold" style={{ color: '#5B7FFF' }}>社員名簿編集</h1>
+        <h1 className="text-2xl font-bold" style={{ color: '#5B7FFF' }}>{MEMBER_DETAIL_TEXTS.editPageTitle}</h1>
       </div>
       <Card className="mb-8 p-6">
-        <h2 className="text-lg font-semibold mb-4" style={{ color: '#5B7FFF' }}>基本情報</h2>
+        <h2 className="text-lg font-semibold mb-4" style={{ color: '#5B7FFF' }}>{MEMBER_DETAIL_TEXTS.basicInfo}</h2>
         <Separator className="mb-4" />
         <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-4">
@@ -107,21 +108,21 @@ export default function MemberEditPage() {
             <Input placeholder="備考" value={profile.note} readOnly />
           </div>
           <div className="col-span-2 flex justify-center mt-6">
-            <Button style={{ background: '#22C55E', color: '#fff', width: 200 }}>保存</Button>
+            <Button style={{ background: '#22C55E', color: '#fff', width: 200 }}>{MEMBER_DETAIL_TEXTS.save}</Button>
           </div>
         </form>
       </Card>
 
       <Card className="p-6">
-        <h2 className="text-lg font-semibold mb-4" style={{ color: '#5B7FFF' }}>作成履歴</h2>
+        <h2 className="text-lg font-semibold mb-4" style={{ color: '#5B7FFF' }}>{MEMBER_DETAIL_TEXTS.history}</h2>
         <div className="overflow-x-auto">
           <Table>
             <TableHeader>
               <TableRow className="bg-[#7C6CF6] text-white">
-                <TableHead className="text-white">日付</TableHead>
-                <TableHead className="text-white">アクション</TableHead>
-                <TableHead className="text-white">ステータス</TableHead>
-                <TableHead className="text-white">更新者</TableHead>
+                <TableHead className="text-white">{MEMBER_DETAIL_TEXTS.table.date}</TableHead>
+                <TableHead className="text-white">{MEMBER_DETAIL_TEXTS.table.action}</TableHead>
+                <TableHead className="text-white">{MEMBER_DETAIL_TEXTS.table.status}</TableHead>
+                <TableHead className="text-white">{MEMBER_DETAIL_TEXTS.table.updater}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

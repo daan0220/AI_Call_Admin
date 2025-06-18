@@ -9,18 +9,19 @@ import { useRouter } from "next/navigation";
 import { EntityDetailActions } from '@/components/common/EntityDetailActions';
 import { DeleteEntityDialog } from '@/components/common/DeleteEntityDialog';
 import { useState } from 'react';
+import { BILLING_TEXTS } from '@/constants/texts';
 
 function BillingDetailTable({ bill }: { bill: typeof billData }) {
   return (
     <Table className="mb-4 text-base bg-white rounded-xl border" style={{ borderColor: COLORS.border }}>
       <TableHeader>
         <TableRow>
-          <TableHead className="bg-[#5B7FFF] text-white font-semibold">利用状態</TableHead>
-          <TableHead className="bg-[#5B7FFF] text-white font-semibold">明細</TableHead>
-          <TableHead className="bg-[#5B7FFF] text-white font-semibold">数量</TableHead>
-          <TableHead className="bg-[#5B7FFF] text-white font-semibold">単位</TableHead>
-          <TableHead className="bg-[#5B7FFF] text-white font-semibold">単価（円）</TableHead>
-          <TableHead className="bg-[#5B7FFF] text-white font-semibold">金額（円）</TableHead>
+          <TableHead className="bg-[#5B7FFF] text-white font-semibold">{BILLING_TEXTS.table.usage}</TableHead>
+          <TableHead className="bg-[#5B7FFF] text-white font-semibold">{BILLING_TEXTS.table.detail}</TableHead>
+          <TableHead className="bg-[#5B7FFF] text-white font-semibold">{BILLING_TEXTS.table.qty}</TableHead>
+          <TableHead className="bg-[#5B7FFF] text-white font-semibold">{BILLING_TEXTS.table.unit}</TableHead>
+          <TableHead className="bg-[#5B7FFF] text-white font-semibold">{BILLING_TEXTS.table.price}</TableHead>
+          <TableHead className="bg-[#5B7FFF] text-white font-semibold">{BILLING_TEXTS.table.amount}</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -36,15 +37,15 @@ function BillingDetailTable({ bill }: { bill: typeof billData }) {
         ))}
         {/* 小計・消費税・合計 */}
         <TableRow>
-          <TableCell colSpan={5} className="bg-[#F5F6FB] text-right font-semibold">小計</TableCell>
+          <TableCell colSpan={5} className="bg-[#F5F6FB] text-right font-semibold">{BILLING_TEXTS.table.subtotal}</TableCell>
           <TableCell className="bg-[#F5F6FB] font-semibold">{bill.subtotal}</TableCell>
         </TableRow>
         <TableRow>
-          <TableCell colSpan={5} className="bg-[#F5F6FB] text-right font-semibold">消費税</TableCell>
+          <TableCell colSpan={5} className="bg-[#F5F6FB] text-right font-semibold">{BILLING_TEXTS.table.tax}</TableCell>
           <TableCell className="bg-[#F5F6FB] font-semibold">{bill.tax}</TableCell>
         </TableRow>
         <TableRow>
-          <TableCell colSpan={5} className="bg-[#F5F6FB] text-right font-semibold">合計</TableCell>
+          <TableCell colSpan={5} className="bg-[#F5F6FB] text-right font-semibold">{BILLING_TEXTS.table.total}</TableCell>
           <TableCell className="bg-[#F5F6FB] font-semibold">{bill.total}</TableCell>
         </TableRow>
       </TableBody>
@@ -86,29 +87,29 @@ export default function BillingDetailPage() {
             <ChevronLeft className="h-6 w-6 text-[#5B7FFF]" />
           </Button>
         </Link>
-        <span className="text-2xl font-bold" style={{ color: COLORS.primary }}>{billData.title}</span>
+        <span className="text-2xl font-bold" style={{ color: COLORS.primary }}>{BILLING_TEXTS.title}</span>
       </div>
       <Card className="p-8" style={{ borderColor: COLORS.border, marginTop: 0 }}>
         <div className="flex items-center justify-between mb-6">
           <div className="flex gap-8 mb-2">
             <div>
-              <div className="font-semibold mb-1">{billData.status}</div>
+              <div className="font-semibold mb-1">{BILLING_TEXTS.status}</div>
               <div className="flex items-center gap-2">
-                <span>{billData.memberCount}人（請求対象：{billData.targetCount}人）</span>
-                <button className="border border-[#5B7FFF] text-[#5B7FFF] rounded px-2 py-1 text-xs font-semibold">請求対象詳細</button>
+                <span>{billData.memberCount}{BILLING_TEXTS.memberCountLabel}{billData.targetCount}{BILLING_TEXTS.targetCountLabel}</span>
+                <button className="border border-[#5B7FFF] text-[#5B7FFF] rounded px-2 py-1 text-xs font-semibold">{BILLING_TEXTS.detailButton}</button>
               </div>
             </div>
             <div>
-              <div className="font-semibold mb-1">6月の従量課金予算上限</div>
-              <span>※予算上限の設定はAI会話料のみが対象となります</span><br />
-              <span className="text-[#E94B4B] text-xs">* 予算上限の設定はAI会話料のみが対象となります</span><br />
+              <div className="font-semibold mb-1">{BILLING_TEXTS.budgetTitle}</div>
+              <span>{BILLING_TEXTS.budgetNote}</span><br />
+              <span className="text-[#E94B4B] text-xs">{BILLING_TEXTS.budgetWarning}</span><br />
               <span className="font-bold text-lg">{billData.budget}</span>
             </div>
           </div>
-          <EntityDetailActions onEdit={handleEdit} onDelete={handleDelete} editLabel="編集" deleteLabel="削除" />
+          <EntityDetailActions onEdit={handleEdit} onDelete={handleDelete} editLabel={BILLING_TEXTS.edit} deleteLabel={BILLING_TEXTS.delete} />
         </div>
         <BillingDetailTable bill={billData} />
-        <DeleteEntityDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen} entityName={billData.title} onDelete={handleDeleteConfirm} onCancel={() => setDeleteDialogOpen(false)} />
+        <DeleteEntityDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen} entityName={BILLING_TEXTS.title} onDelete={handleDeleteConfirm} onCancel={() => setDeleteDialogOpen(false)} />
       </Card>
     </div>
   );
