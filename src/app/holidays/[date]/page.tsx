@@ -1,10 +1,9 @@
 "use client";
-import { useRouter, useParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft } from 'lucide-react';
-import { COLORS, LAYOUT_STYLES, TABLE_STYLES } from '@/constants/styles';
-import { Table, TableBody, TableRow, TableCell } from '@/components/ui/table';
+import { COLORS, LAYOUT_STYLES } from '@/constants/styles';
 import { useState } from 'react';
 import { EntityDetailActions } from '@/components/common/EntityDetailActions';
 import { DeleteEntityDialog } from '@/components/common/DeleteEntityDialog';
@@ -13,8 +12,6 @@ import { HOLIDAY_TEXTS } from '@/constants/texts';
 
 export default function HolidayDetailPage() {
   const router = useRouter();
-  const params = useParams();
-  const date = decodeURIComponent(params.date as string);
   // 仮データ（本来はAPI取得）
   const [holiday] = useState<HolidayDetail>({
     name: '海の日',

@@ -1,13 +1,10 @@
 "use client";
 import { useRouter, useParams } from 'next/navigation';
 import { Card } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { ChevronLeft } from 'lucide-react';
-import { COLORS, LAYOUT_STYLES, TABLE_STYLES } from '@/constants/styles';
-import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
+import { COLORS, LAYOUT_STYLES } from '@/constants/styles';
 import { HolidayEditTable, HolidayEditForm } from '@/components/holidays/HolidayEditTable';
 import { HOLIDAY_TEXTS } from '@/constants/texts';
 

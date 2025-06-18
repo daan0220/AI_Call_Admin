@@ -4,8 +4,8 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { LAYOUT_STYLES, COLORS } from "@/constants/styles";
 import { useState } from "react";
-import { OrgInfoSection, OrgInfo } from '@/components/settings/OrgInfoSection';
-import { IpRestrictionTable, IpRestriction } from '@/components/settings/IpRestrictionTable';
+import { OrgInfoSection } from '@/components/settings/OrgInfoSection';
+import { IpRestrictionTable } from '@/components/settings/IpRestrictionTable';
 import { SETTINGS_TEXTS } from '@/constants/texts';
 
 export default function SettingsPage() {

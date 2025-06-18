@@ -1,7 +1,7 @@
 "use client";
-import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogClose } from '@/components/ui/dialog';
+import React from 'react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { COLORS } from '@/constants/styles';
 import { Holiday } from './HolidayTable';
 
 interface DeleteHolidayDialogProps {

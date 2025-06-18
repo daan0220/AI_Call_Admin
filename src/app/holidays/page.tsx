@@ -2,7 +2,7 @@
 
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { LAYOUT_STYLES, COLORS, TABLE_STYLES } from "@/constants/styles";
+import { LAYOUT_STYLES, COLORS } from "@/constants/styles";
 import { HolidayTable, Holiday } from '@/components/holidays/HolidayTable';
 import {
   Pagination,

@@ -3,7 +3,7 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { LAYOUT_STYLES, COLORS, TABLE_STYLES } from "@/constants/styles";
+import { LAYOUT_STYLES, COLORS } from "@/constants/styles";
 import { CallLogTable, CallLog } from '@/components/logs/CallLogTable';
 import { DateRangePicker } from '@/components/logs/DateRangePicker';
 import { SearchDialog } from '@/components/logs/SearchDialog';
